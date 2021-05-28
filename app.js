@@ -8,17 +8,18 @@ require('dotenv').config();
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var productsRouter = require('./routes/products');
+var compareProductRouter = require('./routes/compareProduct');
 
 var app = express();
 
 // view engine setup
-var exphbs  = require('express-handlebars');
+var exphbs = require('express-handlebars');
 const hbs = exphbs.create({
-  defaultLayout: 'layout',
-  extname: 'hbs',
-  partialsDir  : [
-    path.join(__dirname, 'views/partials'),
-]
+    defaultLayout: 'layout',
+    extname: 'hbs',
+    partialsDir: [
+        path.join(__dirname, 'views/partials'),
+    ]
 })
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
@@ -33,21 +34,22 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/products', productsRouter);
+app.use('/compareproduct', compareProductRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+    next(createError(404));
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 module.exports = app;
