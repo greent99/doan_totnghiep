@@ -1,4 +1,5 @@
 var express = require('express');
+const { route } = require('.');
 var router = express.Router();
 var itemModel = require('../models/item.model')
 
@@ -15,6 +16,11 @@ router.get('/', async function(req, res, next) {
     current: page,
     isFirstPage: page == 1 ? true : false,
   });
+
 });
+
+router.get('/:id', async function(req, res) {
+    res.render('product');
+})
 
 module.exports = router;
