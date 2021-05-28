@@ -7,11 +7,17 @@
                 console.log(totalPage)
                 if(current == 1)
                     $(this).append(`<li class="page-item disabled">
-                        <a class="page-link" href="/products?page=1" tabindex="-1">First</a>
+                        <a class="page-link" href="/products?page=1" tabindex="-1">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">First</span>
+                        </a>
                     </li>`)
                 else
                     $(this).append(`<li class="page-item">
-                        <a class="page-link" href="/products?page=1" tabindex="-1">First</a>
+                        <a class="page-link" href="/products?page=1" tabindex="-1">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">First</span>
+                        </a>
                     </li>`)
                 
                 var i = current > 5 ? current - 4 : 1
@@ -34,9 +40,15 @@
                 }
 
                 if(current == totalPage)
-                    $(this).append(`<li class="page-item disabled"><a class="page-link">Last</a></li>`)
+                    $(this).append(`<li class="page-item disabled"><a class="page-link">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a></li>`)
                 else
-                    $(this).append(`<li class="page-item"><a class="page-link" href="/products?page=${totalPage}">Last</a></li>`)
+                    $(this).append(`<li class="page-item"><a class="page-link" href="/products?page=${totalPage}">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Last</span>
+                    </a></li>`)
             })
         })
     </script>
