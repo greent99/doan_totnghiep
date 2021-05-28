@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var handlebarHelper = require('./helpers/handlebar.helper')
 require('dotenv').config();
 
 var indexRouter = require('./routes/index');
@@ -15,11 +16,12 @@ var app = express();
 // view engine setup
 var exphbs = require('express-handlebars');
 const hbs = exphbs.create({
-    defaultLayout: 'layout',
-    extname: 'hbs',
-    partialsDir: [
-        path.join(__dirname, 'views/partials'),
-    ]
+  defaultLayout: 'layout',
+  extname: 'hbs',
+  partialsDir  : [
+    path.join(__dirname, 'views/partials'),
+],
+  helpers: require('./helpers/handlebar.helper').helpers
 })
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');

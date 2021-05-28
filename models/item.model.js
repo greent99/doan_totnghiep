@@ -1,9 +1,15 @@
+const { all } = require('../routes/products')
 const db = require('../utils/db')
 const table_name = 'item'
 
 module.exports = {
-    async all() {
+    async all(){
         return db(table_name)
+    },
+
+    async pagination(pageIndex, pageSize) {
+        let offset = (pageIndex - 1) * pageSize
+        return db(table_name).orderBy('id').limit(pageSize).offset(offset)
     },
 
     async getById(id) {
