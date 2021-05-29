@@ -2,19 +2,20 @@
     <script>
         $(document).ready(function() {
             $('.pagination').each(function () {
+                const keySearch = "{{keySearch}}"
                 const current = {{current}}
                 const totalPage = {{totalPage}}
                 console.log(totalPage)
                 if(current == 1)
                     $(this).append(`<li class="page-item disabled">
-                        <a class="page-link" href="/products?page=1" tabindex="-1">
+                        <a class="page-link" href="/products/search?keySearch=${keySearch}&page=1" tabindex="-1">
                             <span aria-hidden="true">&laquo;</span>
                             <span class="sr-only">First</span>
                         </a>
                     </li>`)
                 else
                     $(this).append(`<li class="page-item">
-                        <a class="page-link" href="/products?page=1" tabindex="-1">
+                        <a class="page-link" href="/products/search?keySearch=${keySearch}&page=1" tabindex="-1">
                             <span aria-hidden="true">&laquo;</span>
                             <span class="sr-only">First</span>
                         </a>
@@ -32,7 +33,7 @@
                     }
                     else
                         $(this).append(`<li class="page-item">
-                            <a class="page-link" href="/products?page=${i}">${i}</a>
+                            <a class="page-link" href="/products/search?keySearch=${keySearch}&page=${i}">${i}</a>
                         </li>`)
                     
                     if(i == current + 4 && i < totalPage)
@@ -45,7 +46,7 @@
                         <span class="sr-only">Next</span>
                     </a></li>`)
                 else
-                    $(this).append(`<li class="page-item"><a class="page-link" href="/products?page=${totalPage}">
+                    $(this).append(`<li class="page-item"><a class="page-link" href="/products/search?keySearch=${keySearch}&page=${totalPage}">
                         <span aria-hidden="true">&raquo;</span>
                         <span class="sr-only">Last</span>
                     </a></li>`)
@@ -115,9 +116,8 @@
                         <div class="row">
                             {{#each items}}
                                 <a class="col-md-3 col-sm-6 col-6 deal-item"
-                                
-                                    href="https://tiki.vn/so-tay-tu-vung-120-trang-7-6-x-13-mau-ngau-nhien-p6836987.html?spid=6836989&amp;src=deal-hot&amp;2hi=1"
-                                    target="_blank" data-id="6836987"
+                                    href="http://localhost:3000/products/{{id_match}}"
+                                     data-id="6836987"
                                     data-title="Sổ Tay Từ Vựng 120 Trang (7.6 x 13) - Mẫu Ngẫu Nhiên" data-brand=""
                                     data-price="10000" data-impresslistname="Deal Hot" data-impressposition="1">
                                     <div class="image">
@@ -133,19 +133,7 @@
                                     </div>
                                     <div class="price-sale">
                                         {{price}} ₫
-                                        {{!-- <span class="price-regular">
-                                            19.000 ₫
-                                        </span> --}}
                                     </div>
-                                    <!-- <div class="deal-status">
-                                        <div class="process-bar"><span class="tikicon icon-hot_12"><img
-                                                    src="image/icon-body/deal-status.png" alt=""></span>
-                                        </div>
-                                        <div class="started">
-                                            <div class="deal-count-down"><span class="time">
-                                                    21 ngày 11:17:16
-                                                </span></div>
-                                        </div> -->
                                 </a>
                             {{/each}}
                         </div>
@@ -157,7 +145,6 @@
                             </div>
                         {{/if}}
                     </div>
-                </div>
-                
+                </div>          
             </div>
         </div>

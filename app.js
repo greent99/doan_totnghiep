@@ -16,12 +16,12 @@ var app = express();
 // view engine setup
 var exphbs = require('express-handlebars');
 const hbs = exphbs.create({
-  defaultLayout: 'layout',
-  extname: 'hbs',
-  partialsDir  : [
-    path.join(__dirname, 'views/partials'),
-],
-  helpers: require('./helpers/handlebar.helper').helpers
+    defaultLayout: 'layout',
+    extname: 'hbs',
+    partialsDir: [
+        path.join(__dirname, 'views/partials'),
+    ],
+    helpers: require('./helpers/handlebar.helper').helpers
 })
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
