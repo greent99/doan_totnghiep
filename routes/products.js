@@ -23,7 +23,7 @@ router.get('/', async function(req, res, next) {
 
 router.get('/search', async function(req, res) {
     const page = req.query.page || 1;
-    const pageSize = req.query.pageSize || 12;
+    const pageSize = req.query.pageSize || 40;
     const keySearch = req.query.keySearch;
     const lengthItems = await itemModel.getTotalBySearch(keySearch);
     const totalPage = Math.ceil(lengthItems / pageSize);
