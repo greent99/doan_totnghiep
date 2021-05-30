@@ -39,7 +39,14 @@ router.get('/search', async function (req, res) {
 router.get('/:id', async function (req, res) {
   const id = req.params.id;
   const matchedItems = await getMatchedItemsById(id);
-  res.render('matchedProducts', { matchedItems: matchedItems });
+  res.render('matchedProducts', {
+    matchedItems: matchedItems,
+    helpers: {
+      json: function (context) {
+        return JSON.stringify(context);
+      },
+    },
+  });
 });
 
 module.exports = router;
