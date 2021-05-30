@@ -61,7 +61,12 @@
           {{#each matchedItems}}
             <a
               class='col-md-3 col-sm-6 col-6 deal-item'
-              href='https://tiki.vn/so-tay-tu-vung-120-trang-7-6-x-13-mau-ngau-nhien-p6836987.html?spid=6836989&amp;src=deal-hot&amp;2hi=1'
+              {{#compare url_key 'null' operator="!="}}
+                href='{{url_key}}'
+              {{/compare}}
+              {{#compare url_key 'null' operator="=="}}
+                href='#'
+              {{/compare}}
               target='_blank'
               data-id='6836987'
               data-title='Sổ Tay Từ Vựng 120 Trang (7.6 x 13) - Mẫu Ngẫu Nhiên'
