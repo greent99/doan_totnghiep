@@ -25,12 +25,18 @@ module.exports = {
     },
 
     async getTotalBySearch(name) {
-        const items = await db(table_name).where('name', 'like', `%${name}%`);
+        const items = await db.raw(`select * from(select * , ROW_NUMBER() OVER(PARTITION BY id_match order by id) num from item)
+         inn where inn.num = 1 and name like '%${name}%'`);
         return items.length;
     },
 
     async searchByName(name, pageIndex, pageSize) {
         let offset = (pageIndex - 1) * pageSize;
-        return db(table_name).where('name', 'like', `%${name}%`).orderBy('price', 'asc').orderBy('WR', 'desc').limit(pageSize).offset(offset);
-    }
+        return db.raw(`
+                    select * from(select * , ROW_NUMBER() OVER(PARTITION BY id_match order by id) num from item) inn where inn.num = 1 and name like '%${name}%'
+                    order by id offset ${offset}
+                    rows fetch next ${pageSize}
+                    rows only `);
+    },
+
 }
