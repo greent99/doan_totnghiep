@@ -1,0 +1,117 @@
+<div class='container'>
+
+  <div class='flex-container'>
+
+    <div class='side-bar'>
+      <div class='head'>
+        <h5>Bộ lọc tìm kiếm</h5>
+      </div>
+      <ul class='filter-category'>
+
+        <h6>Theo gia</h6>
+
+        <li><label class='checkbox'><input
+              type='checkbox'
+              class='price'
+              id='increased-price'
+            />
+            Tu thap den cao
+          </label></li>
+        <li><label class='checkbox'><input
+              type='checkbox'
+              class='price'
+              id='decreased-price'
+            />
+            Tu cao den thap
+          </label></li>
+        <br />
+        <h6>Trang web</h6>
+        <li><label class='checkbox'><input type='checkbox' class='website' />
+            Shopee
+          </label></li>
+        <li><label class='checkbox'><input type='checkbox' class='website' />
+            Tiki
+          </label></li>
+        <li><label class='checkbox'><input type='checkbox' class='website' />
+            Lazada
+          </label></li>
+        <li><label class='checkbox'><input type='checkbox' class='website' />
+            Sendo
+          </label></li>
+        <br />
+        <h6>Khuyến mãi</h6>
+        <li><label class='checkbox'><input type='checkbox' class='promotion' />
+            Free ship
+          </label></li>
+        <li><label class='checkbox'><input type='checkbox' class='promotion' />
+            Giảm giá trực tiếp
+          </label></li>
+        <li><label class='checkbox'><input type='checkbox' class='promotion' />
+            Sản phẩm tặng kèm
+          </label></li>
+
+      </ul>
+    </div>
+    <!-- end side-bar -->
+
+    <div class='product-listing'>
+      <div class='item'>
+
+        <div class='row'>
+          {{#each matchedItems}}
+            <a
+              class='col-md-3 col-sm-6 col-6 deal-item'
+              href='https://tiki.vn/so-tay-tu-vung-120-trang-7-6-x-13-mau-ngau-nhien-p6836987.html?spid=6836989&amp;src=deal-hot&amp;2hi=1'
+              target='_blank'
+              data-id='6836987'
+              data-title='Sổ Tay Từ Vựng 120 Trang (7.6 x 13) - Mẫu Ngẫu Nhiên'
+              data-brand=''
+              data-price='10000'
+              data-impresslistname='Deal Hot'
+              data-impressposition='1'
+            >
+              <div class='image'>
+                <div class='discount-badge'>
+                  47%
+                </div>
+                <img
+                  class='lazy'
+                  style='display: inline;'
+                  src='/image/img-product/so-tay-tu-vung.jpg'
+                />
+              </div>
+              <div class='title'>
+                <img
+                  class='icon-tikinow1'
+                  src='/image/img-product/so-tay-tu-vung.jpg'
+                  alt=''
+                />
+                {{name}}
+              </div>
+              <div class='price-sale'>
+                {{price}}
+                ₫
+              </div>
+            </a>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>jQuery.noConflict();</script>
+<script>
+
+  var matchedItems =
+  {{{json matchedItems}}}; jQuery(function ($) { $(document).ready(function(){
+  $('.price').click(function() { $('.price').not(this).prop('checked', false);
+  if($(this).attr('id')==='increased-price'){ matchedItems.sort((p1, p2) => (
+  p1.price > p2.price ? 1 : ((p2.price > p1.price) ? -1 : 0) }) }
+  console.log(matchedItems) }); $('.website').click(function() {
+  $('.website').not(this).prop('checked', false);
+  if($(this).attr('id')==='decreased-price'){ matchedItems.sort((p1, p2) => (
+  p1.price < p2.price ? 1 : ((p2.price < p1.price) ? -1 : 0) )) }
+  console.log(matchedItems) }); $('.promotion').click(function() {
+  $('.promotion').not(this).prop('checked', false); }); }); });
+
+</script>
