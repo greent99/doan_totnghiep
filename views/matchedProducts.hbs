@@ -104,14 +104,12 @@
 
   var matchedItems =
   {{{json matchedItems}}}; jQuery(function ($) { $(document).ready(function(){
-  $('.price').click(function() { $('.price').not(this).prop('checked', false);
-  if($(this).attr('id')==='increased-price'){ matchedItems.sort((p1, p2) => (
-  p1.price > p2.price ? 1 : ((p2.price > p1.price) ? -1 : 0) }) }
-  console.log(matchedItems) }); $('.website').click(function() {
-  $('.website').not(this).prop('checked', false);
-  if($(this).attr('id')==='decreased-price'){ matchedItems.sort((p1, p2) => (
-  p1.price < p2.price ? 1 : ((p2.price < p1.price) ? -1 : 0) )) }
-  console.log(matchedItems) }); $('.promotion').click(function() {
+  $('.price').click(function(){ $('.price').not(this).prop('checked', false);
+  if($(this).attr('id')==='increased-price'){ //price increased sorting
+  matchedItems.sort((p1, p2) => (p1.price > p2.price ? 1 : -1))}
+  if($(this).attr('id')==='decreased-price'){ matchedItems.sort((p1, p2) =>
+  (p1.price < p2.price ? 1 : -1))} console.log(matchedItems) });
+  $('.website').click(function() { $('.website').not(this).prop('checked',
+  false); }); $('.promotion').click(function() {
   $('.promotion').not(this).prop('checked', false); }); }); });
-
 </script>
