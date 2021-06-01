@@ -8,16 +8,15 @@ var matchedProductModel = require('../models/matchedProducts.model')
 router.get('/', async function(req, res, next) {
     const page = req.query.page || 1;
     const pageSize = req.query.pageSize || 40;
-    const allItem = await itemModel.all();
-    const keySearch = req.query.keySearch || '';
-    const totalPage = Math.ceil(allItem.length / pageSize);
-    const items = await itemModel.pagination(page, pageSize);
+    const q = req.query.q || '';
+    const totalItem = await itemModel.getSizeAll(q)
+    const totalPage = Math.ceil(totalItem / pageSize);
+    const items = await itemModel.getAll(q, page, pageSize);
     res.render('product', {
         items: items,
-        keySearch: keySearch,
+        key: q,
         totalPage: totalPage,
-        current: page,
-        isFirstPage: page == 1 ? true : false,
+        current: page
     });
 });
 

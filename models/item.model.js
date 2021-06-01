@@ -8,11 +8,6 @@ module.exports = {
         return db(table_name)
     },
 
-    async pagination(pageIndex, pageSize) {
-        let offset = (pageIndex - 1) * pageSize
-        return db(table_name).orderBy('id').limit(pageSize).offset(offset)
-    },
-
     async getById(id) {
         const users = await db(table_name).where('id', id)
         if (users.length === 0)
@@ -24,19 +19,16 @@ module.exports = {
         return db(table_name).insert(user);
     },
 
-    async getTotalBySearch(name) {
-        const items = await db.raw(`select * from(select * , ROW_NUMBER() OVER(PARTITION BY id_match order by id) num from item)
-         inn where inn.num = 1 and name like '%${name}%'`);
+    async getSizeAll(q) {
+        q = q ? q : ""
+        const items = await db(table_name).where('name', 'like', `%${q}%`)
         return items.length;
     },
 
-    async searchByName(name, pageIndex, pageSize) {
-        let offset = (pageIndex - 1) * pageSize;
-        return db.raw(`
-                    select * from(select * , ROW_NUMBER() OVER(PARTITION BY id_match order by id) num from item) inn where inn.num = 1 and name like '%${name}%'
-                    order by id offset ${offset}
-                    rows fetch next ${pageSize}
-                    rows only `);
+    async getAll(name, pageIndex, pageSize) {
+        name = name ? name : ""
+        let offset = (pageIndex - 1) * pageSize
+        return db(table_name).where('name', 'like', `%${name}%`).orderBy('id').limit(pageSize).offset(offset)
     },
 
 }
