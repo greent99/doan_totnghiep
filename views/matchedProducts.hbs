@@ -26,16 +26,16 @@
           </label></li>
         <br />
         <h6>Trang web</h6>
-        <li><label class='checkbox'><input type='checkbox' class='website' />
+        <li><label class='checkbox'><input type='checkbox' class='website' id='Shoppe'/>
             Shopee
           </label></li>
-        <li><label class='checkbox'><input type='checkbox' class='website' />
+        <li><label class='checkbox'><input type='checkbox' class='website' id = 'Tiki' />
             Tiki
           </label></li>
-        <li><label class='checkbox'><input type='checkbox' class='website' />
+        <li><label class='checkbox'><input type='checkbox' class='website' id = 'Lazada' />
             Lazada
           </label></li>
-        <li><label class='checkbox'><input type='checkbox' class='website' />
+        <li><label class='checkbox'><input type='checkbox' class='website' id = 'Sendo'/>
             Sendo
           </label></li>
         <br />
@@ -53,65 +53,154 @@
       </ul>
     </div>
     <!-- end side-bar -->
-
     <div class='product-listing'>
-      <div class='item'>
-
+      <div class='items'>
         <div class='row'>
-          {{#each matchedItems}}
-            <a
-              class='col-md-3 col-sm-6 col-6 deal-item'
-              href='https://tiki.vn/so-tay-tu-vung-120-trang-7-6-x-13-mau-ngau-nhien-p6836987.html?spid=6836989&amp;src=deal-hot&amp;2hi=1'
-              target='_blank'
-              data-id='6836987'
-              data-title='Sổ Tay Từ Vựng 120 Trang (7.6 x 13) - Mẫu Ngẫu Nhiên'
-              data-brand=''
-              data-price='10000'
-              data-impresslistname='Deal Hot'
-              data-impressposition='1'
-            >
-              <div class='image'>
-                <div class='discount-badge'>
-                  47%
+          <div class='initial-content'>
+            {{#each matchedItems}}
+              <a
+                class='col-md-3 col-sm-6 col-6 deal-item'
+                href='https://tiki.vn/so-tay-tu-vung-120-trang-7-6-x-13-mau-ngau-nhien-p6836987.html?spid=6836989&amp;src=deal-hot&amp;2hi=1'
+                target='_blank'
+                data-id='6836987'
+                data-title='Sổ Tay Từ Vựng 120 Trang (7.6 x 13) - Mẫu Ngẫu Nhiên'
+                data-brand=''
+                data-price='10000'
+                data-impresslistname='Deal Hot'
+                data-impressposition='1'
+              >
+                <div class='image'>
+                  <div class='discount-badge'>
+                    47%
+                  </div>
+                  <img
+                    class='lazy'
+                    style='display: inline;'
+                    src='/image/img-product/so-tay-tu-vung.jpg'
+                  />
                 </div>
-                <img
-                  class='lazy'
-                  style='display: inline;'
-                  src='/image/img-product/so-tay-tu-vung.jpg'
-                />
-              </div>
-              <div class='title'>
-                <img
-                  class='icon-tikinow1'
-                  src='/image/img-product/so-tay-tu-vung.jpg'
-                  alt=''
-                />
-                {{name}}
-              </div>
-              <div class='price-sale'>
-                {{price}}
-                ₫
-              </div>
-            </a>
-          {{/each}}
+                <div class='title'>
+                  <img
+                    class='icon-tikinow1'
+                    src='/image/img-product/so-tay-tu-vung.jpg'
+                    alt=''
+                  />
+                  {{name}}
+                </div>
+                <div class='price-sale'>
+                  {{price}}
+                  ₫
+                </div>
+              </a>
+            {{/each}}
+          </div>
+          <div class='content-placeholder'>
+
+          </div>
+
         </div>
       </div>
     </div>
   </div>
 </div>
+<script
+  src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js'
+></script>
+
 <script>jQuery.noConflict();</script>
 <script>
+ 
+  jQuery(function ($) {
+      $(document).ready(function(){   
+        var matchedItems = {{{json matchedItems}}};
+        function compileSelectedItems(orderedMatchedItems){
+            //console.log(orderedMatchedItems)
+            //console.log(orderedMatchedItems)
+            var context = {items: orderedMatchedItems}
+            //console.log(orderedMatchedItems)
+            //var template = Handlebars.compile($("#ordered-matched-items-html").html());
+            //var compiledHtml = template({items: orderedMatchedItems});        
+            var lines = ``
+            jQuery.each(context.items, function(i, val){
+                var line = `<a
+                class='col-md-3 col-sm-6 col-6 deal-item'
+                href='https://tiki.vn/so-tay-tu-vung-120-trang-7-6-x-13-mau-ngau-nhien-p6836987.html?spid=6836989&amp;src=deal-hot&amp;2hi=1'
+                target='_blank'
+                data-id='6836987'
+                data-title='Sổ Tay Từ Vựng 120 Trang (7.6 x 13) - Mẫu Ngẫu Nhiên'
+                data-brand=''
+                data-price='10000'
+                data-impresslistname='Deal Hot'
+                data-impressposition='1'
+                <div class='image'>
+                  <div class='discount-badge'>
+                    47%
+                  </div>
+                  <img
+                    class='lazy'
+                    style='display: inline;'
+                    src='/image/img-product/so-tay-tu-vung.jpg'
+                  />
+                </div>
+                <div class='title'>
+                  <img
+                    class='icon-tikinow1'
+                    src='/image/img-product/so-tay-tu-vung.jpg'
+                    alt=''
+                  />
+                  ${val.name}
+                </div>
+                <div class='price-sale'>
+                  ${val.price}
+                  ₫
+                </div>
+              </a>`
+              lines = lines.concat(line)
+            })
+            return lines
+        }
+        $('input:checkbox').click(function(){
+               //console.log($(this).attr('class'))
+       
+            if($(this).attr('class') != '' && $(this).attr('class') === 'price'){
+                $('.price').not(this).prop('checked', false);
+                if($(this).attr('id')==='increased-price'){ //price increased sorting
+                    matchedItems.sort((p1, p2) => (p1.price > p2.price ? 1 : -1))
+                }
+                if($(this).attr('id')==='decreased-price'){
+                    matchedItems.sort((p1, p2) => (p1.price < p2.price ? 1 : -1))
+                }
+                $('.initial-content').hide()
+            //console.log(matchedItems)
+                newLines = compileSelectedItems(matchedItems)
+                $('.content-placeholder').empty().append(newLines);
+            }
 
-  var matchedItems =
-  {{{json matchedItems}}}; jQuery(function ($) { $(document).ready(function(){
-  $('.price').click(function() { $('.price').not(this).prop('checked', false);
-  if($(this).attr('id')==='increased-price'){ matchedItems.sort((p1, p2) => (
-  p1.price > p2.price ? 1 : ((p2.price > p1.price) ? -1 : 0) }) }
-  console.log(matchedItems) }); $('.website').click(function() {
-  $('.website').not(this).prop('checked', false);
-  if($(this).attr('id')==='decreased-price'){ matchedItems.sort((p1, p2) => (
-  p1.price < p2.price ? 1 : ((p2.price < p1.price) ? -1 : 0) )) }
-  console.log(matchedItems) }); $('.promotion').click(function() {
-  $('.promotion').not(this).prop('checked', false); }); }); });
+            if($(this).attr('class') != '' && $(this).attr('class') === 'website'){
+           
+                $('.website').not(this).prop('checked', false);
+                var selectedWebsite = $(this).attr('id')
+                matchedItems.filter(web => web === selectedWebsite)
+                //console.log(matchedItems)
+                newLines = compileSelectedItems(matchedItems)
+                if($('.content-placeholder').not(':empty')){
+                    console.log($('.content-placeholder').not(':empty'))
+                    $('.content-placeholder').empty().append(newLines);
+
+                } else{
+                    $('.content-placeholder').append(newLines)
+                }
+            }
+            if($(this).attr('class') != '' && $(this).attr('class') === 'website'){
+                $('.promotion').not(this).prop('checked', false);
+            }
+            if($('input:checkbox:checked').length == 0){
+                //console.log('default')
+                $('.initial-content').show();
+                $('.content-placeholder').hide();
+            }
+        });
+      });
+   });
 
 </script>

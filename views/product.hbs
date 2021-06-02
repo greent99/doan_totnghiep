@@ -1,150 +1,138 @@
 {{#section 'js'}}
-    <script>
-        $(document).ready(function() {
-            $('.pagination').each(function () {
-                const keySearch = "{{keySearch}}"
-                const current = {{current}}
-                const totalPage = {{totalPage}}
-                console.log(totalPage)
-                if(current == 1)
-                    $(this).append(`<li class="page-item disabled">
-                        <a class="page-link" href="/products/search?keySearch=${keySearch}&page=1" tabindex="-1">
-                            <span aria-hidden="true">&laquo;</span>
-                            <span class="sr-only">First</span>
-                        </a>
-                    </li>`)
-                else
-                    $(this).append(`<li class="page-item">
-                        <a class="page-link" href="/products/search?keySearch=${keySearch}&page=1" tabindex="-1">
-                            <span aria-hidden="true">&laquo;</span>
-                            <span class="sr-only">First</span>
-                        </a>
-                    </li>`)
-                
-                var i = current > 5 ? current - 4 : 1
-                if(i != 1)
-                    $(this).append(`<li class="page-item disabled"><a class="page-link">...</a></li>`)
-
-                for(; i <= current+4 && i <= totalPage; i++)
-                {
-                    if(i == current)
-                    {
-                        $(this).append(`<li class="page-item active"><a class="page-link">${i}</a></li>`)
-                    }
-                    else
-                        $(this).append(`<li class="page-item">
-                            <a class="page-link" href="/products/search?keySearch=${keySearch}&page=${i}">${i}</a>
-                        </li>`)
-                    
-                    if(i == current + 4 && i < totalPage)
-                        $(this).append(`<li class="page-item disabled"><a class="page-link">...</a></li>`)
-                }
-
-                if(current == totalPage)
-                    $(this).append(`<li class="page-item disabled"><a class="page-link">
-                        <span aria-hidden="true">&raquo;</span>
-                        <span class="sr-only">Next</span>
-                    </a></li>`)
-                else
-                    $(this).append(`<li class="page-item"><a class="page-link" href="/products/search?keySearch=${keySearch}&page=${totalPage}">
-                        <span aria-hidden="true">&raquo;</span>
-                        <span class="sr-only">Last</span>
-                    </a></li>`)
-            })
-        })
-    </script>
+  <script>
+    $(document).ready(function() { $('.pagination').each(function () { const
+    keySearch = "{{keySearch}}" const current =
+    {{current}}
+    const totalPage =
+    {{totalPage}}
+    console.log(totalPage) if(current == 1) $(this).append(`<li class="page-item
+    disabled"> <a class="page-link"
+    href="/products/search?keySearch=${keySearch}&page=1" tabindex="-1"> <span
+    aria-hidden="true">&laquo;</span> <span class="sr-only">First</span> </a>
+    </li>`) else $(this).append(`<li class="page-item"> <a class="page-link"
+    href="/products/search?keySearch=${keySearch}&page=1" tabindex="-1"> <span
+    aria-hidden="true">&laquo;</span> <span class="sr-only">First</span> </a>
+    </li>`) var i = current > 5 ? current - 4 : 1 if(i != 1) $(this).append(`<li
+    class="page-item disabled"><a class="page-link">...</a></li>`) for(; i <=
+    current+4 && i <= totalPage; i++) { if(i == current) { $(this).append(`<li
+    class="page-item active"><a class="page-link">${i}</a></li>`) } else
+    $(this).append(`<li class="page-item"> <a class="page-link"
+    href="/products/search?keySearch=${keySearch}&page=${i}">${i}</a> </li>`)
+    if(i == current + 4 && i < totalPage) $(this).append(`<li class="page-item
+    disabled"><a class="page-link">...</a></li>`) } if(current == totalPage)
+    $(this).append(`<li class="page-item disabled"><a class="page-link"> <span
+    aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span>
+    </a></li>`) else $(this).append(`<li class="page-item"><a class="page-link"
+    href="/products/search?keySearch=${keySearch}&page=${totalPage}"> <span
+    aria-hidden="true">&raquo;</span> <span class="sr-only">Last</span>
+    </a></li>`) }) })
+  </script>
 {{/section}}
 
 <!-- tiki Deal Header -->
-        <div class="container">
-            <div class="tiki-deal-header">
-                <img class="icon-hot-deal" src="/image/icon-body/sprite.png" alt="">
-                <div class="title">Tiki Deal</div>
-                <div class="text">
-                    Cập nhật hàng giờ tất cả những deal giảm giá đặc biệt trên Tiki,Lazada,Sendo,Shopee. Hãy bookmark trang này và quay lại
-                    thường xuyên để không bỏ lỡ bạn nhé!
-                    <div class="fb-btn">
-                        <img src="/image/icon-body/download.png" alt="">
-                    </div>
+<div class='container'>
+  <div class='tiki-deal-header'>
+    <img class='icon-hot-deal' src='/image/icon-body/sprite.png' alt='' />
+    <div class='title'>Tiki Deal</div>
+    <div class='text'>
+      Cập nhật hàng giờ tất cả những deal giảm giá đặc biệt trên
+      Tiki,Lazada,Sendo,Shopee. Hãy bookmark trang này và quay lại thường xuyên
+      để không bỏ lỡ bạn nhé!
+      <div class='fb-btn'>
+        <img src='/image/icon-body/download.png' alt='' />
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end tiki Deal Header -->
+<div class='container'>
+  <div class='flex-container'>
+    <!-- side-bar -->
+    <!-- side-bar -->
+    <div class='side-bar'>
+      <div class='head'>
+        <h5>Bộ lọc tìm kiếm</h5>
+      </div>
+      <ul class='filter-category'>
+
+        <h6>Nơi bán</h6>
+
+        <li><label class='checkbox'><input type='checkbox' />Sài gòn
+          </label></li>
+        <li><label class='checkbox'><input type='checkbox' />Hà Nội
+          </label></li>
+        <li><label class='checkbox'><input type='checkbox' />Đà nẵng
+          </label></li>
+        <br />
+        <h6>Trang web</h6>
+        <li><label class='checkbox'><input type='checkbox' />Laptop &amp; Shopee
+          </label></li>
+        <li><label class='checkbox'><input type='checkbox' />Tiki
+          </label></li>
+        <li><label class='checkbox'><input type='checkbox' />Lazada
+          </label></li>
+        <li><label class='checkbox'><input type='checkbox' />Sendo
+          </label></li>
+        <br />
+        <h6>Khuyến mãi</h6>
+        <li><label class='checkbox'><input type='checkbox' />Free ship
+          </label></li>
+        <li><label class='checkbox'><input type='checkbox' />Giảm giá trực tiếp
+          </label></li>
+        <li><label class='checkbox'><input type='checkbox' />Sản phẩm tặng kèm
+          </label></li>
+
+      </ul>
+    </div>
+    <!-- end side-bar -->
+
+    <div class='product-listing'>
+      <div class='items'>
+        <div class='row'>
+          {{#each items}}
+            <a
+              class='col-md-3 col-sm-6 col-6 deal-item'
+              href='http://localhost:3000/products/{{id_match}}'
+              data-id='6836987'
+              data-title='Sổ Tay Từ Vựng 120 Trang (7.6 x 13) - Mẫu Ngẫu Nhiên'
+              data-brand=''
+              data-price='10000'
+              data-impresslistname='Deal Hot'
+              data-impressposition='1'
+            >
+              <div class='image'>
+                <div class='discount-badge'>
+                  47%
                 </div>
-            </div>
+                <img
+                  class='lazy'
+                  style='display: inline;'
+                  src='/image/img-product/so-tay-tu-vung.jpg'
+                />
+              </div>
+              <div class='title'>
+                <img
+                  class='icon-tikinow1'
+                  src='/image/icon-body/tikiNow-icon.png'
+                  alt=''
+                />
+                {{name}}
+              </div>
+              <div class='price-sale'>
+                {{price}}
+                ₫
+              </div>
+            </a>
+          {{/each}}
         </div>
-        <!-- end tiki Deal Header -->
-        <div class="container">
-            <div class="flex-container">
-                <!-- side-bar -->
-                <!-- side-bar -->
-                <div class="side-bar">
-                    <div class="head">
-                        <h5>Bộ lọc tìm kiếm</h5>
-                    </div>
-                    <ul class="filter-category">
-
-                            <h6>Nơi bán</h6>
-
-                        <li><label class="checkbox"><input type="checkbox">Sài gòn
-                            </label></li>
-                        <li><label class="checkbox"><input type="checkbox">Hà Nội
-                            </label></li>
-                        <li><label class="checkbox"><input type="checkbox">Đà nẵng
-                            </label></li>
-                        <br>
-                            <h6>Trang web</h6>
-                        <li><label class="checkbox"><input type="checkbox">Laptop &amp; Shopee
-                            </label></li>
-                        <li><label class="checkbox"><input type="checkbox">Tiki
-                            </label></li>
-                        <li><label class="checkbox"><input type="checkbox">Lazada
-                            </label></li>
-                        <li><label class="checkbox"><input type="checkbox">Sendo
-                            </label></li>
-                            <br>
-                            <h6>Khuyến mãi</h6>
-                        <li><label class="checkbox"><input type="checkbox">Free ship
-                            </label></li>
-                        <li><label class="checkbox"><input type="checkbox">Giảm giá trực tiếp
-                            </label></li>
-                        <li><label class="checkbox"><input type="checkbox">Sản phẩm tặng kèm
-                            </label></li>
-                       
-                    </ul>
-                </div>
-                <!-- end side-bar -->
-
-                <div class="product-listing">
-                    <div class="items">
-                        <div class="row">
-                            {{#each items}}
-                                <a class="col-md-3 col-sm-6 col-6 deal-item"
-                                    href="http://localhost:3000/products/{{id_match}}"
-                                     data-id="6836987"
-                                    data-title="Sổ Tay Từ Vựng 120 Trang (7.6 x 13) - Mẫu Ngẫu Nhiên" data-brand=""
-                                    data-price="10000" data-impresslistname="Deal Hot" data-impressposition="1">
-                                    <div class="image">
-                                        <div class="discount-badge">
-                                            47%
-                                        </div>
-                                        <img class="lazy" style="display: inline;"
-                                            src="/image/img-product/so-tay-tu-vung.jpg">
-                                    </div>
-                                    <div class="title">
-                                        <img class="icon-tikinow1" src="/image/icon-body/tikiNow-icon.png" alt="">
-                                        {{name}}
-                                    </div>
-                                    <div class="price-sale">
-                                        {{price}} ₫
-                                    </div>
-                                </a>
-                            {{/each}}
-                        </div>
-                        {{#if totalPage}}
-                            <div class="row justify-content-center" style="margin-bottom: 20px;">
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination"></ul>
-                                </nav>
-                            </div>
-                        {{/if}}
-                    </div>
-                </div>          
-            </div>
-        </div>
+        {{#if totalPage}}
+          <div class='row justify-content-center' style='margin-bottom: 20px;'>
+            <nav aria-label='Page navigation example'>
+              <ul class='pagination'></ul>
+            </nav>
+          </div>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div>
