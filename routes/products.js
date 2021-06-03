@@ -20,22 +20,6 @@ router.get('/', async function(req, res, next) {
     });
 });
 
-router.get('/search', async function(req, res) {
-    const page = req.query.page || 1;
-    const pageSize = req.query.pageSize || 40;
-    const keySearch = req.query.keySearch;
-    const lengthItems = await itemModel.getTotalBySearch(keySearch);
-    const totalPage = Math.ceil(lengthItems / pageSize);
-    listItem = await itemModel.searchByName(keySearch, page, pageSize);
-    res.render('product', {
-        keySearch: keySearch,
-        items: listItem,
-        totalPage: totalPage,
-        current: page,
-        isFirstPage: page == 1 ? true : false,
-    });
-});
-
 router.get('/:id', async function(req, res) {
     const id = req.params.id;
     const matchedItems = await matchedProductModel.getListItemByIdMatch(id);
