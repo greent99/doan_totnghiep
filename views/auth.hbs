@@ -244,7 +244,7 @@
             <h1>Create Account</h1>
             <span>use your email for registration</span>
             <div class="form-group">
-                <input id="emailreg" type="email" placeholder="Email" name="email" value="{{#if email}}{{email}}{{/if}}"
+                <input id="emailreg" type="text" placeholder="Username" name="username" value="{{#if username}}{{username}}{{/if}}"
                        autofocus/>
                 <span class="form-message"></span>
             </div>
@@ -257,6 +257,10 @@
                 <input id="passwordconfirmreg" type="password" placeholder="Confirm password" name="confirm"/>
                 <span class="form-message"></span>
             </div>
+            <div class="form-group">
+                <input id="phonereg" type="text" placeholder="Phone" name="phone"/>
+                <span class="form-message"></span>
+            </div>
             <button>Sign Up</button>
         </form>
     </div>
@@ -265,8 +269,8 @@
             <h1>Sign in</h1>
             <span>use your account</span>
             <div class="form-group">
-                <input id="emaillog" type="email" placeholder="Email" name="email"
-                       value="{{#if email}}{{email}}{{/if}}"/>
+                <input id="emaillog" type="text" placeholder="Username" name="username"
+                       value="{{#if username}}{{username}}{{/if}}"/>
                 <span class="form-message"></span>
             </div>
             <div class="form-group">
@@ -305,7 +309,7 @@
             container.classList.remove("right-panel-active");
         });
     </script>
-    <script src="/assets/client/js/input-validator.js"></script>
+    <script src="/js/input-validator.js"></script>
     <script type="text/javascript">
         Validator({
             form: '#formLogin',
@@ -313,7 +317,7 @@
             errorSelector: '.form-message',
             rules: [
                 Validator.isRequired('#emaillog', 'Required'),
-                Validator.isEmail('#emaillog', 'Invalid email address'),
+                //Validator.isEmail('#emaillog', 'Invalid email address'),
                 Validator.isRequired("#passwordlog", "Required")
             ]
         });
@@ -323,7 +327,8 @@
             errorSelector: '.form-message',
             rules: [
                 Validator.isRequired('#emailreg', 'Required'),
-                Validator.isEmail('#emailreg', 'Invalid email address'),
+                Validator.isRequired('#phonereg', 'Required'),
+                //Validator.isEmail('#emailreg', 'Invalid email address'),
                 Validator.isRequired("#passwordreg", "Required"),
                 Validator.minLength("#passwordreg", 6, "Length must equal or longer than 6"),
                 Validator.isRequired("#passwordconfirmreg", "Required"),

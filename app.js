@@ -15,6 +15,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//session
+require('./middlewares/Session')(app);
+
 //router
 require('./middlewares/routes')(app);
 

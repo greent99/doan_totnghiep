@@ -1,5 +1,3 @@
-const { ImATeapot } = require('http-errors')
-const { all } = require('../routes/products')
 const db = require('../utils/db')
 const table_name = 'item'
 
