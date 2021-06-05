@@ -588,14 +588,6 @@ ul {
   color: #1ba8ff;
 }
 
-.items {
-  /* display: -webkit-box;
-    display: -ms-inline-flexbox;
-    display: flex;
-    -ms-flex-wrap: wap;
-    flex-wrap: wrap; */
-}
-
 .deal-item {
   margin-bottom: 20px;
   padding: 16px;

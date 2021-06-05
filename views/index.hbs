@@ -1,2 +1,83 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <div id="slide" class="carousel slide myslide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#slide" data-slide-to="0" class="active"></li>
+                    <li data-target="#slide" data-slide-to="1"></li>
+                    <li data-target="#slide" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner carinner" role="listbox">
+                    <div class="carousel-item active caritem">
+                        <img src="/image/slideshow/lazada-slide.jpg" alt="">
+                    </div>
+                    <div class="carousel-item caritem">
+                        <img src="/image/slideshow/tiki-slide.jpg" alt="">
+                    </div>
+                    <div class="carousel-item caritem">
+                        <img src="/image/slideshow/shopee-slide.png" alt="">
+                    </div>
+                    <div class="carousel-item caritem">
+                        <img src="/image/slideshow/sendo-slide.png" alt="">
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#slide" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#slide" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+        <div class="col-4 d-flex flex-column justify-content-between">
+            <div>
+                <img src="/image/news/right1.png" alt="">
+            </div>
+            <hr>
+            <div>
+                <img src="/image/news/right2.png" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="container">
+            <div class="row icon">
+                <div class="col-2">
+                    <div>
+                        <a href="/products">
+                            <i class="fas fa-mobile-alt"></i>
+                        </a>
+                    </div>
+                    <p>Điện thoại, laptop</p>
+                </div>
+                <div class="col-2">
+                    <div>
+                        <a href="/products">
+                            <i class="fas fa-keyboard"></i>
+                        </a>
+                    </div>
+                    <p>Phụ kiên, thiết bị số</p>
+                </div>
+                <div class="col-2">
+                    <div>
+                        <a href="/products">
+                            <i class="fas fa-baby-carriage"></i>
+                        </a>
+                    </div>
+                    <p>Đồ chơi, mẹ và bé</p>
+                </div>
+                <div class="col-2">
+                    <div>
+                        <a href="/products">
+                            <i class="fas fa-store"></i>
+                        </a>
+                    </div>
+                    <p>Hàng tiêu dùng</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
