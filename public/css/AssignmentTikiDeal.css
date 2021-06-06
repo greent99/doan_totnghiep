@@ -16,13 +16,6 @@ body {
 
 /* header */
 
-.header {
-  z-index: 1000;
-  position: relative;
-  display: block;
-  background-color: #189eff;
-}
-
 /* top-promo */
 
 .top-promo {
@@ -47,7 +40,7 @@ body {
 
 .header-form {
   background-color: #189eff;
-  padding-top: 20px;
+  padding: 20px 0px;
   position: relative;
   z-index: 3;
 }
@@ -55,13 +48,6 @@ body {
 .logo {
   color: #fff;
   display: inline-block;
-}
-
-.logo-vtcA {
-  width: 137px;
-  height: 33px;
-  display: inline-block;
-  vertical-align: middle;
 }
 
 .form-search {
@@ -154,19 +140,8 @@ button[type='submit'] {
   font-weight: 500;
 }
 
-/* header link */
-
-.header-link {
-  float: right;
-  position: relative;
-}
-
 .item:first-child {
   margin-left: 0;
-}
-
-.item {
-  margin-left: 20px;
 }
 
 .item {
@@ -183,10 +158,8 @@ button[type='submit'] {
 
 .icon-style-1 {
   font-size: 22px;
-  float: left;
   position: absolute;
   left: 0;
-  top: 9px;
   width: 22px;
   height: 22px;
 }
@@ -455,11 +428,6 @@ button[type='submit'] {
 
 /* end breadcrumb */
 
-/* main-body */
-
-.main-body {
-  background-color: #f4f4f4;
-}
 
 /* Tiki Deal Header */
 
@@ -467,7 +435,7 @@ button[type='submit'] {
   background-color: #fff;
   background-repeat: no-repeat;
   background-position: 10px center;
-  padding: 17px 10px 17px 66px;
+  padding: 17px 0px;
   background-size: 48px;
   border-radius: 4px 4px 0 0;
   border-bottom: 1px solid #f4f4f4;
@@ -671,10 +639,6 @@ ul {
   display: flex;
 }
 
-/* .items .row{
-    width: 500px;
-} */
-
 .process-bar {
   display: block;
   width: 111px;
@@ -719,15 +683,6 @@ ul {
 /* end list pager */
 
 /* end main-body */
-
-/* footer */
-
-.footer {
-  background: #fff;
-  margin-top: 40px;
-  min-width: 1270px;
-  display: block;
-}
 
 /* tiki-newsletter */
 
@@ -1029,20 +984,6 @@ dl {
 
 a:hover {
   text-decoration: none;
-}
-
-.container {
-  width: 1270px !important;
-  max-width: none !important;
-  padding-left: 15px;
-  padding-right: 15px;
-  margin-right: auto;
-  margin-left: auto;
-}
-
-.row {
-  margin-left: -15px;
-  margin-right: -15px;
 }
 
 .titleshop {

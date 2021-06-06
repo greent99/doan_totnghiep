@@ -7,7 +7,7 @@ var matchedProductModel = require('../models/matchedProducts.model')
 /* GET home page. */
 router.get('/', async function(req, res, next) {
     const page = req.query.page || 1;
-    const pageSize = req.query.pageSize || 40;
+    const pageSize = req.query.pageSize || 30;
     const q = req.query.q || '';
     const totalItem = await itemModel.getSizeAll(q)
     const totalPage = Math.ceil(totalItem / pageSize);

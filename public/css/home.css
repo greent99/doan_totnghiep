@@ -3,6 +3,9 @@
     width: 100%;
     height: auto;
 }
+.right img{
+    width: 100%;
+}
 
 .icon {
     padding-top: 30px;
