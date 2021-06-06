@@ -1,0 +1,45 @@
+
+.slide .carousel-inner .carousel-item img {
+    width: 100%;
+    height: auto;
+}
+.right img{
+    width: 100%;
+}
+
+.icon {
+    padding-top: 30px;
+    justify-content: space-evenly;
+}
+
+.icon .col-2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.icon .col-2 p {
+    padding-top: 10%;
+    font-size: 16px;
+}
+
+.icon div div {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0.5px solid gray;
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+}
+.icon div div:hover {
+background-color: rgb(167, 166, 166);
+}
+.icon div div a {
+color: grey;
+}
+
+.icon div i {
+    font-size: 70px;
+}
