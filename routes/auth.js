@@ -21,4 +21,6 @@ router.post('/register', isNotAuth, Validator.register, authController.register)
 
 router.post('/login', isNotAuth, Validator.login, authController.login)
 
+router.get('/logout', isAuth, authController.logout)
+
 module.exports = router;

@@ -18,6 +18,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 //session
 require('./middlewares/Session')(app);
 
+require('./middlewares/local')(app);
+
 //router
 require('./middlewares/routes')(app);
 
