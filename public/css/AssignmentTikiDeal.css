@@ -1043,4 +1043,8 @@ a:hover {
   .footer {
     display: none;
   }
+  .name-recommend-product {
+    margin-top: 10px;
+    padding-top: 10px;
+  }
 }
