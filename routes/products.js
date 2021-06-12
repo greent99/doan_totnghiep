@@ -7,12 +7,14 @@ const user_itemModel = require('../models/user_item.model')
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
+    const cate = req.query.cate || 1;
+    console.log(cate);
     const page = req.query.page || 1;
     const pageSize = req.query.pageSize || 30;
     const q = req.query.q || '';
-    const totalItem = await itemModel.getSizeAll(q)
+    const totalItem = await itemModel.getSizeAll(q, cate)
     const totalPage = Math.ceil(totalItem / pageSize);
-    const items = await itemModel.getAll(q, page, pageSize);
+    const items = await itemModel.getAll(q, page, pageSize, cate);
     res.render('product', {
         items: items,
         key: q,
