@@ -6,3 +6,10 @@
     height: 40px;
     width: 40px;
 }
+.nameProduct{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+}
