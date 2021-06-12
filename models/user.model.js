@@ -1,6 +1,7 @@
 const db = require('../utils/db')
 const table_name = 'MyUser'
 const bcrypt = require('bcrypt');
+const user_itemModel = require('./user_item.model');
 const saltRounds = 10;
 
 module.exports = {
@@ -37,5 +38,11 @@ module.exports = {
 		const hash = user.password
         const result = bcrypt.compareSync(inputPassword, hash); // true
         return result
-	}
+	},
+
+    async getRecommendList(user_id)
+    {
+        const user_items = await user_itemModel.getByUserId(user_id)
+        
+    }
 }

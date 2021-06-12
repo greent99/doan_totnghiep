@@ -1,0 +1,8 @@
+.deal-item .image img{
+    height: 200px;
+    max-width: 100%;
+}
+.deal-item .title img{
+    height: 40px;
+    width: 40px;
+}

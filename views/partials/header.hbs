@@ -5,7 +5,7 @@
                 <a href="/" class="logo">
                 </a>
             </div>
-            <div class="col-8 search">
+            <div class="col-7 search">
                 <div class="form-search">
                     <form id="search_form" action="http://localhost:3000/products" method="get">
                         <div class="search-wrap">
@@ -26,36 +26,54 @@
                     </div>
                 </div>
             </div>
-            <div class="col-1">
-                <div class="header-link">
-                    <div class="user-profile item" id="header-user">
-                        <div data-reactroot="">
-                            <div>
-                                <a href="/auth"><img class="icon-style-1 icon-user"
-                                        src="/image/icon-header/dangNhapTaiKhoan-icon.png" alt="">
-                                    <b style="color: aliceblue;">Đăng nhập</b><br>
-                                    <small style="color: aliceblue;">Tài khoản</small></a>
+                {{#if isAuth}}
+                    <div class="col-md-2">
+                        <div class="header-link">
+                            <div class="user-profile item" id="header-user">
+                                <div data-reactroot="">
+                                    <div>
+                                    <a href="/auth/logout">
+                                        <small style="color: aliceblue;">Xin chào</small></a>  
+                                        <br>
+                                        <b style="color: aliceblue;">{{authUser.username}}</b>
+                                        <img class="icon-style-1 icon-user" src="/image/icon-header/dangNhapTaiKhoan-icon.png"
+                                            alt="">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-1">
-                <div class="header-link">
-                    <div class="user-profile item" id="header-user">
-                        <div data-reactroot="">
-                            <div>
-                                <a href="/auth"><img class="icon-style-1 icon-user"
-                                        src="/image/icon-header/dangNhapTaiKhoan-icon.png" alt="">
-                                    <b style="color: aliceblue;">Đăng kí</b><br>
-                                    <small style="color: aliceblue;">Tài khoản</small></a>
+                {{else}}
+                    <div class="col-md-1">
+                        <div class="header-link">
+                            <div class="user-profile item" id="header-user">
+                                <div data-reactroot="">
+                                    <div>
+                                    <a href="/auth"><img class="icon-style-1 icon-user" src="/image/icon-header/dangNhapTaiKhoan-icon.png"
+                                            alt="">
+                                        <b style="color: aliceblue;">Đăng nhập</b><br>
+                                        <small style="color: aliceblue;">Tài khoản</small></a>  
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <div class="col-md-1">
+                        <div class="header-link">
+                            <div class="user-profile item" id="header-user">
+                                <div data-reactroot="">
+                                    <div>
+                                    <a href="/auth"><img class="icon-style-1 icon-user" src="/image/icon-header/dangNhapTaiKhoan-icon.png"
+                                            alt="">
+                                        <b style="color: aliceblue;">Đăng kí</b><br>
+                                        <small style="color: aliceblue;">Tài khoản</small></a>  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{/if}}
             </div>
-
-        </div>
 
     </div>
 </div>

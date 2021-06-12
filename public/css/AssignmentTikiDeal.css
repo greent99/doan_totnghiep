@@ -561,7 +561,6 @@ ul {
   padding: 16px;
   color: #242424;
   display: inline-block;
-  width: 25%;
   position: relative;
 }
 
@@ -1042,5 +1041,9 @@ a:hover {
   }
   .footer {
     display: none;
+  }
+  .name-recommend-product {
+    margin-top: 10px;
+    padding-top: 10px;
   }
 }

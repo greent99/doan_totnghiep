@@ -17,16 +17,18 @@ module.exports = {
         return db(table_name).insert(user);
     },
 
-    async getSizeAll(q) {
-        q = q ? q : ""
-        const items = await db(table_name).where('name', 'like', `%${q}%`)
+    async getSizeAll(q, cate) {
+        q = q ? q : "";
+        cate = cate ? cate : 0
+        const items = await db(table_name).where('name', 'like', `%${q}%`).where('idPhanloai', cate);
         return items.length;
     },
 
-    async getAll(name, pageIndex, pageSize) {
-        name = name ? name : ""
+    async getAll(name, pageIndex, pageSize, cate) {
+        name = name ? name : "";
+        cate = cate ? cate : 0;
         let offset = (pageIndex - 1) * pageSize
-        return db(table_name).where('name', 'like', `%${name}%`).orderBy('id').limit(pageSize).offset(offset)
+        return db(table_name).where('name', 'like', `%${name}%`).where('idPhanloai', cate).orderBy('name').limit(pageSize).offset(offset)
     },
 
 }

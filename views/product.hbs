@@ -123,21 +123,44 @@
               data-impressposition='1'
             >
               <div class='image'>
-                <div class='discount-badge'>
+                {{!-- <div class='discount-badge'>
                   47%
-                </div>
+                </div> --}}
                 <img
                   class='lazy'
                   style='display: inline;'
-                  src='/image/img-product/so-tay-tu-vung.jpg'
+                  src='{{images}}'
                 />
               </div>
               <div class='title'>
+                {{#compare nguondulieu 1 operator="=="}}
                 <img
                   class='icon-tikinow1'
-                  src='/image/icon-body/tikiNow-icon.png'
+                  src='/image/img-product/sendo.jpeg'
                   alt=''
                 />
+                {{/compare}}
+                {{#compare nguondulieu 2 operator="=="}}
+                <img
+                  class='icon-tikinow1'
+                  src='/image/img-product/tiki.jpg'
+                  alt=''
+                />
+                {{/compare}}
+                {{#compare nguondulieu 3 operator="=="}}
+                <img
+                  class='icon-tikinow1'
+                  src='/image/img-product/shopee.jpg'
+                  alt=''
+                />
+                {{/compare}}
+                {{#compare nguondulieu 4 operator="=="}}
+                <img
+                  class='icon-tikinow1'
+                  src='/image/img-product/lazada.jpeg'
+                  alt=''
+                />
+                {{/compare}}
                 {{name}}
               </div>
               <div class='price-sale'>
