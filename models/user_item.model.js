@@ -17,7 +17,7 @@ module.exports = {
         const user_items = await db(table_name).where('user_id', user_id).orderBy('total_view', 'desc')
         if (user_items.length === 0)
             return null;
-        return user_items[0]
+        return user_items
     },
 
     async add(user_item) {

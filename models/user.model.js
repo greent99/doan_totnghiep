@@ -3,6 +3,7 @@ const table_name = 'MyUser'
 const bcrypt = require('bcrypt');
 const user_itemModel = require('./user_item.model');
 const itemModel = require('./item.model');
+const matchedProductsModel = require('./matchedProducts.model');
 const saltRounds = 10;
 
 module.exports = {
@@ -49,7 +50,8 @@ module.exports = {
         
         const num_recommend_item = 4
         const top_view_item = user_items[0]
-        const recommend_list = await itemModel.getWithLimit(num_recommend_item)
+        //console.log(top_view_item)
+        const recommend_list = await db('item').where('id_match', top_view_item.item_id).limit(num_recommend_item);
 
         return recommend_list
     }

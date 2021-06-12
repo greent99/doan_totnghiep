@@ -29,10 +29,5 @@ module.exports = {
         cate = cate ? cate : 0;
         let offset = (pageIndex - 1) * pageSize
         return db(table_name).where('name', 'like', `%${name}%`).where('idPhanloai', cate).orderBy('name').limit(pageSize).offset(offset)
-    },
-
-    async getWithLimit(limit)
-    {
-        return db(table_name).limit(limit)
     }
 }
