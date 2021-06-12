@@ -23,7 +23,6 @@ module.exports = {
         const items = await db(table_name).where('name', 'like', `%${q}%`).where(function () {
             this.where('idPhanloai', cate).orWhere(cate == 0);
         });
-        // const items = await db(table_name).where('name', 'like', `%${q}%`).where('idPhanloai', cate );
         return items.length;
     },
 

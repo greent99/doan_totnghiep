@@ -2,6 +2,8 @@ const db = require('../utils/db')
 const table_name = 'MyUser'
 const bcrypt = require('bcrypt');
 const user_itemModel = require('./user_item.model');
+const itemModel = require('./item.model');
+const matchedProductsModel = require('./matchedProducts.model');
 const saltRounds = 10;
 
 module.exports = {
@@ -43,6 +45,14 @@ module.exports = {
     async getRecommendList(user_id)
     {
         const user_items = await user_itemModel.getByUserId(user_id)
+        if(user_items == null)
+            return null
         
+        const num_recommend_item = 4
+        const top_view_item = user_items[0]
+        //console.log(top_view_item)
+        const recommend_list = await db('item').where('id_match', top_view_item.item_id).limit(num_recommend_item);
+
+        return recommend_list
     }
 }
