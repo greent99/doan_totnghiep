@@ -10,48 +10,24 @@
 
         <h6>Theo gia</h6>
 
-        <li><label class='checkbox'><input
-              type='checkbox'
-              class='price'
-              id='increased-price'
-            />
+        <li><label class='checkbox'><input type='checkbox' class='price' id='increased-price' />
             Tu thap den cao
           </label></li>
-        <li><label class='checkbox'><input
-              type='checkbox'
-              class='price'
-              id='decreased-price'
-            />
+        <li><label class='checkbox'><input type='checkbox' class='price' id='decreased-price' />
             Tu cao den thap
           </label></li>
         <br />
         <h6>Trang web</h6>
-        <li><label class='checkbox'><input
-              type='checkbox'
-              class='website'
-              id='Shoppe'
-            />
+        <li><label class='checkbox'><input type='checkbox' class='website' id='Shoppe' />
             Shopee
           </label></li>
-        <li><label class='checkbox'><input
-              type='checkbox'
-              class='website'
-              id='Tiki'
-            />
+        <li><label class='checkbox'><input type='checkbox' class='website' id='Tiki' />
             Tiki
           </label></li>
-        <li><label class='checkbox'><input
-              type='checkbox'
-              class='website'
-              id='Lazada'
-            />
+        <li><label class='checkbox'><input type='checkbox' class='website' id='Lazada' />
             Lazada
           </label></li>
-        <li><label class='checkbox'><input
-              type='checkbox'
-              class='website'
-              id='Sendo'
-            />
+        <li><label class='checkbox'><input type='checkbox' class='website' id='Sendo' />
             Sendo
           </label></li>
         <br />
@@ -74,49 +50,53 @@
         <div class=''>
           <div class='initial-content'>
             {{#each matchedItems}}
-              <div class='row'>
-                <div class='col-4'> 
-                  <a
-                    class='deal-item'
-                    href='https://tiki.vn/so-tay-tu-vung-120-trang-7-6-x-13-mau-ngau-nhien-p6836987.html?spid=6836989&amp;src=deal-hot&amp;2hi=1'
-                    target='_blank'
-                    data-id='6836987'
-                    data-title='Sổ Tay Từ Vựng 120 Trang (7.6 x 13) - Mẫu Ngẫu Nhiên'
-                    data-brand=''
-                    data-price='10000'
-                    data-impresslistname='Deal Hot'
-                    data-impressposition='1'
-                  >
-                    <div class='image'>
-                      <img
-                        class='lazy'
-                        style='display: inline;'
-                        src='{{images}}'
-                      />
-                    </div>
-                  </a>
-                </div>
-                <div class='col-8'>
-                  <div class='title'>
-                    <img
-                      class='icon-tikinow1'
-                      src='/image/icon-body/tikiNow-icon.png'
-                      alt=''
-                    />
-                    <div>
-                      <a
-                        href='https://tiki.vn/so-tay-tu-vung-120-trang-7-6-x-13-mau-ngau-nhien-p6836987.html?spid=6836989&amp;src=deal-hot&amp;2hi=1'
-                      >{{name}}</a>
-
-                    </div>
-
+            <div class='row'>
+              <div class='col-4'>
+                <a class='deal-item' href={{url_key}} target='_blank' data-id='6836987'
+                  data-title='Sổ Tay Từ Vựng 120 Trang (7.6 x 13) - Mẫu Ngẫu Nhiên' data-brand='' data-price='10000'
+                  data-impresslistname='Deal Hot' data-impressposition='1'>
+                  <div class='image'>
+                    <img class='lazy' style='display: inline;' src='{{images}}' />
                   </div>
+                </a>
+              </div>
+              <div class='col-8 my-5'>
+                <div class="top d-flex">
+                  <div class=''>
+                    {{#compare nguondulieu 1 operator="=="}}
+                    <img class='icon-market' src='/image/img-product/sendo.jpeg' alt='' />
+                    {{/compare}}
+                    {{#compare nguondulieu 2 operator="=="}}
+                    <img class='icon-market' src='/image/img-product/tiki.jpg' alt='' />
+                    {{/compare}}
+                    {{#compare nguondulieu 3 operator="=="}}
+                    <img class='icon-market' src='/image/img-product/shopee.jpg' alt='' />
+                    {{/compare}}
+                    {{#compare nguondulieu 4 operator="=="}}
+                    <img class='icon-market' src='/image/img-product/lazada.jpeg' alt='' />
+                    {{/compare}}
+                  </div>
+                  <div class="nameProduct">
+                    <a href={{url_key}} target='_blank'>
+                      {{name}}
+                    </a>
+                  </div>
+                </div>
+
+                <div class="mid">
+
+                </div>
+                <div class="bot d-flex">
                   <div class='price-sale'>
                     {{price}}
                     ₫
                   </div>
+                  <div class="rating">
+
+                  </div>
                 </div>
               </div>
+            </div>
             {{/each}}
           </div>
           <div class='content-placeholder'>
@@ -128,30 +108,28 @@
     </div>
   </div>
 </div>
-<script
-  src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js'
-></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js'></script>
 
 <script>jQuery.noConflict();</script>
 <script>
-  jQuery(function ($){
-      $(document).ready(function(){
-          var matchedItems = {{{json matchedItems}}};
-          function compileSelectedItems(orderedMatchedItems){
-            //console.log(orderedMatchedItems)
-            //console.log(orderedMatchedItems)
-            var context = {items: orderedMatchedItems}
-            //console.log(orderedMatchedItems)
-            //var template = Handlebars.compile($("#ordered-matched-items-html").html());
-            //var compiledHtml = template({items: orderedMatchedItems});
-            var lines = ``
-            jQuery.each(context.items, function(i, val){
-                var line = `
+  jQuery(function ($) {
+    $(document).ready(function () {
+      var matchedItems = {{{ json matchedItems }}};
+  function compileSelectedItems(orderedMatchedItems) {
+    //console.log(orderedMatchedItems)
+    //console.log(orderedMatchedItems)
+    var context = { items: orderedMatchedItems }
+    //console.log(orderedMatchedItems)
+    //var template = Handlebars.compile($("#ordered-matched-items-html").html());
+    //var compiledHtml = template({items: orderedMatchedItems});
+    var lines = ``
+    jQuery.each(context.items, function (i, val) {
+      var line = `
                     <div class='row'>
                 <div class='col-6'>
                   <a
                     class='deal-item'
-                    href='https://tiki.vn/so-tay-tu-vung-120-trang-7-6-x-13-mau-ngau-nhien-p6836987.html?spid=6836989&amp;src=deal-hot&amp;2hi=1'
+                    href=${val.url_key}
                     target='_blank'
                     data-id='6836987'
                     data-title='Sổ Tay Từ Vựng 120 Trang (7.6 x 13) - Mẫu Ngẫu Nhiên'
@@ -161,13 +139,11 @@
                     data-impressposition='1'
                   >
                     <div class='image'>
-                      <div class='discount-badge'>
-                        47%
-                      </div>
+                  
                       <img
                         class='lazy'
                         style='display: inline;'
-                        src='/image/img-product/so-tay-tu-vung.jpg'
+                        src=${val.images}
                       />
                     </div>
                   </a>
@@ -176,7 +152,7 @@
                   <div class='title'>
                     <img
                       class='icon-tikinow1'
-                      src='/image/icon-body/tikiNow-icon.png'
+                      src=
                       alt=''
                     />
                     <div>
@@ -193,45 +169,45 @@
                   </div>
                 </div>
               </div>`
-                lines = lines.concat(line)
-            })
-            return lines
-          }
-          $('input:checkbox').click(function(){
-            //console.log($(this).attr('class'))
-            if($(this).attr('class') != '' && $(this).attr('class') === 'price'){
-                $('.price').not(this).prop('checked', false);
-                if($(this).attr('id')==='increased-price'){ //price increased sorting
-                    matchedItems.sort((p1, p2) => (p1.price > p2.price ? 1 : -1))
-                }
-                if($(this).attr('id')==='decreased-price'){
-                    matchedItems.sort((p1, p2) => (p1.price < p2.price ? 1 : -1)) 
-                }
-                $('.initial-content').hide()
-                //console.log(matchedItems)
-                newLines = compileSelectedItems(matchedItems)
-                $('.content-placeholder').empty().append(newLines); 
-            }
-            if($(this).attr('class') != '' && $(this).attr('class') === 'website'){
-                $('.website').not(this).prop('checked', false);
-                var selectedWebsite = $(this).attr('id')
-                matchedItems.filter(web => web === selectedWebsite)
-                //console.log(matchedItems) newLines = compileSelectedItems(matchedItems)
-                if($('.content-placeholder').not(':empty')){
-                    console.log($('.content-placeholder').not(':empty'))
-                    $('.content-placeholder').empty().append(newLines);
-                } else{
-                    $('.content-placeholder').append(newLines)
-                } 
-            } 
-            if($(this).attr('class') != '' && $(this).attr('class') === 'website'){
-                $('.promotion').not(this).prop('checked', false);
-            }
-            if($('input:checkbox:checked').length == 0){ 
-                //console.log('default')
-                $('.initial-content').show(); $('.content-placeholder').hide();
-            }
-          }); 
+      lines = lines.concat(line)
+    })
+    return lines
+  }
+  $('input:checkbox').click(function () {
+    //console.log($(this).attr('class'))
+    if ($(this).attr('class') != '' && $(this).attr('class') === 'price') {
+      $('.price').not(this).prop('checked', false);
+      if ($(this).attr('id') === 'increased-price') { //price increased sorting
+        matchedItems.sort((p1, p2) => (p1.price > p2.price ? 1 : -1))
+      }
+      if ($(this).attr('id') === 'decreased-price') {
+        matchedItems.sort((p1, p2) => (p1.price < p2.price ? 1 : -1))
+      }
+      $('.initial-content').hide()
+      //console.log(matchedItems)
+      newLines = compileSelectedItems(matchedItems)
+      $('.content-placeholder').empty().append(newLines);
+    }
+    if ($(this).attr('class') != '' && $(this).attr('class') === 'website') {
+      $('.website').not(this).prop('checked', false);
+      var selectedWebsite = $(this).attr('id')
+      matchedItems.filter(web => web === selectedWebsite)
+      //console.log(matchedItems) newLines = compileSelectedItems(matchedItems)
+      if ($('.content-placeholder').not(':empty')) {
+        console.log($('.content-placeholder').not(':empty'))
+        $('.content-placeholder').empty().append(newLines);
+      } else {
+        $('.content-placeholder').append(newLines)
+      }
+    }
+    if ($(this).attr('class') != '' && $(this).attr('class') === 'website') {
+      $('.promotion').not(this).prop('checked', false);
+    }
+    if ($('input:checkbox:checked').length == 0) {
+      //console.log('default')
+      $('.initial-content').show(); $('.content-placeholder').hide();
+    }
+  }); 
       });
   });
 </script>
