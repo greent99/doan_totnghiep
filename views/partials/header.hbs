@@ -1,11 +1,12 @@
 <div class="header-form">
-    <div class="">
-        <div class="row">
-            <div class="col-2">
-                <a href="/" class="logo">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-3">
+                <a href="http://localhost:3000" class="logo">
+                <img src="/image/icon-header/logo.png" alt="">
                 </a>
             </div>
-            <div class="col-7 search">
+            <div class="col-7">
                 <div class="form-search">
                     <form id="search_form" action="http://localhost:3000/products" method="get">
                         <div class="search-wrap">
@@ -26,55 +27,22 @@
                     </div>
                 </div>
             </div>
-                {{#if isAuth}}
-                    <div class="col-md-2">
-                        <div class="header-link">
-                            <div class="user-profile item" id="header-user">
-                                <div data-reactroot="">
-                                    <div>
-                                    <a href="/auth/logout">
-                                        <small style="color: aliceblue;">Xin chào</small></a>  
-                                        <br>
-                                        <b style="color: aliceblue;">{{authUser.username}}</b>
-                                        <img class="icon-style-1 icon-user" src="/image/icon-header/dangNhapTaiKhoan-icon.png"
-                                            alt="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {{else}}
-                    <div class="col-md-1">
-                        <div class="header-link">
-                            <div class="user-profile item" id="header-user">
-                                <div data-reactroot="">
-                                    <div>
-                                    <a href="/auth"><img class="icon-style-1 icon-user" src="/image/icon-header/dangNhapTaiKhoan-icon.png"
-                                            alt="">
-                                        <b style="color: aliceblue;">Đăng nhập</b><br>
-                                        <small style="color: aliceblue;">Tài khoản</small></a>  
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-1">
-                        <div class="header-link">
-                            <div class="user-profile item" id="header-user">
-                                <div data-reactroot="">
-                                    <div>
-                                    <a href="/auth"><img class="icon-style-1 icon-user" src="/image/icon-header/dangNhapTaiKhoan-icon.png"
-                                            alt="">
-                                        <b style="color: aliceblue;">Đăng kí</b><br>
-                                        <small style="color: aliceblue;">Tài khoản</small></a>  
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {{/if}}
+            {{#if isAuth}}
+            <div class="col-2 d-flex justify-content-end align-self-start">
+                <a href="/auth/logout" class="">
+                    <img class="" src="/image/icon-header/dangNhapTaiKhoan-icon.png" alt="">
+                        <b style="color: aliceblue;">{{authUser.username}}</b>
+                </a>
             </div>
-
+            {{else}}
+            <div class="col-2 d-flex justify-content-end align-self-start">
+                <a href="/auth">
+                    <img class="" src="/image/icon-header/dangNhapTaiKhoan-icon.png" alt="">
+                    <b style="color: aliceblue;">Đăng nhập/Đăng kí</b>
+                </a>
+            </div>
+            {{/if}}
+        </div>
     </div>
 </div>
 <!-- end header-form -->

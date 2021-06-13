@@ -45,9 +45,8 @@ body {
   z-index: 3;
 }
 
-.logo {
-  color: #fff;
-  display: inline-block;
+.logo img {
+  width: 50%;
 }
 
 .form-search {
@@ -156,14 +155,6 @@ button[type='submit'] {
   letter-spacing: 0.9px;
 }
 
-.icon-style-1 {
-  font-size: 22px;
-  position: absolute;
-  left: 0;
-  width: 22px;
-  height: 22px;
-}
-
 .icon-tracking {
   width: 22px;
   height: 22px;
@@ -192,16 +183,6 @@ button[type='submit'] {
 .icon-notification {
   left: -3px;
   top: 8px;
-  width: 22px;
-  height: 22px;
-}
-
-.user-profile {
-  cursor: pointer;
-  width: 130px;
-}
-
-.icon-user {
   width: 22px;
   height: 22px;
 }
@@ -267,10 +248,6 @@ button[type='submit'] {
 
 .toggle {
   margin-left: -60px;
-}
-
-.search {
-  margin-top: -5px;
 }
 
 .main-nav-toggle {
@@ -405,8 +382,7 @@ button[type='submit'] {
   padding-left: 15px;
 }
 
-.breadcrumb-wrap .breadcrumb li a,
-.breadcrumb-wrap .breadcrumb li > span {
+.breadcrumb-wrap .breadcrumb li a, .breadcrumb-wrap .breadcrumb li>span {
   color: #999;
   display: block;
   /* background: #efefef; */
@@ -427,7 +403,6 @@ button[type='submit'] {
 }
 
 /* end breadcrumb */
-
 
 /* Tiki Deal Header */
 
@@ -743,19 +718,14 @@ input[placeholder] {
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 4px;
-  -webkit-transition: border-color ease-in-out 0.15s,
-    box-shadow ease-in-out 0.15s;
-  -webkit-transition: border-color ease-in-out 0.15s,
-    -webkit-box-shadow ease-in-out 0.15s;
-  transition: border-color ease-in-out 0.15s,
-    -webkit-box-shadow ease-in-out 0.15s;
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s,
-    -webkit-box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
 }
 
-.form-control,
-output {
+.form-control, output {
   line-height: 1.42857;
   color: #555;
   display: block;
@@ -904,8 +874,7 @@ address {
   line-height: 1.42857;
 }
 
-address,
-dl {
+address, dl {
   margin-bottom: 20px;
 }
 
