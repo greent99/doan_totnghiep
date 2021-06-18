@@ -1,3 +1,13 @@
+.side-bar .head i{
+cursor: pointer;
+
+}
+
+
+.deal-item{
+    margin-bottom: 20px;
+    padding: 16px;
+}
 .deal-item .image img{
     height: 200px;
     max-width: 100%;

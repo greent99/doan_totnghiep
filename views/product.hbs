@@ -1,113 +1,154 @@
 {{#section 'js'}}
 <script>
   $(document).ready(function () {
+
+    $('.filter-category li input').on('click', function(e){
+      let cate = $('input[name=category]:checked').val();
+      let webFilter = $('input[name=website]:checked').val();
+      let priceFilter = $('input[name=price]:checked').val();
+
+      const key = "{{key}}"
+
+      cate = cate ? cate : "{{cate}}";
+      webFilter = webFilter ? webFilter : "{{webFilter}}";
+      priceFilter = priceFilter ? priceFilter : "{{priceFilter}}";
+
+      let newUrl = `http://localhost:3000/products?cate=${cate}&webFilter=${webFilter}&priceFilter=${priceFilter}&q=${key}&page=1`;
+      location.href = newUrl;
+    });
+
     $('.pagination').each(function () {
-      const key = "{{key}}";
-      const cate = {{cate}}
+      const webFilter = "{{webFilter}}"
+      const priceFilter = "{{priceFilter}}"
+      const key = "{{key}}"
+      const cate = {{ cate }}
       const current = {{ current }}
-                const totalPage = {{ totalPage }}
-                console.log(current)
-                if (current == 1)
-    $(this).append(`<li class="page-item disabled">
-                        <a class="page-link" href="/products?cate=${cate}&q=${key}&page=1" tabindex="-1">
+      const totalPage = {{ totalPage }}
+
+      $("input[name=category][value=" + cate + "]").prop('checked', true);
+      $("input[name=website][value=" + webFilter + "]").prop('checked', true);
+      $("input[name=price][value=" + priceFilter + "]").prop('checked', true);
+
+      if(totalPage != 0)
+      {
+        if (current == 1)
+        $(this).append(`<li class="page-item disabled">
+                        <a class="page-link" href="/products?cate=${cate}&webFilter=${webFilter}&priceFilter=${priceFilter}&q=${key}&page=1" tabindex="-1">
                             <span aria-hidden="true">&laquo;</span>
                             <span class="sr-only">First</span>
                         </a>
                     </li>`)
-  else
-    $(this).append(`<li class="page-item">
-                        <a class="page-link" href="/products?cate=${cate}&q=${key}&page=1" tabindex="-1">
+        else
+        $(this).append(`<li class="page-item">
+                        <a class="page-link" href="/products?cate=${cate}&webFilter=${webFilter}&priceFilter=${priceFilter}&q=${key}&page=1" tabindex="-1">
                             <span aria-hidden="true">&laquo;</span>
                             <span class="sr-only">First</span>
                         </a>
                     </li>`)
 
-  var i = current > 5 ? current - 4 : 1
-  if (i != 1)
-    $(this).append(`<li class="page-item disabled"><a class="page-link">...</a></li>`)
+      var i = current > 5 ? current - 4 : 1
+      if (i != 1)
+        $(this).append(`<li class="page-item disabled"><a class="page-link">...</a></li>`)
 
-  for (; i <= current + 4 && i <= totalPage; i++) {
-    if (i == current) {
-      $(this).append(`<li class="page-item active"><a class="page-link">${i}</a></li>`)
-    }
-    else
-      $(this).append(`<li class="page-item">
-                            <a class="page-link" href="/products?cate=${cate}&q=${key}&page=${i}">${i}</a>
+      for (; i <= current + 4 && i <= totalPage; i++) {
+      if (i == current) {
+        $(this).append(`<li class="page-item active"><a class="page-link">${i}</a></li>`)
+      }
+      else
+        $(this).append(`<li class="page-item">
+                            <a class="page-link" href="/products?cate=${cate}&webFilter=${webFilter}&priceFilter=${priceFilter}&q=${key}&page=${i}">${i}</a>
                         </li>`)
 
-    if (i == current + 4 && i < totalPage)
-      $(this).append(`<li class="page-item disabled"><a class="page-link">...</a></li>`)
-  }
+      if (i == current + 4 && i < totalPage)
+        $(this).append(`<li class="page-item disabled"><a class="page-link">...</a></li>`)
+      }
 
-  if (current == totalPage)
-    $(this).append(`<li class="page-item disabled"><a class="page-link">
+      if (current == totalPage)
+      $(this).append(`<li class="page-item disabled"><a class="page-link">
                         <span aria-hidden="true">&raquo;</span>
                         <span class="sr-only">Next</span>
                     </a></li>`)
-  else
-    $(this).append(`<li class="page-item"><a class="page-link" href="/products?cate=${cate}&q=${key}&page=${totalPage}">
+      else
+      $(this).append(`<li class="page-item"><a class="page-link" href="/products?cate=${cate}&webFilter=${webFilter}&priceFilter=${priceFilter}&q=${key}&page=${totalPage}">
                         <span aria-hidden="true">&raquo;</span>
                         <span class="sr-only">Last</span>
                     </a></li>`)
-            })
-        })
+      }
+    });
+
+    $('.head i').on('click', function(){
+      $("input[name=category][value=" + 0 + "]").prop('checked', true);
+      $("input[name=website][value=" + 0 + "]").prop('checked', true);
+      $("input[name=price][value=" + 0 + "]").prop('checked', true);
+
+      const key = "{{key}}"
+      let newUrl = `http://localhost:3000/products?cate=0&webFilter=0&priceFilter=0&q=${key}&page=1`;
+      location.href = newUrl;
+    })
+  })
 </script>
 {{/section}}
-
-<!-- tiki Deal Header -->
-<div class='container'>
-  <div class='tiki-deal-header'>
-    <h4>{{nameCate}}</h4>
-    <div class='text'>
-      Cập nhật hàng giờ tất cả những deal giảm giá đặc biệt trên
-      Tiki,Lazada,Sendo,Shopee. Hãy bookmark trang này và quay lại thường xuyên
-      để không bỏ lỡ bạn nhé!
-    </div>
-  </div>
-</div>
 <!-- end tiki Deal Header -->
 <div class='container'>
-  <div class='flex-container'>
+  <div class="row">
+    <div class='tiki-deal-header'>
+      <h4>{{nameCate}}</h4>
+    </div>
+  </div>
+  <div class='row'>
     <!-- side-bar -->
     <!-- side-bar -->
-    <div class='side-bar'>
-      <div class='head'>
+    <div class='side-bar col-2'>
+      <div class='head d-flex justify-content-around'>
         <h5>Bộ lọc tìm kiếm</h5>
+        <i class="fas fa-sync-alt mt-2" data-toggle="tooltip" data-placement="right" title="Reset"></i>
       </div>
       <ul class='filter-category'>
 
-        <h6>Nơi bán</h6>
+        <h6>Danh Mục</h6>
 
-        <li><label class='checkbox'><input type='checkbox' />Sài gòn
-          </label></li>
-        <li><label class='checkbox'><input type='checkbox' />Hà Nội
-          </label></li>
-        <li><label class='checkbox'><input type='checkbox' />Đà nẵng
-          </label></li>
+        <li><input type='radio' id="priceAsc" name="category" value="1"/>
+          <label>Điênh thoại, laptop</label>
+        </li>
+        <li><input type='radio' id="priceAsc" name="category" value="2"/>
+          <label>Phụ kiện, thiết bị số</label>
+        </li>
+        <li><input type='radio' id="priceAsc" name="category" value="3"/>
+          <label>Đồ chơi, mẹ và bé</label>
+        </li>
+        <li><input type='radio' id="priceAsc" name="category" value="4"/>
+          <label>Hàng tiêu dùng</label>
+        </li>
         <br />
         <h6>Trang web</h6>
-        <li><label class='checkbox'><input type='checkbox' />Shopee
-          </label></li>
-        <li><label class='checkbox'><input type='checkbox' />Tiki
-          </label></li>
-        <li><label class='checkbox'><input type='checkbox' />Lazada
-          </label></li>
-        <li><label class='checkbox'><input type='checkbox' />Sendo
-          </label></li>
+        <li><input type='radio' id="priceAsc" name="website" value="1"/>
+          <label>Sendo</label>
+        </li>
+        <li><input type='radio' id="priceAsc" name="website" value="2"/>
+          <label>Tiki</label>
+        </li>
+        <li><input type='radio' id="priceAsc" name="website" value="3"/>
+          <label>Shopee</label>
+        </li>
+        <li><input type='radio' id="priceAsc" name="website" value="4"/>
+          <label>Lazada</label>
+        </li>
         <br />
-        <h6>Khuyến mãi</h6>
-        <li><label class='checkbox'><input type='checkbox' />Free ship
-          </label></li>
-        <li><label class='checkbox'><input type='checkbox' />Giảm giá trực tiếp
-          </label></li>
-        <li><label class='checkbox'><input type='checkbox' />Sản phẩm tặng kèm
-          </label></li>
+        <h6>Giá</h6>
+        <li>
+          <input type="radio" id="priceAsc" name="price" value="1">
+          <label for="priceAsc">Tăng dần</label><br>
+        </li>
+        <li>
+          <input type="radio" id="priceDes" name="price" value="2">
+          <label for="priceDes">Giảm dần</label><br>
+        </li>
 
       </ul>
     </div>
     <!-- end side-bar -->
 
-    <div class='product-listing'>
+    <div class='product-listing col-10'>
       <div class='items'>
         <div class='row'>
           {{#each items}}
@@ -136,7 +177,7 @@
               <div class="nameProduct">
                 {{name}}
               </div>
-             
+
             </div>
             <div class='price-sale'>
               <b class="ml-5">{{price}}</b>
@@ -145,13 +186,11 @@
           </a>
           {{/each}}
         </div>
-        {{#if totalPage}}
         <div class='row justify-content-center' style='margin-bottom: 20px;'>
           <nav aria-label='Page navigation example'>
             <ul class='pagination'></ul>
           </nav>
         </div>
-        {{/if}}
       </div>
     </div>
   </div>
