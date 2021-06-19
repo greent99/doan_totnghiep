@@ -40,7 +40,7 @@ body {
 
 .header-form {
   background-color: #189eff;
-  padding: 20px 0px;
+  padding: 10px 0px;
   position: relative;
   z-index: 3;
 }
@@ -407,14 +407,9 @@ button[type='submit'] {
 /* Tiki Deal Header */
 
 .tiki-deal-header {
-  background-color: #fff;
-  background-repeat: no-repeat;
-  background-position: 10px center;
-  padding: 17px 0px;
-  background-size: 48px;
-  border-radius: 4px 4px 0 0;
-  border-bottom: 1px solid #f4f4f4;
-  position: relative;
+  width: 100%;
+  background: #fff;
+  padding: 16px;
 }
 
 .icon-hot-deal {
@@ -471,7 +466,7 @@ button[type='submit'] {
 .head {
   font-size: 13px;
   font-weight: 500;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .filter-category {
@@ -530,15 +525,6 @@ ul {
   border-bottom: 2px solid #1ba8ff;
   color: #1ba8ff;
 }
-
-.deal-item {
-  margin-bottom: 20px;
-  padding: 16px;
-  color: #242424;
-  display: inline-block;
-  position: relative;
-}
-
 .image {
   padding-top: 0;
   text-align: center;
