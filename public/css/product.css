@@ -24,3 +24,14 @@ cursor: pointer;
     -webkit-box-orient: vertical;
     display: -webkit-box;
 }
+
+.button-promotion {
+    border:2px solid #0D5CB6;
+    background-color: #FFFFFF; /* Green */
+    color: #0D5CB6;
+    text-align: center;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 2px;
+    padding: 5px;
+  }

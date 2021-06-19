@@ -43,6 +43,31 @@ router.get('/:id', async function(req, res) {
         }
         await user_itemModel.increment_view(user_id, item_id)
     }
+    
+    for(matchedItem of matchedItems)
+    {
+        if(matchedItem.promotion.length > 0)
+        {
+            promotion = matchedItem.promotion
+            let newPrice = matchedItem.price
+            let countOfItemApply = Math.ceil(promotion.min_order_amount / matchedItem.price)
+            if(promotion.type == "cart_fixed")
+            {
+                newPrice = int(newPrice - promotion.discount_amount)
+            }
+            if(promotion.type == "by_percent")
+            {
+                let discount = int(promotion.discount_amount * newPrice / 100)
+                if(discount > promotion.max_order_amount)
+                    discount = promotion.max_order_amount
+                newPrice = newPrice - discount
+            }
+            matchedItem.promotion.newPrice = newPrice
+            matchedItem.promotion.countOfItemApply = countOfItemApply
+        }
+    }
+    console.log(matchedItems)
+
     res.render('matchedProducts', {
         matchedItems: matchedItems,
         helpers: {

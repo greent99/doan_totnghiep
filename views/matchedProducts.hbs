@@ -95,6 +95,12 @@
 
                   </div>
                 </div>
+                <div>
+                  {{#each promotion}}
+                    <button class="button-promotion"> {{title}} </button>
+                    <p>Mua {{newPrice}}</p>
+                  {{/each}}
+                </div>
               </div>
             </div>
             {{/each}}
