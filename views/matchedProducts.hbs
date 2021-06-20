@@ -95,6 +95,19 @@
 
                   </div>
                 </div>
+                <div>
+                  {{#each promotion}}
+                   <div class="row promotion-div">
+                      <div class="col-2">
+                        <button class="button-promotion"> {{title}} </button>
+                      </div>
+                      <div class="col-10">
+                        <p>Chỉ còn <span style="color: blue;">{{newPrice}}</span> đ</p>
+                        <p style="font-size: 10px;">Mua {{countOfItemApply}} sản phẩm trở lên để áp dụng mã</p>
+                      </div>
+                   </div>
+                  {{/each}}
+                </div>
               </div>
             </div>
             {{/each}}
