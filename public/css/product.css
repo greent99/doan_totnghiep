@@ -27,11 +27,34 @@ cursor: pointer;
 
 .button-promotion {
     border:2px solid #0D5CB6;
-    background-color: #FFFFFF; /* Green */
+    background-color: #FFFFFF; 
     color: #0D5CB6;
     text-align: center;
     display: inline-block;
-    font-size: 14px;
+    font-size: 12px;
     border-radius: 2px;
     padding: 5px;
+    position: absolute;
+    height: 100%;
   }
+.price-sale {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #242424;
+    padding: 0;
+    text-align: left;
+}
+  
+.price-regular {
+    font-size: 11px;
+    color: #a2a2a2;
+    text-decoration: line-through;
+    text-align: left;
+    font-weight: 300;
+    margin-left: 8px;
+}
+.promotion-div {
+    overflow: hidden;
+    position: relative;
+}

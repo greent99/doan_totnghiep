@@ -48,25 +48,27 @@ router.get('/:id', async function(req, res) {
     {
         if(matchedItem.promotion.length > 0)
         {
-            promotion = matchedItem.promotion
-            let newPrice = matchedItem.price
-            let countOfItemApply = Math.ceil(promotion.min_order_amount / matchedItem.price)
-            if(promotion.type == "cart_fixed")
+            for(promotion of matchedItem.promotion)
             {
-                newPrice = int(newPrice - promotion.discount_amount)
+                let newPrice = matchedItem.price
+                let countOfItemApply = Math.ceil(promotion.min_order_amount / matchedItem.price)
+                if(promotion.type == "cart_fixed")
+                {
+                    newPrice = newPrice - promotion.discount_amount
+                }
+                if(promotion.type == "by_percent")
+                {
+                    let discount = promotion.discount_amount * newPrice / 100
+                    if(discount > promotion.max_order_amount)
+                        discount = promotion.max_order_amount
+                    newPrice = newPrice - discount
+                }
+                promotion.newPrice = newPrice
+                promotion.countOfItemApply = countOfItemApply
             }
-            if(promotion.type == "by_percent")
-            {
-                let discount = int(promotion.discount_amount * newPrice / 100)
-                if(discount > promotion.max_order_amount)
-                    discount = promotion.max_order_amount
-                newPrice = newPrice - discount
-            }
-            matchedItem.promotion.newPrice = newPrice
-            matchedItem.promotion.countOfItemApply = countOfItemApply
         }
     }
-    console.log(matchedItems)
+    
 
     res.render('matchedProducts', {
         matchedItems: matchedItems,
