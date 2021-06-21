@@ -1,0 +1,54 @@
+.item-matching{
+    border-bottom: 0.25px solid rgb(160, 160, 160);
+}
+
+.item-matching .info-item{
+    width: 100%;
+    height: inherit;
+}
+
+.item-matching .info-item .icon-market{
+    border-radius: 50%;
+}
+
+.item-matching .info-item .price-sale{
+    font-size: 24px;
+    color: rgb(119, 32, 32);
+}
+
+.value-rating{
+    width: 100%;
+}
+
+.value-rating span{
+    font-size: 16px;
+}
+
+.star {
+    font-size: x-large;
+    width: 20px;
+    display: inline-block;
+    color: gray;
+}
+.star:last-child {
+    margin-right: 0;
+}
+.star:before {
+    content:'\2605';
+}
+.star.on {
+    color: gold;
+}
+.star.half:after {
+    content:'\2605';
+    color: gold;
+    position: absolute;
+    margin-left: -20px;
+    width: 10px;
+    overflow: hidden;
+}
+
+.promotion{
+    width: 100%;
+    margin-left: 20px;
+}

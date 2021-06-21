@@ -1,56 +1,45 @@
 <div class='container'>
-
-  <div class='flex-container'>
-
-    <div class='side-bar'>
-      <div class='head'>
+  <div class='row'>
+    <div class='side-bar col-2'>
+       <div class='head d-flex justify-content-around'>
         <h5>Bộ lọc tìm kiếm</h5>
+        <i class="fas fa-sync-alt mt-2" data-toggle="tooltip" data-placement="right" title="Reset"></i>
       </div>
       <ul class='filter-category'>
-
-        <h6>Theo gia</h6>
-
-        <li><label class='checkbox'><input type='checkbox' class='price' id='increased-price' />
-            Tu thap den cao
-          </label></li>
-        <li><label class='checkbox'><input type='checkbox' class='price' id='decreased-price' />
-            Tu cao den thap
-          </label></li>
+        <h6>Sắp xếp</h6>
+        <li><input type='radio' name="order" value="1"/>
+          <label>Khuyến mãi</label>
+        </li>
+       <li>
+          <input type="radio" name="order" value="2">
+          <label>Giá tăng dần</label><br>
+        </li>
+        <li>
+          <input type="radio" id="priceDes" name="order" value="3">
+          <label>Giá giảm dần</label><br>
+        </li>
         <br />
         <h6>Trang web</h6>
-        <li><label class='checkbox'><input type='checkbox' class='website' id='Shoppe' />
-            Shopee
-          </label></li>
-        <li><label class='checkbox'><input type='checkbox' class='website' id='Tiki' />
-            Tiki
-          </label></li>
-        <li><label class='checkbox'><input type='checkbox' class='website' id='Lazada' />
-            Lazada
-          </label></li>
-        <li><label class='checkbox'><input type='checkbox' class='website' id='Sendo' />
-            Sendo
-          </label></li>
-        <br />
-        <h6>Khuyến mãi</h6>
-        <li><label class='checkbox'><input type='checkbox' class='promotion' />
-            Free ship
-          </label></li>
-        <li><label class='checkbox'><input type='checkbox' class='promotion' />
-            Giảm giá trực tiếp
-          </label></li>
-        <li><label class='checkbox'><input type='checkbox' class='promotion' />
-            Sản phẩm tặng kèm
-          </label></li>
-
+        <li><input type='radio' name="website" value="1"/>
+          <label>Sendo</label>
+        </li>
+        <li><input type='radio' name="website" value="2"/>
+          <label>Tiki</label>
+        </li>
+        <li><input type='radio' name="website" value="3"/>
+          <label>Shopee</label>
+        </li>
+        <li><input type='radio' name="website" value="4"/>
+          <label>Lazada</label>
+        </li>
       </ul>
     </div>
     <!-- end side-bar -->
-    <div class='product-listing'>
+    <div class='product-listing col-10'>
       <div class='items'>
-        <div class=''>
           <div class='initial-content'>
             {{#each matchedItems}}
-            <div class='row'>
+            <div class='row item-matching'>
               <div class='col-4'>
                 <a class='deal-item' href={{url_key}} target='_blank' data-id='6836987'
                   data-title='Sổ Tay Từ Vựng 120 Trang (7.6 x 13) - Mẫu Ngẫu Nhiên' data-brand='' data-price='10000'
@@ -60,9 +49,16 @@
                   </div>
                 </a>
               </div>
-              <div class='col-8 my-5'>
-                <div class="top d-flex">
-                  <div class=''>
+              <div class='col-8 my-4 info-item d-flex flex-column justify-content-between'>
+                <div class="top d-flex justify-content-between">
+                  <div class="nameProduct">
+                    <a href={{url_key}} target='_blank'>
+                      <h5>
+                        {{name}}
+                      </h5>
+                    </a>
+                  </div>
+                  <div class='div-icon-market'>
                     {{#compare nguondulieu 1 operator="=="}}
                     <img class='icon-market' src='/image/img-product/sendo.jpeg' alt='' />
                     {{/compare}}
@@ -76,28 +72,18 @@
                     <img class='icon-market' src='/image/img-product/lazada.jpeg' alt='' />
                     {{/compare}}
                   </div>
-                  <div class="nameProduct">
-                    <a href={{url_key}} target='_blank'>
-                      {{name}}
-                    </a>
-                  </div>
                 </div>
-
-                <div class="mid">
-
-                </div>
-                <div class="bot d-flex">
-                  <div class='price-sale'>
-                    {{price}}
-                    ₫
-                  </div>
-                  <div class="rating">
-
-                  </div>
-                </div>
-                <div>
+                 
+                <div class="promotion d-flex flex-wrap">
                   {{#each promotion}}
-                   <div class="row promotion-div">
+                    <div class="">
+                      <div class="">
+                        <button class="button-promotion"> {{title}} </button>
+                      </div>
+                   </div>
+                  {{/each}}
+                  {{!-- {{#each promotion}}
+                    <div class="row promotion-div">
                       <div class="col-2">
                         <button class="button-promotion"> {{title}} </button>
                       </div>
@@ -106,7 +92,37 @@
                         <p style="font-size: 10px;">Mua {{countOfItemApply}} sản phẩm trở lên để áp dụng mã</p>
                       </div>
                    </div>
-                  {{/each}}
+                  {{/each}} --}}
+                </div>
+                
+                <div class="bottom d-flex justify-content-between">
+                  <div class='price-sale'>
+                    {{priceString}}
+                    ₫
+                  </div>
+                  <div class="rating">
+                    <div class="value-rating d-flex justify-content-center">
+                      <span class="text-center">{{avg_rating}}/5</span>
+                    </div>
+                    
+                    <div class="star-rating">
+                      <div class="back-stars">
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                          
+                        <div class="front-stars" style="width: {{star}}%">
+                          <i class="fa fa-star" aria-hidden="true"></i>
+                          <i class="fa fa-star" aria-hidden="true"></i>
+                          <i class="fa fa-star" aria-hidden="true"></i>
+                          <i class="fa fa-star" aria-hidden="true"></i>
+                          <i class="fa fa-star" aria-hidden="true"></i>
+                        </div>
+                      </div>
+                    </div>    
+                  </div>
                 </div>
               </div>
             </div>
@@ -116,7 +132,6 @@
 
           </div>
 
-        </div>
       </div>
     </div>
   </div>

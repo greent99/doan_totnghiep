@@ -30,12 +30,12 @@ cursor: pointer;
     background-color: #FFFFFF; 
     color: #0D5CB6;
     text-align: center;
-    display: inline-block;
-    font-size: 12px;
-    border-radius: 2px;
-    padding: 5px;
-    position: absolute;
+    font-size: 14px;
+    border-radius: 5px;
+    padding: 7px;
     height: 100%;
+    margin-right: 50px;
+    box-shadow: 2px 4px #dedede;
   }
 .price-sale {
     margin-top: 10px;

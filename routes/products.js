@@ -17,6 +17,12 @@ router.get('/', async function(req, res, next) {
     const nameCate = getNameCategory(cate) || `Kết quả tìm kiếm cho "${q}" - ${totalItem} kết quả`;
     const totalPage = Math.ceil(totalItem / pageSize);
     const items = await itemModel.getAll(q, page, pageSize, cate, webFilter, priceFilter);
+
+    for(matchedItem of matchedItems)
+    {
+        matchedItem.priceString = converPrice(matchedItem.price);
+    }
+    
     res.render('product', {
         nameCate: nameCate,
         cate: cate,
@@ -69,6 +75,12 @@ router.get('/:id', async function(req, res) {
         }
     }
     
+    for(matchedItem of matchedItems)
+    {
+        matchedItem.avg_rating = roundToOne(matchedItem.avg_rating);
+        matchedItem.star = matchedItem.avg_rating / 5 * 100;
+        matchedItem.priceString = converPrice(matchedItem.price);
+    }
 
     res.render('matchedProducts', {
         matchedItems: matchedItems,
@@ -103,6 +115,23 @@ function getNameCategory(idCate)
     }
 
     return;
+}
+
+function roundToOne(num)
+{
+    return +(Math.round(num + "e+1") + "e-1");
+}
+
+function converPrice(price)
+{
+    let tmp = price.toString();
+
+    for(let i = tmp.length - 3; i > 0; i = i - 3)
+    {
+        tmp = tmp.slice(0, i) + "." + tmp.slice(i, tmp.length);
+    }
+
+    return tmp;
 }
 
 module.exports = router;
