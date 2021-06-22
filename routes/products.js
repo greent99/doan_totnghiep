@@ -18,10 +18,14 @@ router.get('/', async function(req, res, next) {
     const totalPage = Math.ceil(totalItem / pageSize);
     const items = await itemModel.getAll(q, page, pageSize, cate, webFilter, priceFilter);
 
-    for(item of items)
+    if(items !== null)
     {
-        item.priceString = converPrice(item.price);
+        for(item of items)
+        {
+            item.priceString = converPrice(item.price);
+        }
     }
+
     
     res.render('product', {
         nameCate: nameCate,
@@ -36,8 +40,10 @@ router.get('/', async function(req, res, next) {
 });
 
 router.get('/:id', async function(req, res) {
+    const webFilter = req.query.webFilter || 0;
+    const order = req.query.order || 0;
     const item_id = req.params.id;
-    const matchedItems = await matchedProductModel.getListItemByIdMatch(item_id);
+    const matchedItems = await matchedProductModel.getListItemByIdMatch(item_id, order, webFilter);
     if(req.session.isAuth)
     {
         const user_id = req.session.authUser.id
@@ -49,41 +55,43 @@ router.get('/:id', async function(req, res) {
         }
         await user_itemModel.increment_view(user_id, item_id)
     }
-    
-    for(matchedItem of matchedItems)
+    if(matchedItems !== null)
     {
-        if(matchedItem.promotion.length > 0)
+        for(matchedItem of matchedItems)
         {
-            for(promotion of matchedItem.promotion)
+            matchedItem.avg_rating = roundToOne(matchedItem.avg_rating);
+            matchedItem.star = matchedItem.avg_rating / 5 * 100;
+            matchedItem.priceString = converPrice(matchedItem.price);
+
+            if(matchedItem.promotion.length > 0)
             {
-                let newPrice = matchedItem.price
-                let countOfItemApply = Math.ceil(promotion.min_order_amount / matchedItem.price)
-                if(promotion.type == "cart_fixed")
+                for(promotion of matchedItem.promotion)
                 {
-                    newPrice = newPrice - promotion.discount_amount
+                    let newPrice = matchedItem.price
+                    let countOfItemApply = Math.ceil(promotion.min_order_amount / matchedItem.price)
+                    if(promotion.type == "cart_fixed")
+                    {
+                        newPrice = newPrice - promotion.discount_amount
+                    }
+                    if(promotion.type == "by_percent")
+                    {
+                        let discount = promotion.discount_amount * newPrice / 100
+                        if(discount > promotion.max_order_amount)
+                            discount = promotion.max_order_amount
+                        newPrice = newPrice - discount
+                    }
+                    promotion.newPrice = newPrice
+                    promotion.countOfItemApply = countOfItemApply
                 }
-                if(promotion.type == "by_percent")
-                {
-                    let discount = promotion.discount_amount * newPrice / 100
-                    if(discount > promotion.max_order_amount)
-                        discount = promotion.max_order_amount
-                    newPrice = newPrice - discount
-                }
-                promotion.newPrice = newPrice
-                promotion.countOfItemApply = countOfItemApply
             }
         }
-    }
-    
-    for(matchedItem of matchedItems)
-    {
-        matchedItem.avg_rating = roundToOne(matchedItem.avg_rating);
-        matchedItem.star = matchedItem.avg_rating / 5 * 100;
-        matchedItem.priceString = converPrice(matchedItem.price);
     }
 
     res.render('matchedProducts', {
         matchedItems: matchedItems,
+        idMatch: item_id,
+        order: order,
+        webFilter: webFilter,
         helpers: {
             json: function(context) {
                 return JSON.stringify(context);

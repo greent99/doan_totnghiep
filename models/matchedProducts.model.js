@@ -3,8 +3,12 @@ const table_name = 'item'
 const promotion_table_name = "LuuPromotion"
 
 module.exports = {
-    async getListItemByIdMatch(id) {
-        const listItem = await db(table_name).where('id_match', id).orderBy('price').orderBy('WR', 'desc');
+    async getListItemByIdMatch(id, order, webFilter) {
+        order = order ? order : 0;
+        webFilter = webFilter ? webFilter : 0;
+        const listItem = await db(table_name).where('id_match', id).where(function () {
+            this.where('nguondulieu', webFilter).orWhere(webFilter == 0);
+        }).orderBy('price').orderBy('WR', 'desc');
         
         for(item of listItem)
         {

@@ -1,3 +1,39 @@
+{{#section 'js'}}
+<script>
+  var swiper = new Swiper(".mySwiper", {
+    slidesPerView: 4,
+    centeredSlides: false,
+  });
+</script>
+<script>
+  $(document).ready(function () {
+    let order = "{{order}}";
+    let webFilter = "{{webFilter}}";
+    $("input[name=order][value=" + order + "]").prop('checked', true);
+    $("input[name=website][value=" + webFilter + "]").prop('checked', true);
+
+    $('.filter-category li input').on('click', function(e){
+      let order = $('input[name=order]:checked').val();
+      let webFilter = $('input[name=website]:checked').val();
+      const idMatch = "{{idMatch}}"
+      order = order ? order : "{{order}}";
+      webFilter = webFilter ? webFilter : "{{webFilter}}";
+      let newUrl = `http://localhost:3000/products/${idMatch}?order=${order}&webFilter=${webFilter}`;
+      location.href = newUrl;
+    });
+
+    $('.head i').on('click', function(){
+      $("input[name=order][value=" + 0 + "]").prop('checked', true);
+      $("input[name=website][value=" + 0 + "]").prop('checked', true);
+
+      const idMatch = "{{idMatch}}"
+      let newUrl = `http://localhost:3000/products/${idMatch}`;
+      location.href = newUrl;
+    })
+  });
+</script>
+
+{{/section}}
 <div class='container'>
   <div class='row'>
     <div class='side-bar col-2'>
@@ -12,11 +48,11 @@
         </li>
        <li>
           <input type="radio" name="order" value="2">
-          <label>Giá tăng dần</label><br>
+          <label>Giá tăng dần</label>
         </li>
         <li>
-          <input type="radio" id="priceDes" name="order" value="3">
-          <label>Giá giảm dần</label><br>
+          <input type="radio" name="order" value="3">
+          <label>Giá giảm dần</label>
         </li>
         <br />
         <h6>Trang web</h6>
@@ -137,7 +173,7 @@
 </div>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js'></script>
 
-<script>jQuery.noConflict();</script>
+{{!-- <script>jQuery.noConflict();</script>
 <script>
   jQuery(function ($) {
     $(document).ready(function () {
@@ -237,11 +273,5 @@
   }); 
       });
   });
-</script>
+</script> --}}
 
-<script>
-  var swiper = new Swiper(".mySwiper", {
-    slidesPerView: 4,
-    centeredSlides: false,
-  });
-</script>
