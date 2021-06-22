@@ -4,7 +4,7 @@ const promotion_table_name = "LuuPromotion"
 
 module.exports = {
     async getListItemByIdMatch(id) {
-        const listItem = await db(table_name).where('id_match', id);
+        const listItem = await db(table_name).where('id_match', id).orderBy('price').orderBy('WR', 'desc');
         
         for(item of listItem)
         {
