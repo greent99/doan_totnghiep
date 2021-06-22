@@ -18,9 +18,9 @@ router.get('/', async function(req, res, next) {
     const totalPage = Math.ceil(totalItem / pageSize);
     const items = await itemModel.getAll(q, page, pageSize, cate, webFilter, priceFilter);
 
-    for(matchedItem of matchedItems)
+    for(item of items)
     {
-        matchedItem.priceString = converPrice(matchedItem.price);
+        item.priceString = converPrice(item.price);
     }
     
     res.render('product', {

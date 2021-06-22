@@ -74,14 +74,15 @@
                   </div>
                 </div>
                  
-                <div class="promotion d-flex flex-wrap">
-                  {{#each promotion}}
-                    <div class="">
-                      <div class="">
+                <div class="promotion mySwiper">
+                  <div class="swiper-wrapper">
+                    {{#each promotion}}
+                      <div class="swiper-slide">
                         <button class="button-promotion"> {{title}} </button>
                       </div>
-                   </div>
-                  {{/each}}
+                    {{/each}}
+                  </div>
+                  
                   {{!-- {{#each promotion}}
                     <div class="row promotion-div">
                       <div class="col-2">
@@ -237,5 +238,12 @@
     }
   }); 
       });
+  });
+</script>
+
+<script>
+  var swiper = new Swiper(".mySwiper", {
+    slidesPerView: 4,
+    centeredSlides: false,
   });
 </script>
