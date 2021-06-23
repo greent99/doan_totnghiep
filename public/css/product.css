@@ -57,3 +57,16 @@ cursor: pointer;
     overflow: hidden;
     position: relative;
 }
+
+/* The heart of the matter */
+.testimonial-group > .row {
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  .testimonial-group > .row > .col-sm-3 {
+    display: inline-block;
+    float: none;
+  }
+  
+  /* Decorations */
+  .col-sm-3-promotion { color: #fff; font-size: 48px; padding-bottom: 20px; padding-top: 18px; margin: 5px;}
