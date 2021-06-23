@@ -14,7 +14,8 @@ router.get('/', async function(req, res, next) {
     const pageSize = req.query.pageSize || 30;
     const q = req.query.q || '';
     const totalItem = await itemModel.getSizeAll(q, cate, webFilter);
-    const nameCate = getNameCategory(cate) || `Kết quả tìm kiếm cho "${q}" - ${totalItem} kết quả`;
+    const nameCate = getNameCategory(cate);
+    const titleSearch = (cate === 0 & q != '') ? `Kết quả tìm kiếm cho "${q}" - ${totalItem} kết quả` : (q== '') ? nameCate : `${nameCate} ** Kết quả tìm kiếm cho "${q}" - ${totalItem} kết quả`;
     const totalPage = Math.ceil(totalItem / pageSize);
     const items = await itemModel.getAll(q, page, pageSize, cate, webFilter, priceFilter);
 
@@ -28,7 +29,7 @@ router.get('/', async function(req, res, next) {
 
     
     res.render('product', {
-        nameCate: nameCate,
+        titleSearch: titleSearch,
         cate: cate,
         webFilter: webFilter,
         priceFilter: priceFilter,
