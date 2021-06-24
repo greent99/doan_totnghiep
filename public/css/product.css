@@ -69,4 +69,10 @@ cursor: pointer;
   }
   
   /* Decorations */
-  .col-sm-3-promotion { color: #fff; font-size: 48px; padding-bottom: 20px; padding-top: 18px; margin: 5px;}
+  .col-sm-3-promotion {
+        color: #fff;
+        font-size: 48px;
+        padding-bottom: 20px; 
+        padding-top: 5px; 
+        margin-right: 35px;
+    }

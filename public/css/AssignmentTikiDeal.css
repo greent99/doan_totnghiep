@@ -1003,3 +1003,14 @@ a:hover {
   }
  
 }
+
+.testtest::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+  background-color: rgb(197, 194, 194); /* or add it to the track */
+}
+
+/* Add a thumb */
+.testtest::-webkit-scrollbar-thumb {
+    background: #000;
+}
