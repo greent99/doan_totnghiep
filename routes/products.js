@@ -81,7 +81,11 @@ router.get('/:id', async function(req, res) {
                             discount = promotion.max_order_amount
                         newPrice = newPrice - discount
                     }
-                    promotion.newPrice = newPrice
+                    // cong thuc tinh phan nguyen trong js
+                    const d = (newPrice - newPrice%1000)/1000
+                    const r = newPrice - d * 1000
+                    str_newPrice = `${d}.${r}`
+                    promotion.newPrice = str_newPrice
                     promotion.countOfItemApply = countOfItemApply
                 }
             }

@@ -1,3 +1,6 @@
+{{#section 'css'}}
+
+{{/section}}
 {{#section 'js'}}
 <script>
   var swiper = new Swiper(".mySwiper", {
@@ -30,6 +33,10 @@
       let newUrl = `http://localhost:3000/products/${idMatch}`;
       location.href = newUrl;
     })
+
+    $('.example-popover').popover({
+      container: 'body'
+  })
   });
 </script>
 
@@ -109,10 +116,11 @@
                 </div>
                  
 
-                  <div class="container testimonial-group">
+                  <div class="container testimonial-group" >
                     <div class="row text-center flex-nowrap testtest"> 
                           {{#each promotion}}
-                            <div class="col-sm-3-promotion">
+                            <div class="col-sm-3-promotion" data-container="body"  data-toggle="popover" data-placement="top" title="Giá giảm chỉ còn {{newPrice}} đ"
+                  data-content="okeefdfdsf">
                               <button class="button-promotion"> {{title}} </button>
                             </div>
                           {{/each}}
