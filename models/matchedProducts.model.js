@@ -3,12 +3,20 @@ const table_name = 'item'
 const promotion_table_name = "LuuPromotion"
 
 module.exports = {
-    async getListItemByIdMatch(id, order, webFilter) {
+    async getListItemByIdMatch(id, order, webFilter, rating) {
         order = order ? order : 0;
+        order_str = 'asc'
+        if(order == 0)
+            order_str = 'asc'
+        else
+            order_str = order == 2 ? 'asc' : 'desc'
+        rating = rating ? rating : 0;
+        console.log(rating)
+        rating_str = rating == 1 ? 'asc' : 'desc'
         webFilter = webFilter ? webFilter : 0;
         let listItem = await db(table_name).where('id_match', id).where(function () {
             this.where('nguondulieu', webFilter).orWhere(webFilter == 0);
-        }).orderBy('price').orderBy('WR', 'desc');
+        }).orderBy('price', order_str).orderBy('WR', rating_str);
         
         for(item of listItem)
         {

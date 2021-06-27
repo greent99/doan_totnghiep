@@ -12,22 +12,28 @@
   $(document).ready(function () {
     let order = "{{order}}";
     let webFilter = "{{webFilter}}";
+    let rating = "{{rating}}"
+    console.log(rating)
     $("input[name=order][value=" + order + "]").prop('checked', true);
     $("input[name=website][value=" + webFilter + "]").prop('checked', true);
+    $("input[name=rating][value=" + rating + "]").prop('checked', true);
 
     $('.filter-category li input').on('click', function(e){
       let order = $('input[name=order]:checked').val();
       let webFilter = $('input[name=website]:checked').val();
+      let rating = $('input[name=rating]:checked').val();
       const idMatch = "{{idMatch}}"
       order = order ? order : "{{order}}";
       webFilter = webFilter ? webFilter : "{{webFilter}}";
-      let newUrl = `http://localhost:3000/products/${idMatch}?order=${order}&webFilter=${webFilter}`;
+      rating = rating ? rating : "{{rating}}"
+      let newUrl = `http://localhost:3000/products/${idMatch}?order=${order}&webFilter=${webFilter}&rating=${rating}`;
       location.href = newUrl;
     });
 
     $('.head i').on('click', function(){
       $("input[name=order][value=" + 0 + "]").prop('checked', true);
       $("input[name=website][value=" + 0 + "]").prop('checked', true);
+      $("input[name=rating][value=" + 0 + "]").prop('checked', true);
 
       const idMatch = "{{idMatch}}"
       let newUrl = `http://localhost:3000/products/${idMatch}`;
@@ -75,6 +81,14 @@
         <li><input type='radio' name="website" value="4"/>
           <label>Lazada</label>
         </li>
+        <br />
+        <h6>Rating người dùng</h6>
+        <li><input type='radio' name="rating" value="1"/>
+          <label>Tăng dần</label>
+        </li>
+        <li><input type='radio' name="rating" value="2"/>
+          <label>Giảm dần</label>
+        </li>
       </ul>
     </div>
     <!-- end side-bar -->
@@ -119,7 +133,7 @@
                   <div class="container testimonial-group" >
                     <div class="row text-center flex-nowrap testtest"> 
                           {{#each promotion}}
-                            <div class="col-sm-3-promotion" data-container="body"  data-toggle="popover" data-placement="top" title="Giá giảm chỉ còn {{newPrice}} đ"
+                            <div class="col-sm-3-promotion" data-container="body"  data-toggle="popover" data-placement="top" title="Giá chỉ còn {{newPrice}}đ nếu mua {{countOfItemApply}} sản phẩm trở lên"
                   data-content="sao k hien">
                               <button class="button-promotion"> {{title}} </button>
                             </div>

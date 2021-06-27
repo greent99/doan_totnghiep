@@ -43,8 +43,9 @@ router.get('/', async function(req, res, next) {
 router.get('/:id', async function(req, res) {
     const webFilter = req.query.webFilter || 0;
     const order = req.query.order || 0;
+    const rating = req.query.rating || 2
     const item_id = req.params.id;
-    const matchedItems = await matchedProductModel.getListItemByIdMatch(item_id, order, webFilter);
+    const matchedItems = await matchedProductModel.getListItemByIdMatch(item_id, order, webFilter, rating);
     if(req.session.isAuth)
     {
         const user_id = req.session.authUser.id
@@ -95,6 +96,7 @@ router.get('/:id', async function(req, res) {
         idMatch: item_id,
         order: order,
         webFilter: webFilter,
+        rating: rating,
         helpers: {
             json: function(context) {
                 return JSON.stringify(context);
