@@ -55,7 +55,7 @@ router.get('/:id', async function(req, res) {
             await user_itemModel.add(new_user_item)
         }
         await user_itemModel.increment_view(user_id, item_id)
-    }
+    } 
     if(matchedItems !== null)
     {
         for(matchedItem of matchedItems)
@@ -81,10 +81,8 @@ router.get('/:id', async function(req, res) {
                             discount = promotion.max_order_amount
                         newPrice = newPrice - discount
                     }
-                    // cong thuc tinh phan nguyen trong js
-                    const d = (newPrice - newPrice%1000)/1000
-                    const r = newPrice - d * 1000
-                    str_newPrice = `${d}.${r}`
+                    const str_newPrice = converPrice(newPrice)
+                    
                     promotion.newPrice = str_newPrice
                     promotion.countOfItemApply = countOfItemApply
                 }
