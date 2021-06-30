@@ -3,6 +3,16 @@
 {{/section}}
 {{#section 'js'}}
 <script>
+    $('.apply').on('click', function(e){
+      let id = e.target.id;
+      let promotion = $('.promotion'+ id);
+      let idItem = promotion.attr('id');
+      let newPrice = $('.newPrice').val();
+      $('#price' + idItem + ' .sale-price').html(newPrice+'₫');
+      $('#price' + idItem + ' .old-price').addClass('line-through');
+    })
+</script>
+<script>
   var swiper = new Swiper(".mySwiper", {
     slidesPerView: 4,
     centeredSlides: false,
@@ -13,7 +23,6 @@
     let order = "{{order}}";
     let webFilter = "{{webFilter}}";
     let rating = "{{rating}}"
-    console.log(rating)
     $("input[name=order][value=" + order + "]").prop('checked', true);
     $("input[name=website][value=" + webFilter + "]").prop('checked', true);
     $("input[name=rating][value=" + rating + "]").prop('checked', true);
@@ -133,18 +142,65 @@
                   <div class="container testimonial-group" >
                     <div class="row text-center flex-nowrap testtest"> 
                           {{#each promotion}}
-                            <div class="col-sm-3-promotion" data-container="body"  data-toggle="popover" data-placement="top" title="Giá chỉ còn {{newPrice}}đ nếu mua {{countOfItemApply}} sản phẩm trở lên"
+                          <input type="hidden" class="newPrice" value="{{newPrice}}">
+                            <div class="col-sm-3-promotion promotion-item" id="pro{{id}}" data-container="body"  data-toggle="popover" data-placement="top" title="Giá chỉ còn {{newPrice}}đ nếu mua {{countOfItemApply}} sản phẩm trở lên"
                   data-content="sao k hien">
-                              <button class="button-promotion"> {{title}} </button>
+                              <button type="button" id="{{../id}}" class="button-promotion promotion{{id}}" data-toggle="modal" data-target="#myModal{{id}}"> {{title}} </button>
+                            </div>  
+
+                            <div class="modal fade" id="myModal{{id}}">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                              
+                                <!-- Modal Header -->
+                                <div class="modal-header" style="background-color: aquamarine;">
+                                  <h5 class="modal-title">Chi tiết khuyến mãi</h5>
+                                  <button type="button" class="close" data-dismiss="modal">×</button>
+                                </div>
+                                
+                                <!-- Modal body -->
+                                {{#compare isPercent false operator="=="}}
+                                  <div class="modal-body" style="height: 55px; font-size: 18px; color:coral">
+                                    <b>{{title}} cho đơn hàng từ {{minOrderAmount}}₫</b>
+                                  </div>
+                                {{/compare}}
+                                {{#compare isPercent true operator="=="}}
+                                  <div class="modal-body" style="height: 55px; font-size: 18px; color:coral">
+                                     <b>{{title}} tối đa {{maxOrderAmount}} cho đơn hàng từ {{minOrderAmount}}₫</b>
+                                  </div>
+                                {{/compare}}
+                                  <div class="okok" style="text-align: left; padding-left: 18px">
+                                    Áp dụng từ ngày <b>{{start_date}}</b> đến ngày <b>{{expiry_date}}</b>
+                                  </div>
+                                
+                                <!-- Modal footer -->
+                                
+                                  {{#compare countOfItemApply 1 operator="=="}}
+                                  <div class="modal-footer">
+                                     <button type="button" id="{{id}}" class="btn btn-danger apply" data-dismiss="modal">Áp dụng</button>
+                                     </div>
+                                {{/compare}}
+                                  {{#compare countOfItemApply 1 operator="!="}}
+                                  <div class="modal-footer justify-content-between">
+                                  <span class="align-self-start"><i>*giá trị sản phẩm chưa đủ điều kiện</i></span>
+                                     <button type="button" id="{{id}}" class="btn btn-danger findMore" data-dismiss="modal">Tìm Thêm Sản Phẩm</button>
+                                     </div>
+                                {{/compare}}
+                                
+                              </div>
+                            </div>
                             </div>
                           {{/each}}
                     </div>
                   </div>
                 
                 <div class="bottom d-flex justify-content-between">
-                  <div class='price-sale'>
-                    {{priceString}}
-                    ₫
+                  <div class='price' id="price{{id}}">
+                    <span class="old-price" style="padding-right: 15px;">
+                      {{priceString}}₫
+                    </span> 
+                    <span class="sale-price">
+                    </span> 
                   </div>
                   <div class="rating">
                     <div class="value-rating d-flex justify-content-center">

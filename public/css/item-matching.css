@@ -11,7 +11,7 @@
     border-radius: 50%;
 }
 
-.item-matching .info-item .price-sale{
+.item-matching .info-item .price{
     font-size: 24px;
     color: rgb(119, 32, 32);
 }
@@ -79,3 +79,17 @@
   .bottom{
     padding-top: 10px
   }
+
+.detail-promotion{
+    position: fixed;
+    display: none;
+    height: 50px;
+    width: 150px;
+    background-color: greenyellow;
+}
+.show{
+    display: block!important;
+}
+.line-through{
+    text-decoration: line-through;
+}

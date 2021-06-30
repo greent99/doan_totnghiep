@@ -59,6 +59,7 @@ router.get('/:id', async function(req, res) {
     } 
     if(matchedItems !== null)
     {
+        const formatYmd = date => date.toISOString().slice(0, 10);
         for(matchedItem of matchedItems)
         {
             matchedItem.avg_rating = roundToOne(matchedItem.avg_rating);
@@ -69,23 +70,35 @@ router.get('/:id', async function(req, res) {
             {
                 for(promotion of matchedItem.promotion)
                 {
+                    let isPercent = false;
+                    let isValid = matchedItem.price <= promotion.min_order_amount ? true : false;
+
+
                     let newPrice = matchedItem.price
                     let countOfItemApply = Math.ceil(promotion.min_order_amount / matchedItem.price)
                     if(promotion.type == "cart_fixed")
                     {
+                        isPercent = false;
                         newPrice = newPrice - promotion.discount_amount
                     }
                     if(promotion.type == "by_percent")
                     {
+                        isPercent = true;
                         let discount = promotion.discount_amount * newPrice / 100
                         if(discount > promotion.max_order_amount)
                             discount = promotion.max_order_amount
                         newPrice = newPrice - discount
+                        promotion.maxOrderAmount = converPrice(promotion.max_order_amount);
                     }
                     const str_newPrice = converPrice(newPrice)
                     
                     promotion.newPrice = str_newPrice
                     promotion.countOfItemApply = countOfItemApply
+                    promotion.isValid = isValid;
+                    promotion.minOrderAmount = converPrice(promotion.min_order_amount);
+                    promotion.isPercent = isPercent;
+                    promotion.start_date = promotion.start_date.toLocaleDateString();
+                    promotion.expiry_date = promotion.expiry_date.toLocaleDateString();
                 }
             }
         }
