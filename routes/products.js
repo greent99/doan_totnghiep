@@ -1,5 +1,6 @@
 var express = require('express');
 const { route } = require('.');
+const categoryModel = require('../models/category.model');
 var router = express.Router();
 var itemModel = require('../models/item.model');
 var matchedProductModel = require('../models/matchedProducts.model')
@@ -9,21 +10,29 @@ const user_itemModel = require('../models/user_item.model')
 router.get('/', async function(req, res, next) {
     const webFilter = req.query.webFilter || 0;
     const priceFilter = req.query.priceFilter || 0;
+    const parent_cate = req.query.parent || null
     const cate = req.query.cate || 0;
     const page = req.query.page || 1;
     const pageSize = req.query.pageSize || 30;
     const q = req.query.q || '';
-    const totalItem = await itemModel.getSizeAll(q, cate, webFilter);
-    const nameCate = getNameCategory(cate);
+    console.log(parent_cate)
+    
+    const subCategory = await categoryModel.getSubCategory(parent_cate)
+    const parentCategory = await categoryModel.getById(parent_cate)
+    
+    const category = await categoryModel.getById(cate)
+
+    const nameCate = parentCategory ? parentCategory.name : ""
+    const totalItem = await itemModel.getSizeAll(q, category, webFilter);
     const titleSearch = (cate === 0 & q != '') ? `Kết quả tìm kiếm cho "${q}" - ${totalItem} kết quả` : (q== '') ? nameCate : `${nameCate} ** Kết quả tìm kiếm cho "${q}" - ${totalItem} kết quả`;
     const totalPage = Math.ceil(totalItem / pageSize);
-    const items = await itemModel.getAll(q, page, pageSize, cate, webFilter, priceFilter);
+    const items = await itemModel.getAll(q, page, pageSize, category, webFilter, priceFilter);
 
     if(items !== null)
     {
         for(item of items)
         {
-            item.priceString = converPrice(item.price);
+            item.priceString = converPrice(item.Price);
         }
     }
 
@@ -36,7 +45,9 @@ router.get('/', async function(req, res, next) {
         items: items,
         key: q,
         totalPage: totalPage,
-        current: page
+        current: page,
+        subCategory: subCategory,
+        parent_category: parent_cate
     });
 });
 
@@ -64,7 +75,7 @@ router.get('/:id', async function(req, res) {
         {
             matchedItem.avg_rating = roundToOne(matchedItem.avg_rating);
             matchedItem.star = matchedItem.avg_rating / 5 * 100;
-            matchedItem.priceString = converPrice(matchedItem.price);
+            matchedItem.priceString = converPrice(matchedItem.Price);
 
             if(matchedItem.promotion.length > 0)
             {

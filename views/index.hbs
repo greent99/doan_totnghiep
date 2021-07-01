@@ -43,39 +43,17 @@
     </div>
     <div class="row">
         <div class="container">
-            <div class="row icon">
-                <div class="col-2">
+            <div class="row">
+                {{#each categorys}}
+                <div class="col-3">
                     <div>
-                        <a href="http://localhost:3000/products?cate=1">
-                            <i class="fas fa-mobile-alt"></i>
+                        <a href="http://localhost:3000/products?parent={{id}}&cate={{id}}">
+                            <img src="{{icon}}" height="70px">
                         </a>
                     </div>
-                    <p>Điện thoại, laptop</p>
+                    <p>{{name}}</p>
                 </div>
-                <div class="col-2">
-                    <div>
-                        <a href="http://localhost:3000/products?cate=2">
-                            <i class="fas fa-keyboard"></i>
-                        </a>
-                    </div>
-                    <p>Phụ kiên, thiết bị số</p>
-                </div>
-                <div class="col-2">
-                    <div>
-                        <a href="http://localhost:3000/products?cate=3">
-                            <i class="fas fa-baby-carriage"></i>
-                        </a>
-                    </div>
-                    <p>Đồ chơi, mẹ và bé</p>
-                </div>
-                <div class="col-2">
-                    <div>
-                        <a href="http://localhost:3000/products?cate=4">
-                            <i class="fas fa-store"></i>
-                        </a>
-                    </div>
-                    <p>Hàng tiêu dùng</p>
-                </div>
+                {{/each}}
             </div>
         </div>
     </div>

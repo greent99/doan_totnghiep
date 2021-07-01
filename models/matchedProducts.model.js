@@ -21,7 +21,8 @@ module.exports = {
         for(item of listItem)
         {
             let currentDate = new Date()
-            const listPromotion = await db(promotion_table_name).where('shop_id', item.idShop).where('expiry_date', '>=', currentDate)
+            const listPromotion = await db(promotion_table_name).where('SpID', item.SpID)
+            // .where('expiry_date', '>=', currentDate)
             item.promotion = listPromotion
             
         }
