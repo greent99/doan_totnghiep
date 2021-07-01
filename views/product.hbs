@@ -1,8 +1,10 @@
 {{#section 'js'}}
 <script>
   $(document).ready(function () {
-
-    $('.filter-category li input').on('click', function(e){
+      let parent_id = $('#parentCategoryId').attr('data-id')
+      
+      $('.filter-category li input').on('click', function(e){
+      
       let cate = $('input[name=category]:checked').val();
       let webFilter = $('input[name=website]:checked').val();
       let priceFilter = $('input[name=price]:checked').val();
@@ -13,11 +15,12 @@
       webFilter = webFilter ? webFilter : "{{webFilter}}";
       priceFilter = priceFilter ? priceFilter : "{{priceFilter}}";
 
-      let newUrl = `http://localhost:3000/products?cate=${cate}&webFilter=${webFilter}&priceFilter=${priceFilter}&q=${key}&page=1`;
+      let newUrl = `/products?parent=${parent_id}&cate=${cate}&webFilter=${webFilter}&priceFilter=${priceFilter}&q=${key}&page=1`;
       location.href = newUrl;
     });
 
     $('.pagination').each(function () {
+      
       const webFilter = "{{webFilter}}"
       const priceFilter = "{{priceFilter}}"
       const key = "{{key}}"
@@ -82,7 +85,7 @@
       $("input[name=price][value=" + 0 + "]").prop('checked', true);
 
       const key = "{{key}}"
-      let newUrl = `http://localhost:3000/products?cate=0&webFilter=0&priceFilter=0&q=${key}&page=1`;
+      let newUrl = `http://localhost:3000/products?parent=0&cate=0&webFilter=0&priceFilter=0&q=${key}&page=1`;
       location.href = newUrl;
     })
   })
@@ -98,28 +101,13 @@
   <div class='row'>
     <!-- side-bar -->
     <!-- side-bar -->
+    <p id="parentCategoryId" data-id={{parent_category}} hidden></p>
     <div class='side-bar col-2'>
       <div class='head d-flex justify-content-around'>
         <h5>Bộ lọc tìm kiếm</h5>
         <i class="fas fa-sync-alt mt-2" data-toggle="tooltip" data-placement="right" title="Reset"></i>
       </div>
       <ul class='filter-category'>
-
-        <h6>Danh Mục</h6>
-
-        <li><input type='radio' id="priceAsc" name="category" value="1"/>
-          <label>Điênh thoại, laptop</label>
-        </li>
-        <li><input type='radio' id="priceAsc" name="category" value="2"/>
-          <label>Phụ kiện, thiết bị số</label>
-        </li>
-        <li><input type='radio' id="priceAsc" name="category" value="3"/>
-          <label>Đồ chơi, mẹ và bé</label>
-        </li>
-        <li><input type='radio' id="priceAsc" name="category" value="4"/>
-          <label>Hàng tiêu dùng</label>
-        </li>
-        <br />
         <h6>Trang web</h6>
         <li><input type='radio' id="priceAsc" name="website" value="1"/>
           <label>Sendo</label>
@@ -143,8 +131,15 @@
           <input type="radio" id="priceDes" name="price" value="2">
           <label for="priceDes">Giảm dần</label><br>
         </li>
-
+        <br />
+      <h6>Danh Mục</h6>
+        {{#each subCategory}}
+        <li><input type='radio' id="priceAsc" name="category" value="{{id}}"/>
+          <label>{{name}}</label>
+        </li>
+        {{/each}}
       </ul>
+      
     </div>
     <!-- end side-bar -->
 
@@ -157,23 +152,24 @@
               {{!-- <div class='discount-badge'>
                 47%
               </div> --}}
-              <img class='lazy' style='display: inline;' src='{{images}}' />
+              <img class='lazy' style='display: inline;' src='{{Image}}' />
             </div>
+      
             <div class='title d-flex'>
-              {{#compare nguondulieu 1 operator="=="}}
+              {{#compare NguonDuLieu 1 operator="=="}}
               <img class='icon-market' src='/image/img-product/sendo.jpeg' alt='' />
               {{/compare}}
-              {{#compare nguondulieu 2 operator="=="}}
+              {{#compare NguonDuLieu 2 operator="=="}}
               <img class='icon-market' src='/image/img-product/tiki.jpg' alt='' />
               {{/compare}}
-              {{#compare nguondulieu 3 operator="=="}}
+              {{#compare NguonDuLieu 3 operator="=="}}
               <img class='icon-market' src='/image/img-product/shopee.jpg' alt='' />
               {{/compare}}
-              {{#compare nguondulieu 4 operator="=="}}
+              {{#compare NguonDuLieu 4 operator="=="}}
               <img class='icon-market' src='/image/img-product/lazada.jpeg' alt='' />
               {{/compare}}
               <div class="nameProduct">
-                {{name}}
+                {{Name}}
               </div>
 
             </div>

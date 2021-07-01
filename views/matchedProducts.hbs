@@ -100,7 +100,7 @@
               <div class='col-4'>
                 <a class='deal-item' href={{url_key}} target='_blank' data-toggle="tooltip" title=" --> Đến nơi bán">
                   <div class='image'>
-                    <img class='lazy' style='display: inline;' src='{{images}}' />
+                    <img class='lazy' style='display: inline;' src='{{Image}}' />
                   </div>
                 </a>
               </div>
@@ -109,21 +109,21 @@
                   <div class="nameProduct">
                     <a href={{url_key}} target='_blank' data-toggle="tooltip" title=" --> Đến nơi bán">
                       <h5>
-                        {{name}}
+                        {{Name}}
                       </h5>
                     </a>
                   </div>
                   <div class='div-icon-market'>
-                    {{#compare nguondulieu 1 operator="=="}}
+                    {{#compare NguonDuLieu 1 operator="=="}}
                     <img class='icon-market' src='/image/img-product/sendo.jpeg' alt='' />
                     {{/compare}}
-                    {{#compare nguondulieu 2 operator="=="}}
+                    {{#compare NguonDuLieu 2 operator="=="}}
                     <img class='icon-market' src='/image/img-product/tiki.jpg' alt='' />
                     {{/compare}}
-                    {{#compare nguondulieu 3 operator="=="}}
+                    {{#compare NguonDuLieu 3 operator="=="}}
                     <img class='icon-market' src='/image/img-product/shopee.jpg' alt='' />
                     {{/compare}}
-                    {{#compare nguondulieu 4 operator="=="}}
+                    {{#compare NguonDuLieu 4 operator="=="}}
                     <img class='icon-market' src='/image/img-product/lazada.jpeg' alt='' />
                     {{/compare}}
                   </div>
