@@ -93,3 +93,14 @@
 .line-through{
     text-decoration: line-through;
 }
+.shop-logo img{
+    max-width: 40px;
+}
+.image-product-promotion img{
+    max-width: 100px;
+}
+.list-product-promotion-bought{
+    display:none;
+    cursor: pointer;
+    border-radius: 5%;
+}

@@ -3,6 +3,92 @@
 {{/section}}
 {{#section 'js'}}
 <script>
+   $('.list-product-promotion-bought').on('click', function(){
+
+   })
+</script>
+<script>
+  $('.modelFindMore').on('hidden.bs.modal', function(event) {
+    $('.checkbox').prop('checked', false);
+  });
+    $('.checkbox').change(function() {
+      let id = $(this).attr('id');
+      let selected = [];
+      console.log(id);
+      let minPrice = $('#minPrice').val()+'₫';
+      minPrice = +convertPriceToInt(minPrice);
+      let firstPrice = $('#firstPrice').val()+'₫';
+      let finalPrice = +convertPriceToInt(firstPrice);
+
+      console.log(minPrice);
+      console.log(finalPrice);
+      $('input:checked').each(function() {
+        selected.push($(this).attr('id'));
+      });
+
+      for(x of selected)
+      {
+        let price = $('#price-product-promotion' + x + ' p').html();
+        finalPrice += +convertPriceToInt(price)
+      }
+      $('.finalPrice').html(converPrice(finalPrice)+'₫')
+      console.log(selected);
+      if(finalPrice >= minPrice)
+      {
+        $('.applyFindMore').prop('disabled', false);
+      }
+
+      $('.applyFindMore').on('click', function(e){
+        $('.list-product-promotion-bought').html(`+${selected.length} sản phẩm`).show();
+        $('.finalPrice').html(firstPrice)
+        
+      });
+    });
+
+      $('.applyFindMore').on('click', function(e){
+      let id = e.target.id;
+      let promotion = $('.promotion'+ id);
+      let newPrice = 0;
+      let finalPrice = $('.finalPrice').html();
+      
+      finalPrice = +convertPriceToInt(finalPrice);
+      console.log(finalPrice);
+      let discount = $('.discount'+ id).val();
+      if(+discount < 100)
+      {
+        let maxOrder = $('#maxOrder').val();
+        newPrice = finalPrice - (+maxOrder);  
+      }
+      else
+      {
+        newPrice = finalPrice - (+discount);
+      }
+      let idItem = promotion.attr('id');
+      $('#price' + idItem + ' .sale-price').html(converPrice(newPrice)+'₫');
+      $('#price' + idItem + ' .old-price').html(converPrice(finalPrice)+'₫');
+      $('#price' + idItem + ' .old-price').addClass('line-through');
+    })
+
+  function converPrice(price)
+  {
+    let tmp = price.toString();
+
+    for(let i = tmp.length - 3; i > 0; i = i - 3)
+    {
+        tmp = tmp.slice(0, i) + "." + tmp.slice(i, tmp.length);
+    }
+
+    return tmp;
+  }
+
+  function convertPriceToInt(price)
+  {
+    price = price.substring(0,price.length-1);
+    price = price.replaceAll('.', '');
+    return price;
+  }
+</script>
+<script>
     $('.apply').on('click', function(e){
       let id = e.target.id;
       let promotion = $('.promotion'+ id);
@@ -10,6 +96,9 @@
       let newPrice = $('.newPrice'+id).val();
       $('#price' + idItem + ' .sale-price').html(newPrice+'₫');
       $('#price' + idItem + ' .old-price').addClass('line-through');
+    })
+    $('.findMore').on('click', function(e){
+
     })
 </script>
 <script>
@@ -143,6 +232,7 @@
                     <div class="row text-center flex-nowrap testtest"> 
                           {{#each promotion}}
 
+                          <input type="hidden" class="discount{{id}}" value="{{discount_amount}}">
                           <input type="hidden" class="newPrice{{id}}" value="{{newPrice}}">
                             <div class="col-sm-3-promotion promotion-item" id="pro{{id}}" data-container="body"  data-toggle="popover" data-placement="top" title="Click để biết thêm thông tin"
                   data-content="sao k hien">
@@ -190,7 +280,7 @@
                                   {{#compare countOfItemApply 1 operator="!="}}
                                   <div class="modal-footer justify-content-between">
                                   <span class="align-self-start"><i>*giá trị sản phẩm chưa đủ điều kiện</i></span>
-                                     <button type="button" id="{{id}}" class="btn btn-danger findMore" data-dismiss="modal">Tìm Thêm Sản Phẩm</button>
+                                     <button type="button" id="{{id}}" class="btn btn-danger findMore" data-dismiss="modal" data-toggle="modal" data-target="#modelFindMore{{id}}">Tìm Thêm Sản Phẩm</button>
                                      </div>
                                 {{/compare}}
                                 
@@ -198,11 +288,92 @@
                             </div>
 
                             </div>
+                            <div class="modal fade modelFindMore" id="modelFindMore{{id}}">
+                              <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                <div class="modal-content">
+                                
+                                  <!-- Modal Header -->
+                                  <div class="modal-header" style="background-color: aquamarine;">
+                                    <h5 class="modal-title">Chọn thêm sản phẩm để áp dụng mã khuyến mãi</h5>
+                                    <button type="button" class="close" data-dismiss="modal">×</button>
+                                  </div>
+                                  
+                                  <!-- Modal body -->
+                                  
+                                    <div class="modal-body" style="max-height: 520px;">
+                                      <div class="shop-info">
+                                        <div class="row align-items-end">
+                                          <div class="shop-logo icon-market">
+                                            <img src="{{../Seller_Logo}}" alt="">
+                                          </div>
+                                          <div class="shop-name " style=" font-size: 14px; color:rgb(71, 71, 71)">
+                                            <span>{{../Seller_Name}}</span>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="list-product-promotion">
+                                        <hr>
+                                        <div class="row">
+                                          <div class="col-1">
+                                            <input class="checkbox" id="1" type="checkbox">
+                                          </div>
+                                          <div class="col-4 image-product-promotion">
+                                            <img src="https://salt.tikicdn.com/cache/280x280/ts/product/92/75/ea/fa6d95e3fb1a69e9610177cd1ea02f03.png" alt="">
+                                          </div>
+                                          <div class="col-7 d-flex justify-content-around flex-column">
+                                            <div class="name-product-promotion">
+                                              name
+                                            </div>
+                                            <div class="price-product-promotion" id="price-product-promotion1">
+                                              <p>1000.000₫</p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                          <div class="col-1">
+                                            <input class="checkbox" id="2" type="checkbox">
+                                          </div>
+                                          <div class="col-4 image-product-promotion">
+                                            <img src="https://salt.tikicdn.com/cache/280x280/ts/product/92/75/ea/fa6d95e3fb1a69e9610177cd1ea02f03.png" alt="">
+                                          </div>
+                                          <div class="col-7 d-flex justify-content-around flex-column">
+                                            <div class="name-product-promotion">
+                                              name
+                                            </div>
+                                            <div class="price-product-promotion" id="price-product-promotion2">
+                                              <p>1000.000₫</p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        
+                                      </div>
+                                   
+                               
+                                    </div>
+                                  <!-- Modal footer -->
+                                  
+                                    {{#compare 1 1 operator="=="}}
+                                    <div class="modal-footer">
+                                      <input type="hidden" name="firstPrice" id="firstPrice" value={{../priceString}}>
+                                      <input type="hidden" name="minPrice" id="minPrice" value={{min_order_amount}}>
+                                      <input type="hidden" name="maxOrder" id="maxOrder" value={{max_order_amount}}>
+                                      <span><i>Tổng tiền: <b class="finalPrice">{{../priceString}}₫ </b></i></span>
+                                      <button type="button" id="{{id}}" class="btn btn-danger applyFindMore" data-dismiss="modal" disabled>Áp dụng</button>
+                                    </div>
+                                  {{/compare}}
+                                  
+                                </div>
+                              </div>
+                            </div>
                           {{/each}}
                     </div>
                   </div>
                 
                 <div class="bottom d-flex justify-content-between">
+                  <div class="list-product-promotion-bought" style="font-size: 16px; padding: 5px; border: 1px solid rgb(153, 71, 33)">
+
+                  </div>
                   <div class='price' id="price{{id}}">
                     <span class="old-price" style="padding-right: 15px;">
                       {{priceString}}₫
@@ -246,6 +417,9 @@
     </div>
   </div>
 </div>
+
+
+
 <script src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js'></script>
 
 {{!-- <script>jQuery.noConflict();</script>
