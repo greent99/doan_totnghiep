@@ -81,7 +81,7 @@ router.get('/:id', async function(req, res) {
             matchedItem.avg_rating = roundToOne(matchedItem.Avg_rating);
             matchedItem.star = matchedItem.avg_rating / 5 * 100;
             matchedItem.priceString = converPrice(matchedItem.Price);
-
+            matchedItem.totalRating = matchedItem.Star1 + matchedItem.Star2 + matchedItem.Star3 + matchedItem.Star4 + matchedItem.Star5
             if(matchedItem.promotion.length > 0)
             {
                 
