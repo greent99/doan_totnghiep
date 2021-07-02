@@ -4,25 +4,52 @@
 {{#section 'js'}}
 <script>
    $('.list-product-promotion-bought').on('click', function(){
+     itemSelected = itemSelected.filter(x => selected.includes(x.id.toString()));
+    let id_pro_promotion = $(this).attr('id');
+    let idItemShow = id_pro_promotion.substring(29, id_pro_promotion.length);
+    let listCheck = listSeletedItem.filter(x => x.id == idItemShow);
 
+    let html = "";
+    for(item of listCheck[0].list){
+      html +=`
+              <hr>  
+                <div class="row">
+             
+                  <div class="col-4 image-product-promotion">         
+                    <img src="${item.Image}" alt="">        
+                  </div>           
+                  <div class="col-8 d-flex justify-content-around flex-column">        
+                    <div class="name-product-promotion nameProduct" data-toggle="popover" data-placement="top" title="${item.Name}">       
+                      ${item.Name}          
+                    </div>   
+                    <div class="price-product-promotion" id="price-product-promotion${item.id}">     
+                      <p>${converPrice(item.Price)}₫</p>            
+                    </div>    
+                  </div>
+                </div>
+       `
+    }
+    $('.list-product-show').html(html);
    })
 </script>
 <script>
+  var selected = [];
+  listSeletedItem = [];
+  var itemSelected = [];
   $('.modelFindMore').on('hidden.bs.modal', function(event) {
     $('.checkbox').prop('checked', false);
   });
-    $('.checkbox').change(function() {
+    $("body").delegate('.checkbox', 'change', function() {
       let id = $(this).attr('id');
-      let selected = [];
-      console.log(id);
+      selected = []
       let minPrice = $('#minPrice').val()+'₫';
       minPrice = +convertPriceToInt(minPrice);
       let firstPrice = $('#firstPrice').val()+'₫';
       let finalPrice = +convertPriceToInt(firstPrice);
+      console.log(id);
 
-      console.log(minPrice);
-      console.log(finalPrice);
       $('input:checked').each(function() {
+
         selected.push($(this).attr('id'));
       });
 
@@ -32,42 +59,43 @@
         finalPrice += +convertPriceToInt(price)
       }
       $('.finalPrice').html(converPrice(finalPrice)+'₫')
-      console.log(selected);
+
       if(finalPrice >= minPrice)
       {
         $('.applyFindMore').prop('disabled', false);
       }
-
-      $('.applyFindMore').on('click', function(e){
-        $('.list-product-promotion-bought').html(`+${selected.length} sản phẩm`).show();
-        $('.finalPrice').html(firstPrice)
-        
-      });
     });
 
       $('.applyFindMore').on('click', function(e){
-      let id = e.target.id;
-      let promotion = $('.promotion'+ id);
-      let newPrice = 0;
-      let finalPrice = $('.finalPrice').html();
-      
-      finalPrice = +convertPriceToInt(finalPrice);
-      console.log(finalPrice);
-      let discount = $('.discount'+ id).val();
-      if(+discount < 100)
-      {
-        let maxOrder = $('#maxOrder').val();
-        newPrice = finalPrice - (+maxOrder);  
-      }
-      else
-      {
-        newPrice = finalPrice - (+discount);
-      }
-      let idItem = promotion.attr('id');
-      $('#price' + idItem + ' .sale-price').html(converPrice(newPrice)+'₫');
-      $('#price' + idItem + ' .old-price').html(converPrice(finalPrice)+'₫');
-      $('#price' + idItem + ' .old-price').addClass('line-through');
-    })
+        let id = e.target.id;
+        let promotion = $('.promotion'+ id);
+        let newPrice = 0;
+        let finalPrice = $('.finalPrice').html();
+        let firstPrice = $('#firstPrice').val()+'₫';
+        finalPrice = +convertPriceToInt(finalPrice);
+        let discount = $('.discount'+ id).val();
+        if(+discount < 100)
+        {
+          let maxOrder = $('#maxOrder').val();
+          newPrice = finalPrice - (+maxOrder);  
+        }
+        else
+        {
+          newPrice = finalPrice - (+discount);
+        }
+        itemSelected = itemSelected.filter(x => selected.includes(x.id.toString()));
+        listSeletedItem.push({
+          id: idItem,
+          list: itemSelected
+        })
+
+        //let idItem = promotion.attr('id');
+        $('#list-product-promotion-bought'+idItem).html(`+${selected.length} sản phẩm`).show();
+        $('#price' + idItem + ' .sale-price').html(converPrice(newPrice)+'₫');
+        $('#price' + idItem + ' .old-price').html(converPrice(finalPrice)+'₫');
+        $('#price' + idItem + ' .old-price').addClass('line-through');
+        $('.finalPrice').html(firstPrice)
+      });
 
   function converPrice(price)
   {
@@ -89,16 +117,58 @@
   }
 </script>
 <script>
+  var idItem = 0;
+    $('.button-promotion').on('click', function(){
+      idItem = $(this).attr('id');
+      itemSelected = [];
+    })
+
     $('.apply').on('click', function(e){
+      $('#list-product-promotion-bought'+idItem).hide();
       let id = e.target.id;
-      let promotion = $('.promotion'+ id);
-      let idItem = promotion.attr('id');
+      //let promotion = $('.promotion'+ id);
+      //let idItem = promotion.attr('id');
+      let firstPrice = $('#firstPrice').val()+'₫';
       let newPrice = $('.newPrice'+id).val();
       $('#price' + idItem + ' .sale-price').html(newPrice+'₫');
       $('#price' + idItem + ' .old-price').addClass('line-through');
+      $('#price' + idItem + ' .old-price').html(firstPrice);
     })
     $('.findMore').on('click', function(e){
-
+      let idShop = $('.idShop').attr('id');
+      let minPrice = $('.minPrice').val();
+      $.ajax({
+       method: 'POST',
+       url: 'http://localhost:3000/products',
+       data: {idShop: +idShop, minPrice: +minPrice}
+     }).done(function(data){
+       let html = '';
+       itemSelected = data;
+       for(item of data)
+       {
+        html +=`
+              <hr>  
+                <div class="row">
+                  <div class="col-1">
+                    <input class="checkbox" id="${item.id}" type="checkbox">          
+                  </div>              
+                  <div class="col-4 image-product-promotion">         
+                    <img src="${item.Image}" alt="">        
+                  </div>           
+                  <div class="col-7 d-flex justify-content-around flex-column">        
+                    <div class="name-product-promotion nameProduct" data-toggle="popover" data-placement="top" title="${item.Name}">       
+                      ${item.Name}          
+                    </div>   
+                    <div class="price-product-promotion" id="price-product-promotion${item.id}">     
+                      <p>${converPrice(item.Price)}₫</p>            
+                    </div>    
+                  </div>
+                </div>
+       `
+       }
+        
+       $('.list-product-promotion').html(html);
+     });
     })
 </script>
 <script>
@@ -205,6 +275,7 @@
               <div class='col-8 my-4 info-item d-flex flex-column justify-content-between'>
                 <div class="top d-flex justify-content-between">
                   <div class="nameProduct">
+                    <input type="hidden" class="idShop" id = "{{SpID}}" value={{SpID}}>
                     <a href={{Url_key}} target='_blank' data-toggle="tooltip" title=" --> Đến nơi bán">
                       <h5>
                         {{Name}}
@@ -232,10 +303,11 @@
                     <div class="row text-center flex-nowrap testtest"> 
                           {{#each promotion}}
 
+                          <input type="hidden" class="minPrice" value="{{minPrice}}">
                           <input type="hidden" class="discount{{id}}" value="{{discount_amount}}">
                           <input type="hidden" class="newPrice{{id}}" value="{{newPrice}}">
                             <div class="col-sm-3-promotion promotion-item" id="pro{{id}}" data-container="body"  data-toggle="popover" data-placement="top" title="Click để biết thêm thông tin"
-                  data-content="sao k hien">
+                              data-content="sao k hien">
                               <button type="button" id="{{../id}}" class="button-promotion promotion{{id}}" data-toggle="modal" data-target="#myModal{{id}}"> {{title}} </button>
                             </div>  
 
@@ -312,48 +384,13 @@
                                         </div>
                                       </div>
                                       <div class="list-product-promotion">
-                                        <hr>
-                                        <div class="row">
-                                          <div class="col-1">
-                                            <input class="checkbox" id="1" type="checkbox">
-                                          </div>
-                                          <div class="col-4 image-product-promotion">
-                                            <img src="https://salt.tikicdn.com/cache/280x280/ts/product/92/75/ea/fa6d95e3fb1a69e9610177cd1ea02f03.png" alt="">
-                                          </div>
-                                          <div class="col-7 d-flex justify-content-around flex-column">
-                                            <div class="name-product-promotion">
-                                              name
-                                            </div>
-                                            <div class="price-product-promotion" id="price-product-promotion1">
-                                              <p>1000.000₫</p>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <hr>
-                                        <div class="row">
-                                          <div class="col-1">
-                                            <input class="checkbox" id="2" type="checkbox">
-                                          </div>
-                                          <div class="col-4 image-product-promotion">
-                                            <img src="https://salt.tikicdn.com/cache/280x280/ts/product/92/75/ea/fa6d95e3fb1a69e9610177cd1ea02f03.png" alt="">
-                                          </div>
-                                          <div class="col-7 d-flex justify-content-around flex-column">
-                                            <div class="name-product-promotion">
-                                              name
-                                            </div>
-                                            <div class="price-product-promotion" id="price-product-promotion2">
-                                              <p>1000.000₫</p>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        
+                  
                                       </div>
                                    
                                
                                     </div>
                                   <!-- Modal footer -->
                                   
-                                    {{#compare 1 1 operator="=="}}
                                     <div class="modal-footer">
                                       <input type="hidden" name="firstPrice" id="firstPrice" value={{../priceString}}>
                                       <input type="hidden" name="minPrice" id="minPrice" value={{min_order_amount}}>
@@ -361,7 +398,6 @@
                                       <span><i>Tổng tiền: <b class="finalPrice">{{../priceString}}₫ </b></i></span>
                                       <button type="button" id="{{id}}" class="btn btn-danger applyFindMore" data-dismiss="modal" disabled>Áp dụng</button>
                                     </div>
-                                  {{/compare}}
                                   
                                 </div>
                               </div>
@@ -371,9 +407,12 @@
                   </div>
                 
                 <div class="bottom d-flex justify-content-between">
-                  <div class="list-product-promotion-bought" style="font-size: 16px; padding: 5px; border: 1px solid rgb(153, 71, 33)">
+                  {{!-- <button type="button" data-toggle="modal" data-target="#modalShow"> --}}
+                  <div class="list-product-promotion-bought" id="list-product-promotion-bought{{id}}" style="font-size: 16px; padding: 5px; border: 1px solid rgb(153, 71, 33)" data-toggle="modal" data-target="#modalShow">
 
                   </div>
+                  {{!-- </button> --}}
+
                   <div class='price' id="price{{id}}">
                     <span class="old-price" style="padding-right: 15px;">
                       {{priceString}}₫
@@ -418,6 +457,32 @@
   </div>
 </div>
 
+<div class="modal fade modalShow" id="modalShow">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: aquamarine;">
+        <h5 class="modal-title">Danh sách sản phẩm đã chọn</h5>
+        <button type="button" class="close" data-dismiss="modal">×</button>
+      </div>
+      
+      <!-- Modal body -->
+      
+        <div class="modal-body" style="max-height: 520px;">
+          <div class="list-product-show">
+
+          </div>
+        </div>
+      <!-- Modal footer -->
+      
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal" >Đóng</button>
+        </div>
+      
+    </div>
+  </div>
+</div>
 
 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js'></script>

@@ -30,4 +30,8 @@ module.exports = {
         return listItem;
     },
 
+    async getListProductInShop(idShop, minPrice){
+        const listProduct = await db.raw(`select * from Item where SpID = ${idShop} and Price >= ${minPrice} order by Price`)
+        return listProduct;
+    }
 }
