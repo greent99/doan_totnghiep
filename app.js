@@ -7,7 +7,7 @@ require('dotenv').config();
 var app = express();
 
 // view engine setup
-require('./middlewares/View')(app);
+require('./middlewares/view')(app);
 
 app.use(logger('dev'));
 app.use(express.json());
