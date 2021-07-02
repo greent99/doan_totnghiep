@@ -85,7 +85,7 @@
       $("input[name=price][value=" + 0 + "]").prop('checked', true);
 
       const key = "{{key}}"
-      let newUrl = `http://localhost:3000/products?parent=0&cate=0&webFilter=0&priceFilter=0&q=${key}&page=1`;
+      let newUrl = `/products?parent=0&cate=0&webFilter=0&priceFilter=0&q=${key}&page=1`;
       location.href = newUrl;
     })
   })
@@ -147,7 +147,7 @@
       <div class='items'>
         <div class='row'>
           {{#each items}}
-          <a class='col-4 deal-item' href='http://localhost:3000/products/{{id_match}}' data-id='6836987'>
+          <a class='col-4 deal-item' href='/products/{{id_match}}' data-id='6836987'>
             <div class='image'>
               {{!-- <div class='discount-badge'>
                 47%
