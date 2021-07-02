@@ -16,13 +16,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //session
-require('./middlewares/Session')(app);
+require('./middlewares/session')(app);
 
 require('./middlewares/local')(app);
 
 //router
 require('./middlewares/routes')(app);
 
-require('./middlewares/ErrorHandler')(app);
+require('./middlewares/errorHandler')(app);
 
 module.exports = app;
