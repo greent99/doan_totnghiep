@@ -98,7 +98,7 @@
             {{#each matchedItems}}
             <div class='row item-matching'>
               <div class='col-4'>
-                <a class='deal-item' href={{url_key}} target='_blank' data-toggle="tooltip" title=" --> Đến nơi bán">
+                <a class='deal-item' href={{Url_key}} target='_blank' data-toggle="tooltip" title=" --> Đến nơi bán">
                   <div class='image'>
                     <img class='lazy' style='display: inline;' src='{{Image}}' />
                   </div>
@@ -107,7 +107,7 @@
               <div class='col-8 my-4 info-item d-flex flex-column justify-content-between'>
                 <div class="top d-flex justify-content-between">
                   <div class="nameProduct">
-                    <a href={{url_key}} target='_blank' data-toggle="tooltip" title=" --> Đến nơi bán">
+                    <a href={{Url_key}} target='_blank' data-toggle="tooltip" title=" --> Đến nơi bán">
                       <h5>
                         {{Name}}
                       </h5>
@@ -134,7 +134,7 @@
                     <div class="row text-center flex-nowrap testtest"> 
                           {{#each promotion}}
                             <div class="col-sm-3-promotion" data-container="body"  data-toggle="popover" data-placement="top" title="Giá chỉ còn {{newPrice}}đ nếu mua {{countOfItemApply}} sản phẩm trở lên"
-                  data-content="sao k hien">
+                  >
                               <button class="button-promotion"> {{title}} </button>
                             </div>
                           {{/each}}
