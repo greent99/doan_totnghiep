@@ -13,8 +13,9 @@ router.get('/', async function(req, res, next) {
     const parent_cate = req.query.parent || null
     const subCategory = await categoryModel.getSubCategory(parent_cate)
     const parentCategory = await categoryModel.getById(parent_cate)
-
-    const cate = req.query.cate || subCategory[0].id;
+    let cate = req.query.cate || 0
+    if(subCategory)
+        cate = req.query.cate || subCategory[0].id;
     const page = req.query.page || 1;
     const pageSize = req.query.pageSize || 30;
     const q = req.query.q || '';
