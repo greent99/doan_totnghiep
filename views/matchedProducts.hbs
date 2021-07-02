@@ -7,7 +7,7 @@
       let id = e.target.id;
       let promotion = $('.promotion'+ id);
       let idItem = promotion.attr('id');
-      let newPrice = $('.newPrice').val();
+      let newPrice = $('.newPrice'+id).val();
       $('#price' + idItem + ' .sale-price').html(newPrice+'₫');
       $('#price' + idItem + ' .old-price').addClass('line-through');
     })
@@ -143,8 +143,8 @@
                     <div class="row text-center flex-nowrap testtest"> 
                           {{#each promotion}}
 
-                          <input type="hidden" class="newPrice" value="{{newPrice}}">
-                            <div class="col-sm-3-promotion promotion-item" id="pro{{id}}" data-container="body"  data-toggle="popover" data-placement="top" title="Giá chỉ còn {{newPrice}}đ nếu mua {{countOfItemApply}} sản phẩm trở lên"
+                          <input type="hidden" class="newPrice{{id}}" value="{{newPrice}}">
+                            <div class="col-sm-3-promotion promotion-item" id="pro{{id}}" data-container="body"  data-toggle="popover" data-placement="top" title="Click để biết thêm thông tin"
                   data-content="sao k hien">
                               <button type="button" id="{{../id}}" class="button-promotion promotion{{id}}" data-toggle="modal" data-target="#myModal{{id}}"> {{title}} </button>
                             </div>  
@@ -170,10 +170,16 @@
                                      <b>{{title}} tối đa {{maxOrderAmount}} cho đơn hàng từ {{minOrderAmount}}₫</b>
                                   </div>
                                 {{/compare}}
+                                {{#compare start_date "1/1/2001" operator="=="}}
+                                  <div class="okok" style="text-align: left; padding-left: 18px">
+                                    Áp dụng từ hôm nay đến ngày <b>{{expiry_date}}</b>
+                                  </div>
+                                {{/compare}}
+                                {{#compare start_date "1/1/2001" operator="!="}}
                                   <div class="okok" style="text-align: left; padding-left: 18px">
                                     Áp dụng từ ngày <b>{{start_date}}</b> đến ngày <b>{{expiry_date}}</b>
                                   </div>
-                                
+                                {{/compare}}
                                 <!-- Modal footer -->
                                 
                                   {{#compare countOfItemApply 1 operator="=="}}

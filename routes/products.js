@@ -5,6 +5,7 @@ var router = express.Router();
 var itemModel = require('../models/item.model');
 var matchedProductModel = require('../models/matchedProducts.model')
 const user_itemModel = require('../models/user_item.model')
+const timestampToDate = require('timestamp-to-date');
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
@@ -113,9 +114,18 @@ router.get('/:id', async function(req, res) {
                     promotion.isPercent = isPercent;
                     if(matchedItem.NguonDuLieu == 1)
                     {
-                        promotion.start_date = promotion.start_date.toLocaleDateString();
-                        promotion.expiry_date = promotion.expiry_date.toLocaleDateString();
+                        promotion.start_date = new Date(+promotion.start_date * 1000)
+                        promotion.expiry_date = new Date(+promotion.expiry_date * 1000);
+                        promotion.title = getTitleSendo(promotion);
                     }
+                    else
+                    {
+                        promotion.start_date = new Date(promotion.start_date)
+                        promotion.expiry_date = new Date(promotion.expiry_date);
+                    }
+         
+                    promotion.start_date = promotion.start_date.toLocaleDateString();
+                    promotion.expiry_date = promotion.expiry_date.toLocaleDateString();
                 }
             }
         }
@@ -151,6 +161,20 @@ function converPrice(price)
     }
 
     return tmp;
+}
+
+function getTitleSendo(promotion)
+{
+    if(promotion.type == "cart_fixed")
+    {
+        discount = +promotion.discount_amount/1000;
+        return `Giảm ${discount}K`;
+    }
+    else
+    {
+        return `Giảm ${promotion.discount_amount}%`;
+    }
+
 }
 
 module.exports = router;

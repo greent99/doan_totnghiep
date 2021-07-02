@@ -22,6 +22,7 @@
     "morgan": "~1.9.1",
     "mssql": "^7.1.0",
     "nodemon": "^2.0.7",
-    "tedious": "^11.0.8"
+    "tedious": "^11.0.8",
+    "timestamp-to-date": "^1.1.0"
   }
 }
