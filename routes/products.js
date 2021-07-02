@@ -29,6 +29,7 @@ router.get('/', async function(req, res, next) {
 
     const nameCate = parentCategory ? parentCategory.name : ""
     const totalItem = await itemModel.getSizeAll(q, category, webFilter);
+
     const titleSearch = (cate === 0 & q != '') ? `Kết quả tìm kiếm cho "${q}" - ${totalItem} kết quả` : (q== '') ? nameCate : `${nameCate} ** Kết quả tìm kiếm cho "${q}" - ${totalItem} kết quả`;
     const totalPage = Math.ceil(totalItem / pageSize);
     const items = await itemModel.getAll(q, page, pageSize, category, webFilter, priceFilter);
@@ -81,7 +82,7 @@ router.get('/:id', async function(req, res) {
             matchedItem.avg_rating = roundToOne(matchedItem.Avg_rating);
             matchedItem.star = matchedItem.avg_rating / 5 * 100;
             matchedItem.priceString = converPrice(matchedItem.Price);
-
+            matchedItem.totalRating = matchedItem.Star1 + matchedItem.Star2 + matchedItem.Star3 + matchedItem.Star4 + matchedItem.Star5
             if(matchedItem.promotion.length > 0)
             {
                 

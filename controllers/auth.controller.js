@@ -18,7 +18,9 @@ module.exports = {
             }
             userModel.setPassword(password, user)
             
-            let newUser = await userModel.add(user)
+            let newUserId = await userModel.add(user)
+            newUser = await userModel.getById(newUserId)
+            console.log(newUser)
             if(newUser)
             {
               req.session.isAuth = true
@@ -55,6 +57,7 @@ module.exports = {
         
             req.session.isAuth = true
             req.session.authUser = user
+            
             let url = req.session.retUrl || '/';
             res.redirect(url);
         } catch (err) 

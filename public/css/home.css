@@ -43,3 +43,10 @@ color: grey;
 .icon div i {
     font-size: 70px;
 }
+
+.category-index {
+    border-radius: 25px;
+    
+     padding: 10px;
+     width: 20%
+}
