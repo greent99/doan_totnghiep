@@ -7,7 +7,6 @@ var router = express.Router();
 router.get('/',async function(req, res, next) {
   let list_recommend = []
   const categorys = await categoryModel.getByLevel(1)
-  console.log(categorys)
  
   if(req.session.isAuth)
   {
