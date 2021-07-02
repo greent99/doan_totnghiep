@@ -11,14 +11,16 @@ router.get('/', async function(req, res, next) {
     const webFilter = req.query.webFilter || 0;
     const priceFilter = req.query.priceFilter || 0;
     const parent_cate = req.query.parent || null
-    const cate = req.query.cate || 0;
+    const subCategory = await categoryModel.getSubCategory(parent_cate)
+    const parentCategory = await categoryModel.getById(parent_cate)
+
+    const cate = req.query.cate || subCategory[0].id;
     const page = req.query.page || 1;
     const pageSize = req.query.pageSize || 30;
     const q = req.query.q || '';
     console.log(parent_cate)
     
-    const subCategory = await categoryModel.getSubCategory(parent_cate)
-    const parentCategory = await categoryModel.getById(parent_cate)
+    
     
     const category = await categoryModel.getById(cate)
 
@@ -54,7 +56,7 @@ router.get('/', async function(req, res, next) {
 router.get('/:id', async function(req, res) {
     const webFilter = req.query.webFilter || 0;
     const order = req.query.order || 0;
-    const rating = req.query.rating || 2
+    const rating = req.query.rating || 0
     const item_id = req.params.id;
     const matchedItems = await matchedProductModel.getListItemByIdMatch(item_id, order, webFilter, rating);
     if(req.session.isAuth)
@@ -73,20 +75,22 @@ router.get('/:id', async function(req, res) {
         const formatYmd = date => date.toISOString().slice(0, 10);
         for(matchedItem of matchedItems)
         {
-            matchedItem.avg_rating = roundToOne(matchedItem.avg_rating);
+            matchedItem.avg_rating = roundToOne(matchedItem.Avg_rating);
             matchedItem.star = matchedItem.avg_rating / 5 * 100;
             matchedItem.priceString = converPrice(matchedItem.Price);
 
             if(matchedItem.promotion.length > 0)
             {
+                
                 for(promotion of matchedItem.promotion)
                 {
+                    console.log(promotion)
                     let isPercent = false;
                     let isValid = matchedItem.price <= promotion.min_order_amount ? true : false;
 
 
-                    let newPrice = matchedItem.price
-                    let countOfItemApply = Math.ceil(promotion.min_order_amount / matchedItem.price)
+                    let newPrice = matchedItem.Price
+                    let countOfItemApply = Math.ceil(promotion.min_order_amount / matchedItem.Price)
                     if(promotion.type == "cart_fixed")
                     {
                         isPercent = false;
@@ -102,14 +106,16 @@ router.get('/:id', async function(req, res) {
                         promotion.maxOrderAmount = converPrice(promotion.max_order_amount);
                     }
                     const str_newPrice = converPrice(newPrice)
-                    
                     promotion.newPrice = str_newPrice
                     promotion.countOfItemApply = countOfItemApply
                     promotion.isValid = isValid;
                     promotion.minOrderAmount = converPrice(promotion.min_order_amount);
                     promotion.isPercent = isPercent;
-                    promotion.start_date = promotion.start_date.toLocaleDateString();
-                    promotion.expiry_date = promotion.expiry_date.toLocaleDateString();
+                    if(matchedItem.NguonDuLieu == 1)
+                    {
+                        promotion.start_date = promotion.start_date.toLocaleDateString();
+                        promotion.expiry_date = promotion.expiry_date.toLocaleDateString();
+                    }
                 }
             }
         }
@@ -129,30 +135,6 @@ router.get('/:id', async function(req, res) {
     });
 });
 
-function getNameCategory(idCate)
-{
-    if(idCate == 1)
-    {
-        return "Điện thoại, laptop";
-    }
-
-    if(idCate == 2)
-    {
-        return "Phụ kiên, thiết bị số";
-    }
-
-    if(idCate == 3)
-    {
-        return "Đồ chơi, mẹ và bé";
-    }
-
-    if(idCate == 4)
-    {
-        return "Hàng tiêu dùng";
-    }
-
-    return;
-}
 
 function roundToOne(num)
 {
