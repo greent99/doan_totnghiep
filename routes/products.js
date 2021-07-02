@@ -28,6 +28,7 @@ router.get('/', async function(req, res, next) {
 
     const nameCate = parentCategory ? parentCategory.name : ""
     const totalItem = await itemModel.getSizeAll(q, category, webFilter);
+
     const titleSearch = (cate === 0 & q != '') ? `Kết quả tìm kiếm cho "${q}" - ${totalItem} kết quả` : (q== '') ? nameCate : `${nameCate} ** Kết quả tìm kiếm cho "${q}" - ${totalItem} kết quả`;
     const totalPage = Math.ceil(totalItem / pageSize);
     const items = await itemModel.getAll(q, page, pageSize, category, webFilter, priceFilter);

@@ -21,8 +21,11 @@ module.exports = {
         name = name ? name : '';
         cate = cate ? cate : 0;
         webFilter = webFilter ? webFilter : 0;
-        const items = await db.raw(`select * from item	where name like N'%${name}%' and ((Category = '${cate.code}') or ('${cate.code}' = '')) and ((nguondulieu = ${webFilter}) or (${webFilter} = 0))`);
-        //console.log(`select * from item	where name like N'%${name}%' and ((Category = '${cate.code}') or ('${cate.code}' = '')) and ((nguondulieu = ${webFilter}) or (${webFilter} = 0))`)
+        var sql = `select * from item where name like N'%${name}%' and ((Category = '${cate.code}') or ('${cate.code}' = '')) and ((NguonDuLieu = ${webFilter}) or (${webFilter} = 0))`
+        if(!cate.code)
+           sql = `select * from item where name like N'%${name}%' and ((NguonDuLieu = ${webFilter}) or (${webFilter} = 0))` 
+        const items = await db.raw(sql);
+        //console.log(`select * from item	where name like N'%${name}%' and ((Category = '${cate.code}') or ('${cate.code}' = '')) and ((NguonDuLieu = ${webFilter}) or (${webFilter} = 0))`)
         return items.length;
     },
 
