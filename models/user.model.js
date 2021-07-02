@@ -19,7 +19,7 @@ module.exports = {
     },
 
     async add(user) {
-        return db(table_name).insert(user);
+        return db(table_name).insert(user).returning('id');
     },
 
     async getByUsername(username) {
@@ -44,7 +44,7 @@ module.exports = {
 
     async getRecommendList(user_id)
     {
-        const user_items = await user_itemModel.getByUserId(user_id)
+        const user_items = await user_itemModel.getByUserId(user_id).orderBy('total_view')
         if(user_items == null)
             return null
         
