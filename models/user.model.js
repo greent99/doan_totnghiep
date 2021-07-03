@@ -46,32 +46,41 @@ module.exports = {
 
     async getRecommendListByCategory(user_id)
     {
-        // const user_items = await user_itemModel.getByUserId(user_id)
-        // if(user_items == null)
-        //     return null
+        const user_items = await user_itemModel.getByUserId(user_id)
+        if(user_items == null)
+            return null
         
-        // const result = []
-        // const top_view_item = user_items[0]
+        const result = []
+        const top_view_item = user_items[0]
+        const item = await itemModel.getById(top_view_item.item_id)
 
-        // const recommend_list = await db(recommend_shop_tbm).where('IDproduct', top_view_item.item_id);
-        // if(recommend_list.length > 0)
-        // {
-        //     const top_recommend_shop = recommend_list[0]
-        //     const Top20ProductShopStr = top_recommend_shop.Top20ProductShop
-        //     const Top20ProductShopArr = Top20ProductShopStr.split(',')
-        //     var Top5ProductShop = Top20ProductShopArr.slice(0, 5)
-        //     Top5ProductShop = [Top5ProductShop]
-        //     const sql = `select * from item where id in (?)`
-        //     const result = await db.raw(sql,Top5ProductShop)
-        //     return result;
-        // }
+        const recommend_list = await db(recommend_category_tbm).where('id', item.id);
+        if(recommend_list.length > 0)
+        {
+            const top_recommend_shop = recommend_list[0]
+            const Top20ProductShopStr = top_recommend_shop.recommend_string
+            const Top20ProductShopArr = Top20ProductShopStr.split(',')
+           
+            var Top5ProductShop = Top20ProductShopArr.slice(0, 4)
+            
+            const result = await db('item').whereIn('id', Top5ProductShop)
+            return result;
+        }
 
-        // return result
-        return null
+        return result
+        //return null
     },
 
     async getRecommendListByShop(user_id)
     {
+        const user_items = await user_itemModel.getByUserId(user_id)
+        if(user_items == null)
+            return null
+        
+        const top_view_item = user_items[0]
+        const item = await itemModel.getById(top_view_item.item_id)
 
+        const recommend_list = await db('item').where('Seller_ID', item.Seller_ID).limit(4).offset(0)
+        return recommend_list
     }
 }
