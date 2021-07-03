@@ -139,7 +139,7 @@
       let minPrice = $('.minPrice').val();
       $.ajax({
        method: 'POST',
-       url: 'http://localhost:3000/products',
+       url: '/products',
        data: {idShop: +idShop, minPrice: +minPrice}
      }).done(function(data){
        let html = '';
@@ -194,7 +194,7 @@
       order = order ? order : "{{order}}";
       webFilter = webFilter ? webFilter : "{{webFilter}}";
       rating = rating ? rating : "{{rating}}"
-      let newUrl = `http://localhost:3000/products/${idMatch}?order=${order}&webFilter=${webFilter}&rating=${rating}`;
+      let newUrl = `/products/${idMatch}?order=${order}&webFilter=${webFilter}&rating=${rating}`;
       location.href = newUrl;
     });
 
@@ -204,7 +204,7 @@
       $("input[name=rating][value=" + 0 + "]").prop('checked', true);
 
       const idMatch = "{{idMatch}}"
-      let newUrl = `http://localhost:3000/products/${idMatch}`;
+      let newUrl = `/products/${idMatch}`;
       location.href = newUrl;
     })
 
@@ -266,7 +266,7 @@
             {{#each matchedItems}}
             <div class='row item-matching'>
               <div class='col-4'>
-                <a class='deal-item' href={{Url_key}} target='_blank' data-toggle="tooltip" title=" --> Đến nơi bán">
+                <a class='deal-item' href='{{Url_key}}' target='_blank' data-toggle="tooltip" title=" --> Đến nơi bán">
                   <div class='image'>
                     <img class='lazy' style='display: inline;' src='{{Image}}' />
                   </div>
@@ -276,7 +276,7 @@
                 <div class="top d-flex justify-content-between">
                   <div class="nameProduct">
                     <input type="hidden" class="idShop" id = "{{SpID}}" value={{SpID}}>
-                    <a href={{Url_key}} target='_blank' data-toggle="tooltip" title=" --> Đến nơi bán">
+                    <a href='{{Url_key}}' target='_blank' data-toggle="tooltip" title=" --> Đến nơi bán">
                       <h5>
                         {{Name}}
                       </h5>
