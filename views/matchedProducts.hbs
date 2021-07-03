@@ -18,10 +18,12 @@
                   <div class="col-4 image-product-promotion">         
                     <img src="${item.Image}" alt="">        
                   </div>           
-                  <div class="col-8 d-flex justify-content-around flex-column">        
-                    <div class="name-product-promotion nameProduct" data-toggle="popover" data-placement="top" title="${item.Name}">       
-                      ${item.Name}          
-                    </div>   
+                  <div class="col-8 d-flex justify-content-around flex-column">      
+                    <a class='deal-item' href='${Url_key}' target='_blank' data-toggle="tooltip" title=" --> Đến nơi bán">  
+                      <div class="name-product-promotion nameProduct" data-toggle="popover" data-placement="top" title="${item.Name}">       
+                       ${item.Name}          
+                      </div>   
+                    </a>
                     <div class="price-product-promotion" id="price-product-promotion${item.id}">     
                       <p>${converPrice(item.Price)}₫</p>            
                     </div>    
