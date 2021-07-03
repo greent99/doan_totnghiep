@@ -344,12 +344,12 @@
                                 {{/compare}}
                                 <!-- Modal footer -->
                                 
-                                  {{#compare countOfItemApply 1 operator="=="}}
+                                  {{#compare countOfItemApply 1 operator="<="}}
                                   <div class="modal-footer">
                                      <button type="button" id="{{id}}" class="btn btn-danger apply" data-dismiss="modal">Áp dụng</button>
                                      </div>
                                 {{/compare}}
-                                  {{#compare countOfItemApply 1 operator="!="}}
+                                  {{#compare countOfItemApply 1 operator=">"}}
                                   <div class="modal-footer justify-content-between">
                                   <span class="align-self-start"><i>*giá trị sản phẩm chưa đủ điều kiện</i></span>
                                      <button type="button" id="{{id}}" class="btn btn-danger findMore" data-dismiss="modal" data-toggle="modal" data-target="#modelFindMore{{id}}">Tìm Thêm Sản Phẩm</button>
