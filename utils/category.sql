@@ -136,12 +136,4 @@ insert into category (name, code, parent_id, icon, level) values (N'Giày boots 
 
 
 
--- level 2
 
-
-
--- Phụ kiện thiết bị số 
-
-
--- laptop thiết bị it
-insert into category (name, code, parent_id, icon, level) values (N'tai nghe', 'tai-nghe', 5, null, 2)

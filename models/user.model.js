@@ -44,7 +44,7 @@ module.exports = {
 
     async getRecommendList(user_id)
     {
-        const user_items = await user_itemModel.getByUserId(user_id).orderBy('total_view')
+        const user_items = await user_itemModel.getByUserId(user_id)
         if(user_items == null)
             return null
         

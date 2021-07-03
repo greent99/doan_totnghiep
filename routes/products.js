@@ -6,6 +6,7 @@ var itemModel = require('../models/item.model');
 var matchedProductModel = require('../models/matchedProducts.model')
 const user_itemModel = require('../models/user_item.model')
 const timestampToDate = require('timestamp-to-date');
+const { json } = require('express');
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
@@ -87,6 +88,7 @@ router.get('/:id', async function(req, res) {
                 
                 for(promotion of matchedItem.promotion)
                 {
+                    promotion.minPrice = promotion.min_order_amount - matchedItem.Price;
                     console.log(promotion)
                     let isPercent = false;
                     let isValid = matchedItem.price <= promotion.min_order_amount ? true : false;
@@ -178,5 +180,16 @@ function getTitleSendo(promotion)
     }
 
 }
+
+router.post('/', async function(req, res){
+    const idShop = req.body.idShop;
+    console.log(idShop);
+    const minPrice = req.body.minPrice;
+    console.log(minPrice);
+    const listProduct = await matchedProductModel.getListProductInShop(idShop, minPrice);
+    console.log(listProduct);
+    res.json(listProduct);
+    
+})
 
 module.exports = router;
