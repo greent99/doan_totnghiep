@@ -5,17 +5,20 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/',async function(req, res, next) {
-  let list_recommend = []
+  let list_recommend_category = []
+  let list_recommend_shop = []
   const categorys = await categoryModel.getByLevel(1)
  
   if(req.session.isAuth)
   {
     const user_id = req.session.authUser.id
-    list_recommend = await userModel.getRecommendList(user_id)
+    list_recommend_category = await userModel.getRecommendListByCategory(user_id)
+    list_recommend_shop = await userModel.getRecommendListByShop(user_id)
   }
   res.render('index', { 
     title: 'Express',
-    list_recommned: list_recommend,
+    list_recommend_category: list_recommend_category,
+    list_recommend_shop: list_recommend_shop,
     categorys: categorys
   });
 });

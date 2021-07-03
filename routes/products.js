@@ -7,6 +7,7 @@ var matchedProductModel = require('../models/matchedProducts.model')
 const user_itemModel = require('../models/user_item.model')
 const timestampToDate = require('timestamp-to-date');
 const { json } = require('express');
+const matchedProductsModel = require('../models/matchedProducts.model');
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
@@ -61,9 +62,13 @@ router.get('/:id', async function(req, res) {
     const webFilter = req.query.webFilter || 0;
     const order = req.query.order || 0;
     const rating = req.query.rating || 0
-    const item_id = req.params.id;
+    const id_match = req.params.id;
+    const listMatchItem = await matchedProductsModel.getByIdMatch(id_match)
+    const firstItemInIdMatch = await listMatchItem[0]
+    //const item_id = req.params.id
+    const item_id = firstItemInIdMatch.id
     const matchedItems = await matchedProductModel.getListItemByIdMatch(item_id, order, webFilter, rating);
-    if(req.session.isAuth)
+    if(req.session.isAuth) 
     {
         const user_id = req.session.authUser.id
         const user_item = await user_itemModel.getById(user_id, item_id)

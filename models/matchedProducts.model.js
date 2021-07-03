@@ -33,5 +33,10 @@ module.exports = {
     async getListProductInShop(idShop, minPrice){
         const listProduct = await db.raw(`select * from Item where SpID = ${idShop} and Price >= ${minPrice} order by Price`)
         return listProduct;
+    },
+
+    async getByIdMatch (id_match)
+    {
+        return db(table_name).where('id_match', id_match)
     }
 }
