@@ -22,7 +22,6 @@ router.get('/', async function(req, res, next) {
     const page = req.query.page || 1;
     const pageSize = req.query.pageSize || 30;
     const q = req.query.q || '';
-    console.log(parent_cate)
     
     
     
@@ -62,6 +61,7 @@ router.get('/:id', async function(req, res) {
     const webFilter = req.query.webFilter || 0;
     const order = req.query.order || 0;
     const rating = req.query.rating || 0
+    console.log(rating);
     const id_match = req.params.id;
     const listMatchItem = await matchedProductsModel.getByIdMatch(id_match)
     console.log(listMatchItem)
@@ -95,7 +95,6 @@ router.get('/:id', async function(req, res) {
                 for(promotion of matchedItem.promotion)
                 {
                     promotion.minPrice = promotion.min_order_amount - matchedItem.Price;
-                    console.log(promotion)
                     let isPercent = false;
                     let isValid = matchedItem.price <= promotion.min_order_amount ? true : false;
 
@@ -189,11 +188,8 @@ function getTitleSendo(promotion)
 
 router.post('/', async function(req, res){
     const idShop = req.body.idShop;
-    console.log(idShop);
     const minPrice = req.body.minPrice;
-    console.log(minPrice);
     const listProduct = await matchedProductModel.getListProductInShop(idShop, minPrice);
-    console.log(listProduct);
     res.json(listProduct);
     
 })

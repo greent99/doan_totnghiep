@@ -5,17 +5,24 @@ const promotion_table_name = "LuuPromotion"
 module.exports = {
     async getListItemByIdMatch(id, order, webFilter, rating) {
         order = order ? order : 0;
-        order_str = 'asc'
-        if(order == 0)
-            order_str = 'asc'
-        else
-            order_str = order == 2 ? 'asc' : 'desc'
+        order_str = (order == 2 || order == 0) ? 'asc' : 'desc'
         rating = rating ? rating : 0;
         rating_str = rating == 1 ? 'asc' : 'desc'
         webFilter = webFilter ? webFilter : 0;
-        let listItem = await db(table_name).where('id_match', id).where(function () {
-            this.where('NguonDuLieu', webFilter).orWhere(webFilter == 0);
-        }).orderBy('Price', order_str).orderBy('WR', rating_str);
+        let listItem;
+        if(rating != 0 && order == 0)
+        {
+            listItem = await db(table_name).where('id_match', id).where(function () {
+                this.where('NguonDuLieu', webFilter).orWhere(webFilter == 0);
+            }).orderBy('WR', rating_str); 
+        }
+        else
+        {
+            listItem = await db(table_name).where('id_match', id).where(function () {
+                this.where('NguonDuLieu', webFilter).orWhere(webFilter == 0);
+            }).orderBy('Price', order_str).orderBy('WR', rating_str);
+        }
+
         
         for(item of listItem)
         {
