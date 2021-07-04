@@ -64,6 +64,7 @@ router.get('/:id', async function(req, res) {
     const rating = req.query.rating || 0
     const id_match = req.params.id;
     const listMatchItem = await matchedProductsModel.getByIdMatch(id_match)
+    console.log(listMatchItem)
     const firstItemInIdMatch = await listMatchItem[0]
     //const item_id = req.params.id
     const item_id = firstItemInIdMatch.id
