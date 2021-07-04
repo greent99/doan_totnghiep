@@ -15,7 +15,7 @@
       webFilter = webFilter ? webFilter : "{{webFilter}}";
       priceFilter = priceFilter ? priceFilter : "{{priceFilter}}";
 
-      let newUrl = `http://localhost:3000/products?parent=${parent_id}&cate=${cate}&webFilter=${webFilter}&priceFilter=${priceFilter}&q=${key}&page=1`;
+      let newUrl = `/products?parent=${parent_id}&cate=${cate}&webFilter=${webFilter}&priceFilter=${priceFilter}&q=${key}&page=1`;
       location.href = newUrl;
     });
 
@@ -36,14 +36,14 @@
       {
         if (current == 1)
         $(this).append(`<li class="page-item disabled">
-                        <a class="page-link" href="http://localhost:3000/products?cate=${cate}&webFilter=${webFilter}&priceFilter=${priceFilter}&q=${key}&page=1" tabindex="-1">
+                        <a class="page-link" href="/products?cate=${cate}&webFilter=${webFilter}&priceFilter=${priceFilter}&q=${key}&page=1" tabindex="-1">
                             <span aria-hidden="true">&laquo;</span>
                             <span class="sr-only">First</span>
                         </a>
                     </li>`)
         else
         $(this).append(`<li class="page-item">
-                        <a class="page-link" href="http://localhost:3000/products?cate=${cate}&webFilter=${webFilter}&priceFilter=${priceFilter}&q=${key}&page=1" tabindex="-1">
+                        <a class="page-link" href="/products?cate=${cate}&webFilter=${webFilter}&priceFilter=${priceFilter}&q=${key}&page=1" tabindex="-1">
                             <span aria-hidden="true">&laquo;</span>
                             <span class="sr-only">First</span>
                         </a>
@@ -59,7 +59,7 @@
       }
       else
         $(this).append(`<li class="page-item">
-                            <a class="page-link" href="http://localhost:3000/products?cate=${cate}&webFilter=${webFilter}&priceFilter=${priceFilter}&q=${key}&page=${i}">${i}</a>
+                            <a class="page-link" href="/products?cate=${cate}&webFilter=${webFilter}&priceFilter=${priceFilter}&q=${key}&page=${i}">${i}</a>
                         </li>`)
 
       if (i == current + 4 && i < totalPage)
@@ -72,7 +72,7 @@
                         <span class="sr-only">Next</span>
                     </a></li>`)
       else
-      $(this).append(`<li class="page-item"><a class="page-link" href="http://localhost:3000/products?cate=${cate}&webFilter=${webFilter}&priceFilter=${priceFilter}&q=${key}&page=${totalPage}">
+      $(this).append(`<li class="page-item"><a class="page-link" href="/products?cate=${cate}&webFilter=${webFilter}&priceFilter=${priceFilter}&q=${key}&page=${totalPage}">
                         <span aria-hidden="true">&raquo;</span>
                         <span class="sr-only">Last</span>
                     </a></li>`)
@@ -85,7 +85,7 @@
       $("input[name=price][value=" + 0 + "]").prop('checked', true);
 
       const key = "{{key}}"
-      let newUrl = `http://localhost:3000/products?parent=0&cate=0&webFilter=0&priceFilter=0&q=${key}&page=1`;
+      let newUrl = `/products?parent=0&cate=0&webFilter=0&priceFilter=0&q=${key}&page=1`;
       location.href = newUrl;
     })
   })
@@ -147,7 +147,7 @@
       <div class='items'>
         <div class='row'>
           {{#each items}}
-          <a class='col-4 deal-item' href='http://localhost:3000/products/{{id_match}}' data-id='6836987'>
+          <a class='col-4 deal-item' href='/products/{{id_match}}' data-id='6836987'>
             <div class='image'>
               {{!-- <div class='discount-badge'>
                 47%
