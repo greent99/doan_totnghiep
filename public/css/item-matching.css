@@ -76,9 +76,10 @@
   }
 
 
-  .bottom{
-    padding-top: 10px
-  }
+.bottom{
+    padding-top: 10px;
+    align-items: center;
+}
 
 .detail-promotion{
     position: fixed;

@@ -35,6 +35,7 @@
    })
 </script>
 <script>
+  var idFirstPrice = 0;
   var selected = [];
   listSeletedItem = [];
   var itemSelected = [];
@@ -46,7 +47,7 @@
       selected = []
       let minPrice = $('#minPrice').val()+'₫';
       minPrice = +convertPriceToInt(minPrice);
-      let firstPrice = $('#firstPrice').val()+'₫';
+      let firstPrice = $('#firstPrice'+idFirstPrice).val()+'₫';
       let finalPrice = +convertPriceToInt(firstPrice);
       console.log(id);
 
@@ -71,9 +72,10 @@
       $('.applyFindMore').on('click', function(e){
         let id = e.target.id;
         let promotion = $('.promotion'+ id);
+        let idItem = promotion.attr('id');
         let newPrice = 0;
         let finalPrice = $('.finalPrice').html();
-        let firstPrice = $('#firstPrice').val()+'₫';
+        let firstPrice = $('#firstPrice'+idItem).val()+'₫';
         finalPrice = +convertPriceToInt(finalPrice);
         let discount = $('.discount'+ id).val();
         if(+discount < 100)
@@ -91,7 +93,6 @@
           list: itemSelected
         })
 
-        //let idItem = promotion.attr('id');
         $('#list-product-promotion-bought'+idItem).html(`+${selected.length} sản phẩm`).show();
         $('#price' + idItem + ' .sale-price').html(converPrice(newPrice)+'₫');
         $('#price' + idItem + ' .old-price').html(converPrice(finalPrice)+'₫');
@@ -119,29 +120,33 @@
   }
 </script>
 <script>
-  var idItem = 0;
+  //var idItem = 0;
     $('.button-promotion').on('click', function(){
-      idItem = $(this).attr('id');
+      //idItem = $(this).attr('id');
       itemSelected = [];
     })
 
     $('.apply').on('click', function(e){
-      $('#list-product-promotion-bought'+idItem).hide();
       let id = e.target.id;
-      //let promotion = $('.promotion'+ id);
-      //let idItem = promotion.attr('id');
-      let firstPrice = $('#firstPrice').val()+'₫';
+      let promotion = $('.promotion'+ id);
+      let idItem = promotion.attr('id');
+      $('#list-product-promotion-bought'+idItem).hide();
+      let firstPrice = $('#firstPrice'+idItem).val()+'₫';
       let newPrice = $('.newPrice'+id).val();
       $('#price' + idItem + ' .sale-price').html(newPrice+'₫');
       $('#price' + idItem + ' .old-price').addClass('line-through');
       $('#price' + idItem + ' .old-price').html(firstPrice);
     })
     $('.findMore').on('click', function(e){
+      let id = e.target.id;
+      let promotion = $('.promotion'+ id);
+      let idItem = promotion.attr('id');
       let idShop = $('.idShop').attr('id');
       let minPrice = $('.minPrice').val();
+      idFirstPrice = idItem
       $.ajax({
        method: 'POST',
-       url: '/products',
+       url: 'http://localhost:3000/products',
        data: {idShop: +idShop, minPrice: +minPrice}
      }).done(function(data){
        let html = '';
@@ -196,7 +201,7 @@
       order = order ? order : "{{order}}";
       webFilter = webFilter ? webFilter : "{{webFilter}}";
       rating = rating ? rating : "{{rating}}"
-      let newUrl = `/products/${idMatch}?order=${order}&webFilter=${webFilter}&rating=${rating}`;
+      let newUrl = `http://localhost:3000/products/${idMatch}?order=${order}&webFilter=${webFilter}&rating=${rating}`;
       location.href = newUrl;
     });
 
@@ -206,7 +211,7 @@
       $("input[name=rating][value=" + 0 + "]").prop('checked', true);
 
       const idMatch = "{{idMatch}}"
-      let newUrl = `/products/${idMatch}`;
+      let newUrl = `http://localhost:3000/products/${idMatch}`;
       location.href = newUrl;
     })
 
@@ -277,6 +282,7 @@
               <div class='col-8 my-4 info-item d-flex flex-column justify-content-between'>
                 <div class="top d-flex justify-content-between">
                   <div class="nameProduct">
+                    <input type="hidden" name="firstPrice" id="firstPrice{{id}}" value={{priceString}}>
                     <input type="hidden" class="idShop" id = "{{SpID}}" value={{SpID}}>
                     <a href='{{Url_key}}' target='_blank' data-toggle="tooltip" title=" --> Đến nơi bán">
                       <h5>
@@ -394,7 +400,7 @@
                                   <!-- Modal footer -->
                                   
                                     <div class="modal-footer">
-                                      <input type="hidden" name="firstPrice" id="firstPrice" value={{../priceString}}>
+                                      
                                       <input type="hidden" name="minPrice" id="minPrice" value={{min_order_amount}}>
                                       <input type="hidden" name="maxOrder" id="maxOrder" value={{max_order_amount}}>
                                       <span><i>Tổng tiền: <b class="finalPrice">{{../priceString}}₫ </b></i></span>
@@ -410,7 +416,7 @@
                 
                 <div class="bottom d-flex justify-content-between">
                   {{!-- <button type="button" data-toggle="modal" data-target="#modalShow"> --}}
-                  <div class="list-product-promotion-bought" id="list-product-promotion-bought{{id}}" style="font-size: 16px; padding: 5px; border: 1px solid rgb(153, 71, 33)" data-toggle="modal" data-target="#modalShow">
+                  <div class="list-product-promotion-bought" id="list-product-promotion-bought{{id}}" style="font-size: 16px; padding: 5px; height: 30px; border: 1px solid rgb(153, 71, 33)" data-toggle="modal" data-target="#modalShow">
 
                   </div>
                   {{!-- </button> --}}

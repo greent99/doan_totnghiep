@@ -46,13 +46,13 @@
     <div class="row">
         <div class="container">
         <div class="category-index">
-            <h5>Tấc cả Danh mục</h5>
+            <h5>Tấc Cả Danh Mục</h5>
         </div>
-            <div class="row">
-                {{#each categorys}}
-                <div class="col-3">
+            <div class="row flex-wrap">
+                {{#each categories}}
+                <div class="category d-flex justify-content-center flex-column">
                     <div>
-                        <a href="/products?parent={{id}}">
+                        <a href="/products?parent={{id}}" class="align-self-center">
                             <img src="{{icon}}" height="70px">
                         </a>
                     </div>

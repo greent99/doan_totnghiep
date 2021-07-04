@@ -50,3 +50,14 @@ color: grey;
      padding: 10px;
      width: 20%
 }
+.category{
+    width: 20%;
+    margin: 10px 0px;
+    align-items: center;
+    cursor: pointer;
+}
+.category:hover{
+    margin: 10px 0px;
+    align-items: center;
+    background-color: rgb(219, 218, 218);
+}
