@@ -146,7 +146,7 @@
       idFirstPrice = idItem
       $.ajax({
        method: 'POST',
-       url: '/products',
+       url: 'http://localhost:3000/products',
        data: {idShop: +idShop, minPrice: +minPrice}
      }).done(function(data){
        let html = '';
@@ -201,7 +201,7 @@
       order = order ? order : "{{order}}";
       webFilter = webFilter ? webFilter : "{{webFilter}}";
       rating = rating ? rating : "{{rating}}"
-      let newUrl = `/products/${idMatch}?order=${order}&webFilter=${webFilter}&rating=${rating}`;
+      let newUrl = `http://localhost:3000/products/${idMatch}?order=${order}&webFilter=${webFilter}&rating=${rating}`;
       location.href = newUrl;
     });
 
@@ -211,7 +211,7 @@
       $("input[name=rating][value=" + 0 + "]").prop('checked', true);
 
       const idMatch = "{{idMatch}}"
-      let newUrl = `/products/${idMatch}`;
+      let newUrl = `http://localhost:3000/products/${idMatch}`;
       location.href = newUrl;
     })
 

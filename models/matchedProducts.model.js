@@ -32,6 +32,13 @@ module.exports = {
             item.promotion = listPromotion
         }
 
+        if(order == 1)
+        {
+            listItem.sort(function(a,b){
+                a.promotion.length - b.promotion.length;
+            });
+        }
+
         if (listItem.length === 0)
             return null;
         return listItem;
