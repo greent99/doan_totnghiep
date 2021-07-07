@@ -61,7 +61,6 @@ router.get('/:id', async function(req, res) {
     const webFilter = req.query.webFilter || 0;
     const order = req.query.order || 0;
     const rating = req.query.rating || 0
-    console.log(rating);
     const id_match = req.params.id;
     const listMatchItem = await matchedProductsModel.getByIdMatch(id_match)
     console.log(listMatchItem)
