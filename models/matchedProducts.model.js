@@ -39,6 +39,11 @@ module.exports = {
             });
         }
 
+        if(listItem[0].Price === listItem[1].Price && listItem[0].WR >= listItem[1].WR)
+        {
+            listItem[0].isFirstRecommend = true;
+        }
+
         if (listItem.length === 0)
             return null;
         return listItem;

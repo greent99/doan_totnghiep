@@ -13,7 +13,11 @@ cursor: pointer;
     max-width: 100%;
 }
 .icon-market{
-    margin: 0 10px 0 0;
+    margin: 0 0px 0 0;
+    height: 40px;
+    width: 40px;
+}
+.icon-recommend{
     height: 40px;
     width: 40px;
 }
@@ -23,6 +27,7 @@ cursor: pointer;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     display: -webkit-box;
+    max-width: 510px;
 }
 
 .button-promotion {
@@ -56,6 +61,7 @@ cursor: pointer;
 .promotion-div {
     overflow: hidden;
     position: relative;
+    
 }
 
 /* The heart of the matter */
