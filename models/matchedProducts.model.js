@@ -23,7 +23,6 @@ module.exports = {
             }).orderBy('Price', order_str).orderBy('WR', rating_str);
         }
 
-        
         for(item of listItem)
         {
             let currentDate = new Date()

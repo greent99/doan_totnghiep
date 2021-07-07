@@ -8,6 +8,8 @@ const capitalize  = require('capitalize');
 router.get('/',async function(req, res, next) {
   let list_recommend_category = []
   let list_recommend_shop = []
+  let haveRecommendCategory = false
+  let haveRecommendShop = false
   const categories = await categoryModel.getByLevel(1);
   for(cate of categories)
   {
@@ -19,12 +21,16 @@ router.get('/',async function(req, res, next) {
     const user_id = req.session.authUser.id
     list_recommend_category = await userModel.getRecommendListByCategory(user_id)
     list_recommend_shop = await userModel.getRecommendListByShop(user_id)
+    haveRecommendCategory = list_recommend_category != null ? true : false
+    haveRecommendShop = list_recommend_shop != null ? true : false
   }
   res.render('index', { 
     title: 'Express',
     list_recommend_category: list_recommend_category,
     list_recommend_shop: list_recommend_shop,
-    categories: categories
+    categories: categories,
+    haveRecommendCategory: haveRecommendCategory,
+    haveRecommendShop: haveRecommendShop
   });
 });
 

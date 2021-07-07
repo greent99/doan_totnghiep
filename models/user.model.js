@@ -66,9 +66,11 @@ module.exports = {
             const result = await db('item').whereIn('id', Top5ProductShop)
             return result;
         }
-
-        return result
-        //return null
+        else
+        {
+            const result = await db('item').where('Category', item.Category).limit(4)
+            return result
+        }
     },
 
     async getRecommendListByShop(user_id)
@@ -79,7 +81,9 @@ module.exports = {
         
         const top_view_item = user_items[0]
         const item = await itemModel.getById(top_view_item.item_id)
-
+        
+        if(item.Seller_ID == null)
+            return null
         const recommend_list = await db('item').where('Seller_ID', item.Seller_ID).limit(4).offset(0)
         return recommend_list
     }
