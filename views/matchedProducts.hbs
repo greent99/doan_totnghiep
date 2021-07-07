@@ -291,6 +291,9 @@
                     </a>
                   </div>
                   <div class='div-icon-market'>
+                    {{#compare isFirstRecommend true operator="=="}}
+                      <img class="icon-recommend" src="/image/icon-header-promo/icon-recommend.png" alt="">
+                    {{/compare}}
                     {{#compare NguonDuLieu 1 operator="=="}}
                     <img class='icon-market' src='/image/img-product/sendo.jpeg' alt='' />
                     {{/compare}}
@@ -302,9 +305,6 @@
                     {{/compare}}
                     {{#compare NguonDuLieu 4 operator="=="}}
                     <img class='icon-market' src='/image/img-product/lazada.jpeg' alt='' />
-                    {{/compare}}
-                    {{#compare isFirstRecommend true operator="=="}}
-                      <img class="icon-recommend" src="/image/icon-header-promo/icon-recommend.png" alt="">
                     {{/compare}}
                   </div>
                 </div>
