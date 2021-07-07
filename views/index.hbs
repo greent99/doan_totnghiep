@@ -66,36 +66,49 @@
 <hr>
     {{#if isAuth}}
         <div style="margin-top: 20px;">
-            <h6>GỢI Ý THEO DANH MỤC</h6>
-            <div class="row">
-                {{#each list_recommend_category}}
-                    <div class="col-3">
-                            <img height="200px" width="100%" src={{Image}}>
-                        <div style="margin-top: 10px;">
-                            <a href='/products/{{id_match}}'>{{Name}}</a>
-                            <p><strong>{{Price}} đ</strong></p>
-                        </div>
-                    </div>
-                {{/each}}
-            </div>
+            {{#if haveRecommendCategory}}
+                <h6>GỢI Ý THEO DANH MỤC</h6>
+                <div class="row">
+                    {{#each list_recommend_category}}
+                        <a class="deal-item card col" style="margin: 10px;" href="/products/{{id_match}}">
+                            
+                            <div class="image">
+                                <img src={{Image}}>
+                            </div>
+                            <div style="margin-top: 10px;">
+                                
+                                <p class="title">{{Name}}</p>
+                                <p><strong>{{Price}} đ</strong></p>
+                            </div>
+                        </a>
+                    {{/each}}
+                </div>
+                <hr>
+            {{/if}}
         </div>
-        <hr>
+        
         <div style="margin-top: 20px;">
-            <h6>GỢI Ý THEO SHOP BẠN ĐÃ XEM</h6>
-            <div class="row">
-                {{#each list_recommend_shop}}
-                    <div class="col-3">
-                            <img height="200px" width="100%" src={{Image}}>
-                        <div style="margin-top: 10px;">
-                            <a href='/products/{{id_match}}'>{{Name}}</a>
-                            <p><strong>{{Price}} đ</strong></p>
-                        </div>
-                    </div>
-                {{/each}}
-            </div>
+            {{#if haveRecommendShop}}
+                <h6>GỢI Ý THEO SHOP BẠN ĐÃ XEM</h6>
+                <div class="row">
+                    {{#each list_recommend_shop}}
+                        <a class="deal-item card col" style="margin: 10px;" href="/products/{{id_match}}">
+                            
+                            <div class="image">
+                                <img src={{Image}}>
+                            </div>
+                            <div style="margin-top: 10px;">
+                                
+                                <p class="title">{{Name}}</p>
+                                <p><strong>{{Price}} đ</strong></p>
+                            </div>
+                        </a>
+                    {{/each}}
+                </div>
+                <hr>
+            {{/if}}
         </div>
     {{/if}}
 </div>
 
 
-<hr>
