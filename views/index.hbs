@@ -108,6 +108,29 @@
                 <hr>
             {{/if}}
         </div>
+
+    {{else}}
+        <div style="margin-top: 20px;">
+            {{#if haveHotItem}}
+                <h6>SẢN PHẨM HOT</h6>
+                <div class="row">
+                    {{#each list_hot_item}}
+                        <a class="deal-item card col" style="margin: 10px;" href="/products/{{id_match}}">
+                            
+                            <div class="image">
+                                <img src={{Image}}>
+                            </div>
+                            <div style="margin-top: 10px;">
+                                
+                                <p class="title">{{Name}}</p>
+                                <p><strong>{{priceString}} đ</strong></p>
+                            </div>
+                        </a>
+                    {{/each}}
+                </div>
+                <hr>
+            {{/if}}
+        </div>
     {{/if}}
 </div>
 

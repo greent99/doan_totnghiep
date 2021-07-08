@@ -3,13 +3,17 @@ const userModel = require('../models/user.model');
 const categoryModel = require('../models/category.model')
 var router = express.Router();
 const capitalize  = require('capitalize');
+const db = require('../utils/db');
+const matchedProductsModel = require('../models/matchedProducts.model');
 
 /* GET home page. */
 router.get('/',async function(req, res, next) {
   let list_recommend_category = []
   let list_recommend_shop = []
+  let list_hot_item = []
   let haveRecommendCategory = false
   let haveRecommendShop = false
+  let haveHotItem = false
   const categories = await categoryModel.getByLevel(1);
   for(cate of categories)
   {
@@ -30,13 +34,29 @@ router.get('/',async function(req, res, next) {
     haveRecommendCategory = list_recommend_category != null ? true : false
     haveRecommendShop = list_recommend_shop != null ? true : false
   }
+  else
+  {
+    const hot_item_arr = await db('user_item').orderBy('total_view', 'desc').limit(4)
+    for(hot_item of hot_item_arr)
+    {
+      const hot_item_match = await matchedProductsModel.getByIdMatch(hot_item.item_id)
+      list_hot_item.push(hot_item_match[0])
+    }
+    for(item_hot of list_hot_item)
+      item_hot.priceString = converPrice(item_hot.Price);
+
+    haveHotItem = list_hot_item.length > 0 ? true : false
+  }
+  console.log(list_hot_item)
   res.render('index', { 
     title: 'Express',
     list_recommend_category: list_recommend_category,
     list_recommend_shop: list_recommend_shop,
+    list_hot_item: list_hot_item,
     categories: categories,
     haveRecommendCategory: haveRecommendCategory,
-    haveRecommendShop: haveRecommendShop
+    haveRecommendShop: haveRecommendShop,
+    haveHotItem: haveHotItem
   });
 });
 
