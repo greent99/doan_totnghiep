@@ -25,7 +25,9 @@ router.get('/',async function(req, res, next) {
     const user_id = req.session.authUser.id
     list_recommend_category = await userModel.getRecommendListByCategory(user_id)
     list_recommend_shop = await userModel.getRecommendListByShop(user_id)
-    
+    console.log(list_recommend_category)
+    console.log(list_recommend_shop)
+
     if(list_recommend_shop != null)
     {
       for(item_shop of list_recommend_shop)
