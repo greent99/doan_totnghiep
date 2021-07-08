@@ -26,10 +26,16 @@ router.get('/',async function(req, res, next) {
     list_recommend_category = await userModel.getRecommendListByCategory(user_id)
     list_recommend_shop = await userModel.getRecommendListByShop(user_id)
     
-    for(item_shop of list_recommend_shop)
-      item_shop.priceString = converPrice(item_shop.Price);
-    for(item_cat of list_recommend_category)
-    item_cat.priceString = converPrice(item_cat.Price);
+    if(list_recommend_shop != null)
+    {
+      for(item_shop of list_recommend_shop)
+        item_shop.priceString = converPrice(item_shop.Price);
+    }
+    if(list_recommend_shop != null)
+    {
+      for(item_cat of list_recommend_category)
+        item_cat.priceString = converPrice(item_cat.Price);
+    }
 
     haveRecommendCategory = list_recommend_category != null ? true : false
     haveRecommendShop = list_recommend_shop != null ? true : false
